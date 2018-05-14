@@ -1,0 +1,82 @@
+---
+title: "Assignment_2"
+author: "Clara Ferrer Castellà"
+date: "4 de mayo de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library("ggplot2")
+library("grid")
+library("gridExtra")
+library("scales")
+library("plyr")
+library("corrplot")
+library("gbm")
+library("caret")
+library("tidyr")
+library("dplyr")
+library("unbalanced")
+
+```
+
+
+```{r}
+# Stablishing the working directory and the file paths 
+Working_directory <- setwd("~/DM_Basic_Assignment/Assignment_2")
+d <- unzip("Assignment2_data.zip")
+file_training <- file.path(Working_directory, "Data Mining VU data" , "training_set_VU_DM_2014.csv")
+file_test <- file.path(Working_directory, "Data Mining VU data" , "test_set_VU_DM_2014.csv")
+
+
+
+# Opening the files 
+training <- read.csv(file_training, header = TRUE)
+#test <- read.csv(file_test, header = TRUE)
+
+
+```
+
+
+```{r}
+
+#Attempt to split the data in test-validation-training
+training <- training %>% 
+  group_by(srch_id)
+
+row_where_to_split <- nrow(training)*0.15 # 743764 - untill this row, which is still the same id than row_where_to_split
+
+new_test <- training[1:743764,] # New test set generated from the training and with the same id as the training 
+
+#Split of the training in train and validation sets
+split <- sort(sample(nrow(training), nrow(training)*.743752))
+new_train <- training[split,]
+new_validation <- training[-split,]
+
+#Deletin of the not useful variables
+rm(training)
+
+ 
+
+```
+
+```{r}
+#Balance the data
+
+n <- ncol(c(new_train$click_bool, new_train$booking_bool))
+
+output <- complete.cases(new_train)[ , n]
+input <- complete.cases(new_train)[ ,-n]
+
+
+#apply undersampling
+data <- ubBalance(X=input, Y=output, type="ubUnder", perc=100,  method="percPos")
+#undersampled dataset
+underData <- data.frame(data$X, Class=data$Y)
+#check the frequency of the target variable after oversampling
+summary(underData$Class)
+
+```
+
