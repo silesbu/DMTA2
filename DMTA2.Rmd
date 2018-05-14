@@ -1,0 +1,38 @@
+---
+title: "DMTA2"
+author: "S"
+date: "14 de mayo de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Load the data
+setwd("C:/Users/SILVIA TOSHIBA/Documents/MASTER/Data mining techniques/Assignment 2/Data")
+#real_train <- read.csv("train.csv", header = TRUE)
+#real_test <- read.csv("test.csv", header = TRUE)
+
+#LOAD A SUBSET OF THE DATA FOR MY OWN COMPUTER, NOT ABLE TO LOAD THE WHOLE DATA
+real_train <- read.csv("train.csv",header=TRUE, nrows = 100000)
+#real_test <- read.csv("train.csv",header=TRUE, nrows = 20)
+
+#First split of the data
+dt1 <- sort(sample(nrow(real_train), nrow(real_train)*.85))
+whole_train <- real_train[dt1,]
+test <- real_train[-dt1,]
+#Deletion of the variable (not enogh space)
+rm(real_train)
+
+#Second split of the data
+dt2 <- sort(sample(nrow(whole_train), nrow(whole_train)*.82353)) #to have 15% of the real_train.
+train <- whole_train[dt2,]
+validation <- whole_train[-dt2,]
+#Deletin of the not useful variables
+rm(whole_train)
+rm(dt1)
+rm(dt2)
+```
+
