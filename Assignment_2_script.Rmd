@@ -68,12 +68,15 @@ rm(splity, all_length)
 
 
 ```{r}
-# Create the unknown colum 
+# Create the unknown column 
 train$unknown_bool <- ifelse(train$click_bool == 0 & train$booking_bool == 0, 1, 0) 
 
 # Visualization of the unbalanced data
 
-train[c("click", "booking", "unknown")] <- as.factor(train[c("click_bool", "booking_bool", "unknown_bool")]) # Group the data based on "click_bool", "booking_bool", "unknown_bool" variables using dplyr package containing "group by" function
+train$click_bool <- as.factor(train$click_bool)
+train$booking_bool <- as.factor(train$booking_bool)
+train$unknown_bool <- as.factor(train$unknown_bool)
+
 
 
 ```
@@ -81,30 +84,15 @@ train[c("click", "booking", "unknown")] <- as.factor(train[c("click_bool", "book
 
 
 ```{r}
-data(ubIonosphere)
-n <- ncol(ubIonosphere)
-output <- ubIonosphere[ ,n]
-input <- ubIonosphere[ ,-n]
-#apply oversampling
-data <- ubBalance(X=input, Y=output, type="ubOver", k=0)
-#oversampled dataset
-overData <- data.frame(data$X, Class=data$Y)
-#check the frequency of the target variable after oversampling
-summary(overData$Class)
-
-
-
 #Balance the data
 
-train.test$unknown_bool <- ifelse(train.test$click_bool == 0 & train.test$booking_bool == 0, 1, 0) 
+input <- train[ , c("click_bool", "booking_bool", "unknown_bool")]
 
-n <- ncol(train.test[c("click_bool", "booking_bool", "unknown_bool")])
+output <- na.omit(train[ , -c(52,54,55)])
+  
 
-input <- train.test[ , n]
-output <- na.omit(train.test[ , -n])
- 
 #apply undersampling
-data <- ubBalance(X=input, Y=as.factor(output), type="ubUnder", perc=100,  method="percPos")
+data <- ubUnder(X=input, Y=output, perc = 50, method="percPos")
 #undersampled dataset
 underData <- data.frame(data$X, Class=data$Y)
 #check the frequency of the target variable after oversampling
