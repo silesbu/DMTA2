@@ -31,6 +31,7 @@ library("caret")
 library("tidyr")
 library("dplyr")
 library("unbalanced")
+library("randomForest")
 
 ```
 
@@ -92,6 +93,41 @@ all_train <- read.csv(file_training, header = TRUE)
 
 ```
 
+* Data convertion
+```{r}
+factor_cols <- unlist(lapply(all_train, is.factor))
+factor_cols["date_time"] <- FALSE
+
+#train[factor_cols] <- as.numeric(as.character(train[factor_cols]))
+
+for (name in colnames(all_train[factor_cols])){
+    all_train[name] <- as.numeric(sub('NULL',NA,as.character(all_train[name][,1])))
+}
+```
+
+* Calculate the percentage of NAs in a column
+```{r}
+# Get NA value booleans
+nas <- is.na(all_train)
+
+len.nas <- length(nas[,1])
+
+# Initialize NA vector
+na.vec <- vector(mode="integer",length=length(colnames(all_train)))
+
+# Sum the NA values and fill NA vector
+for (i in 1:length(na.vec)){
+    na.vec[i] <- sum(nas[,i]) / len.nas
+}
+
+# Create bar plot Data Frame
+na.df <- data.frame(colnames(all_train),na.vec)
+colnames(na.df) <- c("attribute","missing_values")
+
+# Sort by number of missing values
+position <- arrange(na.df,missing_values)["attribute"][,1]
+```
+
 
 ##Visualize the Data
 
@@ -107,7 +143,7 @@ p1 <- ggplot(all_train, aes(x=prop_review_score)) + geom_bar() + ggtitle("A") + 
 # Plot of the score of the booked hotels, to see if the users prefer a new hotel (NA) or a hotel with the woorst case scenario (0)
 pre_NA_visual <-table(Rating=all_train$prop_review_score, Booked= as.logical(all_train$booking_bool))
 pre_NA_visual <- as.data.frame(prop.table(pre_NA_visual, 1)) # row percentages 
-NA_visual <- pre_NA_visual[pre_NA_visual$Rating=="NA"| pre_NA_visual$Rating=="0",]
+NA_visual <- pre_NA_visual[pre_NA_visual$Rating=="NA"| pre_NA_visual$Rating=="0"| pre_NA_visual$Rating=="1",]
 NA_visual <- NA_visual[NA_visual$Booked==TRUE,]
 
 p2 <- ggplot(NA_visual, aes(x = Rating, y = Freq)) + 
@@ -146,6 +182,19 @@ ggplot(balance_visual, aes(x=Type, y=Value, fill=Type)) +
 # Remove useless Data from Environment
 rm(balance_visual,NA_visual,pre_NA_visual)
 ```
+
+##Add relevance targets
+```{r}
+all_train$relevance <- numeric(nrow(all_train))
+
+booked <- all_train[,"booking_bool"] == 1
+clicked <- !booked & (all_train[,"click_bool"] == 1)
+
+all_train$relevance[booked] <- 5
+all_train$relevance[clicked] <- 1
+
+```
+
 
 
 ##Split of the data 
@@ -277,4 +326,77 @@ file_underValidatioin <- file.path(Working_directory, "underValidation.csv")
 underValidation <- read.csv(file_underValidatioin, header = TRUE)
 
 ```
+
+
+
+
+#Random Fores model
+```{r}
+
+#Train <- subset()
+variables_with_nas <- na.df$attribute[na.df$missing_values<=0.75] # Select columns with less than a 75% of NAs
+
+rf_train <- subset(train, select=c(-srch_id,-position,-click_bool,-gross_bookings_usd,-booking_bool,variables_with_nas))
+
+
+#rf.train <- data.matrix(rf.train)
+
+#head(rf.train)
+
+
+# Set seed for reproducibility
+set.seed(111)
+
+# Apply the Random Forest Algorithm
+rf_model <- randomForest(relevance ~ . , data=rf_train, importance=TRUE,ntree=1000, na.action = na.exclude(rf_train))
+varImpPlot(rf_model)
+#When running the function, two graphs appear: the accuracy plot shows how much worse the model would perform without the included variables. So a high decrease (= high value x-axis) links to a high predictive variable. The second plot is the Gini coefficient. The higher the variable scores here, the more important it is for the model.
+
+
+
+
+##Prediction
+#* Validation set
+pred_forest_vali <- predict(forest_model_vali, newdata = validation, type = "class")
+
+
+
+
+fit <- randomForest(x = Train[,-c(1,2)], y = as.factor(Train[,2]))
+
+rankRF <- function(prop_id) {
+    ## given a query Id, it will return a dataframe with the results of the
+    ## query ordered based on their probability of being relevant. The top rows
+    ## in the dataset correspond to those with higher probability.
+
+    tmpdf <- test[test$prop_id == prop_id,]
+
+    prediction <- predict(rf_model, newdata = tmpdf[,-c(1:4)], type = "prob")[,2]
+
+    ## generating dataset with relevant columns
+    rankdf <- data.frame(prop_id = tmpdf$prop_id, r.bin = tmpdf$relevance,
+                         docid = tmpdf$docid, pred = as.numeric(prediction))
+
+    ## sorting based on probability of being relevant
+    rankdf <- rankdf[order(rankdf$pred, decreasing = TRUE),] 
+
+    return(rankdf)
+}
+
+unique(Test$qid)
+
+```
+
+
+#Logistic regression
+```{r}
+# Logistics Regression
+#glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data = Smarket, family = binomial)
+glm.fit <- glm(Direction ~ . , data = Smarket, family = binomial)
+
+summary(glm.fit)
+
+```
+
+
 
