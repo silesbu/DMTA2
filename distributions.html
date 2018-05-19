@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="formulasyntax.html">
+<link rel="next" href="linearmodels.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distributions" class="section level1">
+<h1><span class="header-section-number">CHAPTER 11</span> The carnival of distributions</h1>
+<div id="distribution-functions" class="section level2">
+<h2><span class="header-section-number">11.1</span> Distribution functions</h2>
+<p>A distribution function is a tool used to describe the probability of finding that a random variable (<span class="math inline">\(X\)</span>) has a certain number or a number within a range as its value. We say that the random variable represents a draw from this distribution. We consider two types of distribution functions: those that describe the probability of finding a certain integer (discrete distribution), which are called probability mass functions (<em>pmf</em>) and those describing the probabilty of finding a continuous number within a range of values (continuous distributions), called probability density functions (<em>pdf</em>). A distribution of the discrete type is, for example the uniform distribution with 6 levels. Its <em>pmf</em> is:</p>
+<p><span class="math display">\[
+Pr(X=i) = \frac{1}{6} \;\; (i \in 1 \ldots 6)
+\]</span> It could describe the distribution of observing a value when throwing fair dice. The distribution function has a domain, here the numbers <span class="math inline">\(1 \ldots 6\)</span>, which is the set of all values that the random variable can assume. The domain is often indicated as the set <span class="math inline">\(\Omega\)</span>. For <span class="math inline">\(P(x)\)</span> to be a probability, the sum of the probabilities over all possible value of <span class="math inline">\(x \in \Omega\)</span> should add up to <span class="math inline">\(1\)</span>. This is a required property of a distribution function, <em>i.e.</em></p>
+<p><span class="math display">\[
+\sum_{X \in \Omega} Pr(X) = 1
+\]</span></p>
+<p>For a continuous random variable it is senseless to ask for the probaility of obtaining a certain value, because the set <span class="math inline">\(\Omega\)</span> will be uncaountable, and hence that propability will be infinitely close to 0. The usual question there is: what is the probability that <span class="math inline">\(x\)</span> will be found in a certain interval <span class="math inline">\([a,b)\)</span> <span class="math inline">\(Pr(a \leq X &lt; b)\)</span>? The distribution of <span class="math inline">\(X\)</span> is in this case calculated using a probability density function <span class="math inline">\(f(t)\)</span>, which is linked to the requested probability as follows:</p>
+<p><span class="math display">\[
+Pr(a \leq X &lt; b) = \int_a^b f(t) dt
+\]</span> An example of such a <em>pdf</em> is that of the standard normal distribution:</p>
+<p><span class="math display">\[
+f(t|\sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{t}{\sigma} \right)^2}
+\]</span> A normal-distributed random variable <span class="math inline">\(X\)</span> can take any value in the set of real numbers, so in this case <span class="math inline">\(\Omega = \mathbb{R}\)</span>. A plot of this <em>pdf</em> has the well-know bell-shape of a Gauss curve. It’s important to remember that the connection between a <em>pdf</em> and a probability can only be made by integrating the <em>pdf</em> over an interval of <span class="math inline">\(\Omega\)</span>. The distribution is truly that of a probability since the (limit of the) integral over the interval <span class="math inline">\([-\infty, \infty]\)</span> equals 1.</p>
+</div>
+<div id="distribution-functions-in-r" class="section level2">
+<h2><span class="header-section-number">11.2</span> Distribution functions in R</h2>
+<p>Clearly, being a statistical environment, R has numerical methods to work with the common statistical distributions, continuous- as well as discrete-valued. These functions are encoded in the <code>stats</code> package. See <code>?Distributions</code> for an overview. For all of the common distributions four functions are available. If the name of the distribution is <em>distr</em>, then there are the following functions:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">R function</th>
+<th align="left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>ddistr(x,...)</code></td>
+<td align="left">probability density at parameter value <code>x</code> (continuous) or probability of observing <code>x</code> (discrete)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>pdistr(q,...)</code></td>
+<td align="left">distribution function (probability=integrated probability density) at parameter value <code>q</code> (continuous) or cumulative sum of probabilities of observing values up to and including <code>q</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>qdistr(p,...)</code></td>
+<td align="left">parameter value at cumulative probability p</td>
+</tr>
+<tr class="even">
+<td align="left"><code>rdistr(n,...)</code></td>
+<td align="left">n parameter values drawn <strong>randomly</strong> from the distribution</td>
+</tr>
+</tbody>
+</table>
+<p>The dots <code>...</code> provide further arguments to these functions. Most distributions are characterized by one or more parameters that you will have to provide. Below, we will use 4 of these distributions:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">distribution</th>
+<th align="left">R functions</th>
+<th align="left">characterizing parameters</th>
+<th align="left">mean</th>
+<th align="left">variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">exponential</td>
+<td align="left"><code>dexp()</code>, <code>pexp()</code>, <em>etc.</em></td>
+<td align="left"><code>rate</code> (<span class="math inline">\(\lambda\)</span>)</td>
+<td align="left"><span class="math inline">\(\frac{1}{\lambda}\)</span></td>
+<td align="left"><span class="math inline">\(\frac{1}{\lambda^2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Poisson</td>
+<td align="left"><code>dpois()</code>, <code>ppois()</code>, <em>etc.</em></td>
+<td align="left"><code>lambda</code> (<span class="math inline">\(\lambda\)</span>)</td>
+<td align="left"><span class="math inline">\(\lambda\)</span></td>
+<td align="left"><span class="math inline">\(\lambda\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">binomial</td>
+<td align="left"><code>dbinom()</code>, <code>pbinom()</code>, <em>etc.</em></td>
+<td align="left"><code>size</code> (<span class="math inline">\(N\)</span>), <code>prob</code> (<span class="math inline">\(\theta\)</span>)</td>
+<td align="left"><span class="math inline">\(N \theta\)</span></td>
+<td align="left"><span class="math inline">\(N \theta (1 - \theta)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">normal</td>
+<td align="left"><code>dnorm()</code>, <code>pnorm()</code>, <em>etc.</em></td>
+<td align="left"><code>mean</code> (<span class="math inline">\(\mu\)</span>), <code>sd</code> (<span class="math inline">\(\sigma\)</span>)</td>
+<td align="left"><span class="math inline">\(\mu\)</span></td>
+<td align="left"><span class="math inline">\(\sigma^2\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">t</td>
+<td align="left"><code>dt()</code>, <code>pt()</code>, <em>etc.</em></td>
+<td align="left"><code>df</code> (<span class="math inline">\(\nu\)</span>)</td>
+<td align="left">0</td>
+<td align="left"><span class="math inline">\(\frac{\nu}{\nu – 2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\chi\)</span>-square</td>
+<td align="left"><code>dchisq()</code>, <code>pchisq()</code>, <em>etc.</em></td>
+<td align="left"><code>df</code> (<span class="math inline">\(\nu\)</span>)</td>
+<td align="left"><span class="math inline">\(\nu\)</span></td>
+<td align="left"><span class="math inline">\(2 \nu\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">F</td>
+<td align="left"><code>df()</code>, <code>pf()</code>, <em>etc.</em></td>
+<td align="left"><code>df1</code>, <code>df2</code> (<span class="math inline">\(d_1\)</span>, <span class="math inline">\(d_2\)</span>)</td>
+<td align="left"><span class="math inline">\(\frac{d_2}{d_2 – 2}\)</span></td>
+<td align="left"><span class="math inline">\(\frac{2 d_2^2 (d_1 + d_2 -2)}{d_1 (d_2 – 2)^2 (d_2 – 4)}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="example">
+<h3 id="example" class="unnumbered">Example</h3>
+<p>For example, if you wish to make 5 random draws from the normal distribution with mean 7 and standard deviation 0.6, you can use <code>rnorm()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">5</span>, <span class="dt">mean=</span><span class="dv">7</span>, <span class="dt">sd=</span><span class="fl">0.6</span>)</code></pre></div>
+<pre><code>## [1] 6.819282 7.585722 7.273605 7.776645 6.320079</code></pre>
+<p>Clearly, if you make enough draws, and you make a histogram of these, you will reconstruct a picture of the density function of the normal distribution:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">7</span>, <span class="dt">sd=</span><span class="fl">0.6</span>), <span class="dt">col=</span><span class="st">&#39;grey&#39;</span>, <span class="dt">nclass=</span><span class="dv">50</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>Of course, you could have obtained an exact picture of this with <code>dnorm(x,mean=7,sd=0.6)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dt">mean=</span><span class="dv">7</span>, <span class="dt">sd=</span><span class="fl">0.6</span>), <span class="dt">col=</span><span class="st">&#39;grey&#39;</span>, <span class="dt">nclass=</span><span class="dv">50</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)
+<span class="kw">curve</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean=</span><span class="dv">7</span>, <span class="dt">sd=</span><span class="fl">0.6</span>), <span class="dt">from=</span><span class="dv">3</span>, <span class="dt">to=</span><span class="dv">11</span>, <span class="dt">n=</span><span class="dv">500</span>, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/dist_03-1.png" width="672" /></p>
+</div>
+<p>The function that draw random samples from distributions all depend on a so-called random number generator, a mathematical function that computes series of apparently random numbers. A little more information about random number generators can be found in chapter <a href="randomnumbers.html#randomnumbers">23</a>.</p>
+</div>
+<div id="the-exponential-and-poisson-distributions" class="section level2">
+<h2><span class="header-section-number">11.3</span> The exponential and Poisson distributions</h2>
+<p>The exponential distribution arises as the distribution of the intervals (time intervals, for example) of independent events that have a constant rate of occurrence. Examples are radioactive decay events among a large number of atoms, lethal traffic accidents among a large population, reacting molecules among a large number of molecules, random breaks in DNA strands (interval = size of DNA) in a large DNA molecule, customers being served at a help-desk, <em>etc.</em> The most characteristic property of such events is that previous events have no effect at all on future events. It is said that such a process is “memory-less”. To achieve this a large, and in principle infinite, supply of putative events is needed, otherwise their exhaustion may be noticed. When the intervals between such events are measured, they have an exponential distribution, for example with a rate <span class="math inline">\(\lambda\)</span>=0.1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(<span class="kw">dexp</span>(x, <span class="dt">rate=</span><span class="fl">0.1</span>), <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">60</span>, <span class="dt">n=</span><span class="dv">100</span>, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">xlab=</span><span class="st">&#39;interval&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;probability density&#39;</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/dist_04-1.png" width="672" /></p>
+<p>Shorter intervals are more likely to occur than long intervals. The <em>pmf</em> of this distribution is</p>
+<p><span class="math display">\[f(x|\lambda) = \lambda e^{-\lambda x}\]</span></p>
+<p>The same processes generate a Poisson distribution the number of events happening within a fixed interval is counted. Below you see a simulation of 6 experiments with intervals having exponential distribution. Each event is shown as a vertical dash. The number of dashes between the red lines (displayed to the right) has a Poisson distribution, in this case with <span class="math inline">\(\lambda\)</span>=2.5.</p>
+<p><img src="StatR_files/figure-html/dist_05-1.png" width="672" /></p>
+<p>Clearly, the Poisson distribution is a discrete distribution (about counts), in contrast to the exponential distribution, which is continuous. It looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">lambda =</span> <span class="fl">2.5</span>), <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;number of events&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;probability&#39;</span>, <span class="dt">lwd=</span><span class="dv">10</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/unnamed-chunk-177-1.png" width="672" /></p>
+<p>The <em>pmf</em> of the Poisson distribution is</p>
+<p><span class="math display">\[Pr(X=k|\lambda) = \frac{\lambda^k}{k!} e^{-\lambda}\]</span></p>
+<div id="exercises-6" class="section level3 unnumbered">
+<h3>Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Show by simulation, that the Poisson distribution results from an exponential distribution of intervals. Use the cumulative sum of intervals from an exponential distribution to decide whether you have generated enough events.
+<div>
+<a id="DistributionsHead1" href="javascript:toggle('DistributionsSol1','DistributionsHead1');" >Show solution</a>
+</div>
+<div id="DistributionsSol1" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">endtime &lt;-<span class="st"> </span><span class="dv">50</span>
+draws &lt;-<span class="st"> </span><span class="dv">15</span> <span class="co"># should lead in all cases to a cumulative sum &gt; endtime</span>
+<span class="kw">set.seed</span>(<span class="dv">7</span>)
+d &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>, <span class="cf">function</span>(y) {<span class="kw">cumsum</span>(<span class="kw">rexp</span>(draws, <span class="dt">rate=</span><span class="fl">0.05</span>))}))
+<span class="co"># If the following is not true, we did not make enough random draws from the exponential</span>
+<span class="co"># distribution in at least one of the simulations. Increase &quot;draws&quot;</span>
+<span class="cf">if</span> (<span class="op">!</span><span class="kw">all</span>(d[,<span class="dv">15</span>]<span class="op">&gt;</span>endtime)) {
+  <span class="kw">stop</span>(<span class="st">&quot;Increase draws&quot;</span>)
+}
+pcounts &lt;-<span class="st"> </span><span class="kw">apply</span>(d,<span class="dv">1</span>,<span class="cf">function</span>(x){<span class="kw">sum</span>(x <span class="op">&lt;=</span><span class="st"> </span>endtime)})
+h &lt;-<span class="st"> </span><span class="kw">hist</span>(pcounts, <span class="dt">breaks=</span><span class="op">-</span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot=</span><span class="ot">FALSE</span>)
+<span class="kw">plot</span>(<span class="dt">x=</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">12</span>), <span class="dt">y=</span>h<span class="op">$</span>density, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">xlab=</span><span class="st">&quot;counts&quot;</span>,  <span class="dt">ylab=</span><span class="st">&quot;probability&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">points</span>(<span class="dt">x=</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">12</span>), <span class="dt">y=</span><span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">12</span>,<span class="dt">lambda=</span><span class="fl">0.05</span><span class="op">*</span>endtime), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">pch=</span><span class="st">&#39;-&#39;</span>, <span class="dt">cex=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/dist_expoisson-1.png" width="672" /></p>
+</div></li>
+<li><p>Deadly car accidents were counted in five consecutive years:</p>
+<pre><code>## [1] 926 914 922 885 914</code></pre>
+Your government states that the average number of deadly car accidents is 850 per year. Do you agree with this hypothesis?
+<div>
+<a id="DistributionsHead2" href="javascript:toggle('DistributionsSol2','DistributionsHead2');" >Show solution</a>
+</div>
+<div id="DistributionsSol2" style="display: none">
+<p>A two sided 95% confidence interval would be</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qpois</span>(<span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>), <span class="dt">lambda=</span><span class="kw">mean</span>(d))</code></pre></div>
+<pre><code>## [1] 853 972</code></pre>
+<p>which shows that the real number of deadly accidents occurring per year is likely to be higher than 850.</p>
+</div></li>
+</ol>
+<div class="rmdimportant">
+<p>
+One of the most notable properties of the Poisson distribution is that the variance equals the mean, and both are equal to the characterizing parameter <span class="math inline"><span class="math inline">\(\lambda\)</span></span> (see table above). The variance, which is the square of the standard deviation, equals <span class="math inline"><span class="math inline">\(\lambda\)</span></span> as well. This property is often used to find out whether a series of counts could have been drawn from a Poisson distribution. Just compare the mean of these counts to their variance. If they are almost equal, the counts could come from a Poisson distribution.
+</p>
+</div>
+</div>
+</div>
+<div id="the-bernoulli-and-binomial-distributions" class="section level2">
+<h2><span class="header-section-number">11.4</span> The Bernoulli and binomial distributions</h2>
+<p>The event space of the Bernoulli and binomial distributions has two types of events instead of one, as for the exponential and Poisson distributions. With every trial, either one of these events occurs. Usually these two types are decribed as “success” and “failure”, “head” and “tail” or “A”, “B”, <em>etc.</em> One such a trial is called a Bernoulli trial. The Bernoulli distribution is characterized by a single parameter <span class="math inline">\(\theta\)</span>, which is the probability that “success”, “head”, “A”, or “1” occurs. If we always use a random variable <span class="math inline">\(X\)</span> that has the event space <span class="math inline">\(\{1,0\}\)</span> (another two-valued event space can always be mapped to this one) then the Bernoulli <em>pmf</em> can be conveniently written as</p>
+<p><span class="math display">\[Pr(X=k|\theta) = \theta^k (1-\theta)^{1-k}, \quad \text{where }k=0\text{ or }1\]</span> The binomial distribution gives the probability for the number of <em>number of times</em> that event “1” occurs when performing <span class="math inline">\(N\)</span> Bernoulli trials, in which the single Bernoulli trial probability for event “1” equals <span class="math inline">\(\theta\)</span>.</p>
+<p>The <em>pmf</em> of the binomial distribution equals</p>
+<p><span class="math display">\[Pr(X=k|N,\theta) = \binom{N}{k} \theta^k (1 - \theta)^{N - k}\]</span></p>
+<div id="exercises-7" class="section level3 unnumbered">
+<h3>Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>There is no (standard) function to draw samples from a Bernoulli distribution in R. However, it can very easily be simulated with draws from another distribution. Write a line in R that returns 100 samples from the Bernoulli distribution with <span class="math inline">\(\theta = 0.6\)</span>. Note that each sample is either a 0 or a 1.
+<div>
+<a id="DistributionsHead3" href="javascript:toggle('DistributionsSol3','DistributionsHead3');" >Show solution</a>
+</div>
+<div id="DistributionsSol3" style="display: none">
+<p>Hundred draws from the uniform distribution can be used. If its outcome is less than <span class="math inline">\(\theta\)</span> yield a 1, otherwise yield a 0.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">100</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.6</span>, <span class="dv">1</span>, <span class="dv">0</span>)</code></pre></div>
+<pre><code>##   [1] 0 1 0 1 0 0 1 0 1 1 1 1 1 1 1 0 0 1 1 1 1 0 0 1 1 1 0 1 0 0 0 1 1 1 0
+##  [36] 1 0 1 0 1 1 1 1 1 0 0 0 0 1 0 0 1 1 1 1 0 1 0 1 1 1 0 1 0 1 0 0 1 1 1
+##  [71] 0 1 1 1 1 0 1 1 0 0 1 0 0 0 1 1 0 1 1 1 0 1 1 0 0 0 0 1 1 0</code></pre>
+Another option would be to make 100 single draws from the binomial distribution with <span class="math inline">\(N=1\)</span> and <span class="math inline">\(\theta=0.6\)</span>: <code>sapply(1:100, function(dummy) {rbinom(1,1,0.6)})</code></li>
+<li>When <span class="math inline">\(\theta\)</span> is small, in the order of a few percent, the binomial distribution approaches the Poisson distribution with <span class="math inline">\(\lambda = N \theta\)</span>. Show this by simulation.
+<div>
+<a id="DistributionsHead4" href="javascript:toggle('DistributionsSol4','DistributionsHead4');" >Show solution</a>
+</div>
+<div id="DistributionsSol4" style="display: none">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">100</span>
+p &lt;-<span class="st"> </span><span class="fl">0.02</span>
+<span class="kw">set.seed</span>(<span class="dv">7</span>)
+d &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">10000</span>, <span class="dt">size=</span>n, <span class="dt">prob=</span>p)
+h &lt;-<span class="st"> </span><span class="kw">hist</span>(d, <span class="dt">breaks=</span><span class="op">-</span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">plot=</span><span class="ot">FALSE</span>)
+<span class="kw">plot</span>(<span class="dt">x=</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">15</span>), <span class="dt">y=</span>h<span class="op">$</span>density, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">xlab=</span><span class="st">&quot;counts&quot;</span>,  <span class="dt">ylab=</span><span class="st">&quot;probability&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">points</span>(<span class="dt">x=</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">15</span>), <span class="dt">y=</span><span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">lambda=</span>p<span class="op">*</span>n), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">pch=</span><span class="st">&#39;-&#39;</span>, <span class="dt">cex=</span><span class="dv">2</span>)</code></pre></div>
+<img src="StatR_files/figure-html/dist_exbinom-1.png" width="672" /></li>
+<li>Using the table (above) of characteristics of these distributions, make sure that the mean and variance of the binomial distribution approach that of the Poisson distribution when <span class="math inline">\(\theta\)</span> is small
+<div>
+<a id="DistributionsHead5" href="javascript:toggle('DistributionsSol5','DistributionsHead5');" >Show solution</a>
+</div>
+<div id="DistributionsSol5" style="display: none">
+Clearly, the mean <span class="math inline">\(n \theta\)</span> equals <span class="math inline">\(\lambda\)</span>, even when <span class="math inline">\(\theta\)</span> is large. The variance of the binomial distribution, <span class="math inline">\(n \theta (1 - \theta)\)</span> approaches <span class="math inline">\(n \theta\)</span> when <span class="math inline">\(\theta\)</span> is small (because <span class="math inline">\(1 - \theta \approx 1\)</span> with small <span class="math inline">\(\theta\)</span>) and hence approaches <span class="math inline">\(\lambda\)</span>, the variance of the Poisson distribution.</li>
+<li>(Difficult) Show that in the limit of <span class="math inline">\(N \to \infty\)</span> when <span class="math inline">\(N \theta = \lambda\)</span> is constant, the <em>pmf</em> of the binomial distribution approaches that of the Poisson distribution. Use the identity <span class="math inline">\(e^{-x} = \lim_{n \to \infty} \left( 1 - \frac{x}{n} \right)^n\)</span>.
+<div>
+<a id="DistributionsHead6" href="javascript:toggle('DistributionsSol6','DistributionsHead6');" >Show solution</a>
+</div>
+<div id="DistributionsSol6" style="display: none">
+<p>We have <span class="math inline">\(\theta = \frac{\lambda}{N}\)</span>. This allows us to re-write the pmf for the binomial distribution as <span class="math display">\[\lim_{N \to \infty} \frac{N!}{(N-k)!k!} \left( \frac{\lambda}{N} \right)^k \left( 1 - \frac{\lambda}{N} \right)^{N - k} = \lim_{N \to \infty} \frac{N!}{(N-k)!N^k} \cdot \frac{\lambda^k}{k!} \cdot \left( 1 - \frac{\lambda}{N} \right)^{N - k} =\]</span> <span class="math display">\[\lim_{N \to \infty} \frac{N-k+1}{N} \cdot \frac{N-k+2}{N} \ldots \frac{N-k+k}{N} \cdot \frac{\lambda^k}{k!} \cdot \left( 1 - \frac{\lambda}{N} \right)^{N} \cdot \left( 1 - \frac{\lambda}{N} \right)^{-k}\]</span> Since <span class="math inline">\(k\)</span> is a finite quantity, terms like <span class="math inline">\(\frac{N-k+1}{N}\)</span> will approach <span class="math inline">\(1\)</span> as <span class="math inline">\(N \to \infty\)</span>. Also the term <span class="math inline">\(\left( 1 - \frac{\lambda}{N} \right)^{-k}\)</span> will approach <span class="math inline">\(1\)</span>. Therefore, in the limit this product will equal <span class="math display">\[\frac{\lambda^k}{k!} \cdot e^{-\lambda}\]</span> which is the formula for the Poisson <em>pmf</em>.</p></li>
+</ol>
+</div>
+</div>
+<div id="the-normal-and-standard-normal-distribution" class="section level2">
+<h2><span class="header-section-number">11.5</span> The normal and standard normal distribution</h2>
+<p>The standard normal distribution will occur a number of times below. It is the normal distribution with mean=0 and standard deviation=1. The <em>pdf</em> of the normal distribution is</p>
+<p><span class="math display">\[f(x|\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{x-\mu}{\sigma} \right)^2}\]</span></p>
+<p>The normal distribution is best known for its occurrence in the Central Limit theorem, which says that a sum of independent random variables with finite means and standard deviations approaches the normal distribution. This property is thought to be at the heart of the reason why many experimentally measured variables have normal-distributed error: the error may be the sum of many random processes ccontributing to the measured value. It is always possible to convert a normal-distributed variable <span class="math inline">\(x\)</span> with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> to a standard normal distributed variable. Namely, the variable <span class="math inline">\(y\)</span> defined as</p>
+<p><span class="math display">\[
+y = \frac{x - \mu}{\sigma}
+\]</span></p>
+<p>will be standard normal distributed. The problem is, of course, that we ususally do not know the population mean and standard deviation, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. We can only obtain estimates of these by calculating the sample mean and standard deviations, <span class="math inline">\(m\)</span> and <span class="math inline">\(s\)</span> from a sample of a population. Using these instead of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> would <strong>not</strong> yield a standard normal distributed variable <span class="math inline">\(y\)</span>, unless the sample used for estimating mean and standard deviation would be large!</p>
+<div id="exercise" class="section level3 unnumbered">
+<h3>Exercise</h3>
+<ol style="list-style-type: decimal">
+<li>Show that the quantity <span class="math display">\[
+y = \frac{x - mean(x)}{sd(x)}
+\]</span> does <strong>not</strong> have a standard normal distribution when <span class="math inline">\(x\)</span> is a sample of 5 draws from a normal distribution. To be able to show the distribution of <span class="math inline">\(y\)</span> you should calculate it 10000 times. Make draws from a normal distribution with population mean 7 and standard deviation 0.6. Can you explain why it doesn’t have the standard normal distribution? Also show that with a sample size of 50 instead of 5, the distribution of <span class="math inline">\(y\)</span> does approach that of the standard normal distribution.
+<div>
+<a id="DistributionsHead7" href="javascript:toggle('DistributionsSol7','DistributionsHead7');" >Show solution</a>
+</div>
+<div id="DistributionsSol7" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">5</span>
+d &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>, <span class="cf">function</span>(x) {
+  sample &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">7</span>, <span class="dt">sd=</span><span class="fl">0.6</span>)
+  normalized &lt;-<span class="st"> </span>(sample <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(sample))<span class="op">/</span><span class="kw">sd</span>(sample)
+  <span class="kw">return</span>(normalized)
+}))
+<span class="kw">hist</span>(d,<span class="dt">nclass=</span><span class="dv">50</span>,<span class="dt">col=</span><span class="st">&#39;grey&#39;</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.45</span>))
+<span class="kw">curve</span>(<span class="kw">dnorm</span>(x,<span class="dv">0</span>,<span class="dv">1</span>),<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">n=</span><span class="dv">501</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/dist_ex01-1.png" width="672" /> But with sample size 50:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">50</span>
+d &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>, <span class="cf">function</span>(x) {
+  sample &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">7</span>, <span class="dt">sd=</span><span class="fl">0.6</span>)
+  normalized &lt;-<span class="st"> </span>(sample <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(sample))<span class="op">/</span><span class="kw">sd</span>(sample)
+  <span class="kw">return</span>(normalized)
+}))
+<span class="kw">hist</span>(d,<span class="dt">nclass=</span><span class="dv">50</span>,<span class="dt">col=</span><span class="st">&#39;grey&#39;</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.45</span>))
+<span class="kw">curve</span>(<span class="kw">dnorm</span>(x,<span class="dv">0</span>,<span class="dv">1</span>),<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">n=</span><span class="dv">501</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/dist_ex02-1.png" width="672" /></p>
+</div></li>
+</ol>
+</div>
+</div>
+<div id="students-t-distribution" class="section level2">
+<h2><span class="header-section-number">11.6</span> Student’s t-distribution</h2>
+<p>Somebody tells you that the average hight <span class="math inline">\(\mu\)</span> of dutch men is 180 cm. You want to test this and take a small (<span class="math inline">\(n=5\)</span>) random sample from the population of dutch men. Clearly the mean of your sample will not be exactly 180 cm, but how much is it allowed to deviate from this value before you conclude that the hypothesis is wrong? Let’s simulate this case. Let’s say that the standard deviation of the hight is 5 cm:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">4</span>)
+sample &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">5</span>, <span class="dt">mean=</span><span class="dv">180</span>, <span class="dt">sd=</span><span class="dv">5</span>)
+sample</code></pre></div>
+<pre><code>## [1] 181.0838 177.2875 184.4557 182.9799 188.1781</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(sample)</code></pre></div>
+<pre><code>## [1] 182.797</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(sample)</code></pre></div>
+<pre><code>## [1] 4.032067</code></pre>
+<p>How do you statistically test this? For such cases the statistician William Sealy Gosset, working under the pseudonym “Student”, invented the distribution named after his pseudonym: Student’s t-distribution. If you have a sample of size <span class="math inline">\(n\)</span> with a sample mean <span class="math inline">\(m\)</span> and a sample standard deviation <span class="math inline">\(s\)</span>, and you calculate the quantity</p>
+<p><span class="math display">\[
+T = \frac{m - \mu}{s/\sqrt{n}}
+\]</span></p>
+<p>then the distribution of this <span class="math inline">\(T\)</span> is known in case that the population mean is indeed <span class="math inline">\(\mu\)</span> and the population has a normal distribution (the null hypothesis). This distribution will be equal to the t-distribution with <span class="math inline">\(n-1\)</span> degrees of freedom. In case of our sample of 5, the probability density function of T would look like the one shown in figure <a href="distributions.html#fig:dist-07">11.1</a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">curve</span>(<span class="kw">dnorm</span>(x,<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span><span class="dv">1</span>), <span class="dt">from=</span><span class="op">-</span><span class="dv">7</span>, <span class="dt">to=</span><span class="dv">7</span>, <span class="dt">n=</span><span class="dv">500</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">xlab=</span><span class="st">&#39;T or x&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;probability density&#39;</span>, <span class="dt">lty=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">col=</span><span class="st">&#39;grey&#39;</span>)
+<span class="kw">curve</span>(<span class="kw">dt</span>(x,<span class="dt">df=</span><span class="dv">1</span>), <span class="dt">from=</span><span class="op">-</span><span class="dv">7</span>, <span class="dt">to=</span><span class="dv">7</span>, <span class="dt">n=</span><span class="dv">500</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)
+<span class="kw">curve</span>(<span class="kw">dt</span>(x,<span class="dt">df=</span><span class="dv">4</span>), <span class="dt">from=</span><span class="op">-</span><span class="dv">7</span>, <span class="dt">to=</span><span class="dv">7</span>, <span class="dt">n=</span><span class="dv">500</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&#39;darkgreen&#39;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="figure"><span id="fig:dist-07"></span>
+<img src="StatR_files/figure-html/dist-07-1.png" alt="T-distribution with degrees of freedom = 1 (solid red line), degrees of freedom = 4 (solid green line) and standard normal distribution (dashed line). The t-distribution has heavier tails than the standard normal distribution, especially at low degrees of freedom." width="672" />
+<p class="caption">
+Figure 11.1: T-distribution with degrees of freedom = 1 (solid red line), degrees of freedom = 4 (solid green line) and standard normal distribution (dashed line). The t-distribution has heavier tails than the standard normal distribution, especially at low degrees of freedom.
+</p>
+</div>
+<p>For reference, we draw the standard normal distribution in the same plot. Clearly, the t-distribution has “more weight” in the tails. This effect decreases with increasing sample size (degrees of freedom), mainly because s, the estimate of the standard deviation, becomes more accurate with increasing sample size.</p>
+<p>If T=0, the observed mean would be equal to that of the null hypothesis. In our case, T equals <span class="math inline">\(\frac{m - 180}{s/\sqrt{5}}=\frac{182.8 - 180}{4.0/\sqrt{5}}=1.6\)</span>. What is the chance of obtaining an absolute value for T that deviates by this amount or more from 0? For that, we need to know the surface of the tails <span class="math inline">\(\leq -1.6\)</span> and <span class="math inline">\(\geq1.6\)</span>. Since the distribution is symmetric around 0, we can take 2 <span class="math inline">\(\times\)</span> the integral under the curve <span class="math inline">\(\geq1.6\)</span>, which equals</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pt</span>(<span class="dt">q=</span>(<span class="kw">mean</span>(sample)<span class="op">-</span><span class="dv">180</span>)<span class="op">/</span>(<span class="kw">sd</span>(sample)<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">5</span>)), <span class="dt">df=</span><span class="dv">4</span>))</code></pre></div>
+<pre><code>## [1] 0.1958112</code></pre>
+<p>This is much larger than the usual 5% confidence level at which we refute nulll hypothesses, so we accept the null hypothesis in this case. An alternative and easier way of performing this statistical test in R is to use the function <code>t.test()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(sample, <span class="dt">mu=</span><span class="dv">180</span>)</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  sample
+## t = 1.5511, df = 4, p-value = 0.1958
+## alternative hypothesis: true mean is not equal to 180
+## 95 percent confidence interval:
+##  177.7905 187.8035
+## sample estimates:
+## mean of x 
+##   182.797</code></pre>
+<p>What we saw above is a one-sample t-test. Another way in which the t-distribution is often used is in the two-sample t-test, where we compare the means of samples of sizes <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> from two normal distributions and ask whether the population means are the same. It is similar to asking whether the difference between the population means is equal to 0. If both normal distributions have the same population standard deviation (<span class="math inline">\(\sigma\)</span>), then it can be shown that the quantity</p>
+<p><span class="math display">\[
+T = \frac{m_1 -m_2}{s_{12} \cdot \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
+\]</span></p>
+<p>with</p>
+<p><span class="math display">\[
+s_{12} = \sqrt{\frac{(n_1 - 1) \cdot s_1^2 + (n_2 - 1) \cdot s_2^2}{n_1 + n_2 -2}}
+\]</span></p>
+<p>has a t-distribution with <span class="math inline">\(n_1 + n_2 - 2\)</span> degrees of freedom. If the population standard deviations are not the same an approximation of the t-distribution is used (see for example <a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes.2C_unequal_variances">wikipedia</a> on this topic). These issues are taken care of by the <code>t.test()</code> function as long as you provide it with the correct value for the parameter <code>var.equal</code> parameter(<code>TRUE</code> for equal variances/standard deviations (variance = <span class="math inline">\(\sigma^2\)</span>) and <code>FALSE</code> otherwise).</p>
+<div id="exercise-1" class="section level3 unnumbered">
+<h3>Exercise</h3>
+<ol style="list-style-type: decimal">
+<li><p>Yet another application of the t-test is the paired t-test. An example of an application would be when we compare measurements on subjects before and after a treatment. If the standard deviation of the effect of the treatment is expected to be much lower or in the same order of magnitude as the measurement before the treatment, then studying the individual differences (after - before) yields more accurate results than studying the avergages of the measurements before and after the treatment. For example, the effect of having spent a night awake on the intellectual performance is measured in a population of students. Clearly, students differ from the beginning in this performance, and an additive effect on this initial performance is expected:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-189">Table 11.1: </span>Scores on tests before and after a night awake.</caption>
+<thead>
+<tr class="header">
+<th align="right">student</th>
+<th align="right">before</th>
+<th align="right">after</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">6.1</td>
+<td align="right">5.3</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">6.7</td>
+<td align="right">6.8</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">8.3</td>
+<td align="right">8.9</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">3.4</td>
+<td align="right">2.0</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">6.7</td>
+<td align="right">5.7</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">7.5</td>
+<td align="right">6.7</td>
+</tr>
+</tbody>
+</table>
+<p>The question in a paired t-test is whether the average difference (after - before) is significantly different from 0. Perform this test, and show the difference between the paired and unpaired version. What is the mean effect of spending a night awake on performance, and what is its 95% confidence interval?</p></li>
+</ol>
+</div>
+</div>
+<div id="the-chi-squared-distribution" class="section level2">
+<h2><span class="header-section-number">11.7</span> The chi-squared distribution</h2>
+<p>The <span class="math inline">\(\chi^2\)</span>-distribution with <span class="math inline">\(k\)</span> “degrees of freedom” arises when we make a sum of squares of <span class="math inline">\(k\)</span> independent <strong>standard normal distributed</strong> quantities <span class="math inline">\(Z_i\)</span> (hence, with mean 0 and standard deviation 1). <em>I.e.</em> we call the distribution of <span class="math display">\[
+\chi^2 = \sum_{i=1}^k Z_i^2 
+\]</span> “chi-squared distributed with <span class="math inline">\(k\)</span> degrees of freedom”. The <span class="math inline">\(\chi^2\)</span>-distribution has only one characterizing parameter, namely <span class="math inline">\(k\)</span>. To construct this distribution, suppose we make 6 draws from a standard normal distribution, and we square and sum those quantities. How is this sum of squares distributed if we would make those 6 draws multiple times (say 10000 times)?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using a for loop:</span>
+<span class="co"># ssq.distr &lt;- c()</span>
+<span class="co"># for (i in 1:10000) {</span>
+<span class="co">#  x &lt;- rnorm(n=6, mean=0, 1)</span>
+<span class="co">#  ssq.distr &lt;- c(ssq.distr, sum(x^2))</span>
+<span class="co">#}</span>
+<span class="co"># Or, with a one-liner:</span>
+ssq.distr &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>, <span class="cf">function</span>(x) {<span class="kw">sum</span>(<span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">6</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span>)})
+<span class="kw">hist</span>(ssq.distr, <span class="dt">col=</span><span class="st">&#39;grey&#39;</span>, <span class="dt">nclass=</span><span class="dv">50</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)
+<span class="co"># for comparison, the chi-square probability density function</span>
+<span class="kw">curve</span>(<span class="kw">dchisq</span>(x,<span class="dt">df=</span><span class="dv">6</span>), <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">35</span>, <span class="dt">n=</span><span class="dv">500</span>, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
+<div id="application-in-pearsons-chi-square-goodness-of-fit-test" class="section level3">
+<h3><span class="header-section-number">11.7.1</span> Application in Pearson’s chi-square goodness of fit test</h3>
+<p>Now we know where the <span class="math inline">\(\chi^2\)</span> distribution originates from. We can use it, for example, to make a goodness of fit test that tells us how well a sample of <span class="math inline">\(k\)</span> data points fits to a curve (a model, expected values). If it is within the 95% quantile bounds predicted by the <span class="math inline">\(\chi^2\)</span> distribution, we could conclude that the data fit the curve very well, because the sum of squares that we obtain is close to what we expect from a normal-distributed error. If the model fits perfectly, we expect the mean of the errors (<span class="math inline">\(\text{measured value} - \text{expected value}\)</span>) to be 0. However, we do need to make an estimate of the standard deviation of the error, because it is unlikely to be equal to 1, the standard deviation of the standard normal distribution. For continuous values you would need to estimate the standard deviation independently, for example by replicate measurements. You often don’t have these available. For discrete values, like expected counts in a bin of a histogram (<span class="math inline">\(E_i\)</span>), however, we have an estimate of the standard deviation. It is equal to the square root of the expected count (<span class="math inline">\(\hat{\sigma}_i=\sqrt{E_i}\)</span>). Clearly, count-data, are only approximately normal-distributed. Therefore, the <span class="math inline">\(\chi^2\)</span> distribution provides only an estimate of the true distribution of these values. The number of degrees of freedom depends on the number of constraints (equations) under which the expected values are calculated. Let’s try an example with counting males and females in a sample of 20 people from a population:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">males &lt;-<span class="st"> </span><span class="dv">14</span>
+females &lt;-<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<p>Is this sample an indication that the population average deviates from a 1:1 distribution of males and females (the null hypothesis)? In a sample of in total 20 individuals we would expect 10 males and 10 females. The <span class="math inline">\(\chi^2\)</span> is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exp.males &lt;-<span class="st"> </span><span class="dv">10</span>
+exp.females &lt;-<span class="st"> </span><span class="dv">10</span>
+X2 &lt;-<span class="st"> </span>(males <span class="op">-</span><span class="st"> </span>exp.males)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>exp.males <span class="op">+</span><span class="st"> </span>(females <span class="op">-</span><span class="st"> </span>exp.females)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>exp.females
+X2</code></pre></div>
+<pre><code>## [1] 3.2</code></pre>
+<p>How many degrees of freedom (<span class="math inline">\(k\)</span>) do we have? Since the total sample size is fixed, the expected number of males equals the total number minus the expected number of females: we have 1 relation between expected males and females. Therefore, <span class="math inline">\(k = 2 - 1 = 1\)</span>. We test whether this value of <span class="math inline">\(\chi^2\)</span> is larger than expected under the null hypothesis:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pchisq</span>(X2, <span class="dv">1</span>, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.07363827</code></pre>
+<p>We test whether the upper tail of the distribution, beyond our <span class="math inline">\(\chi^2\)</span> value is lower than 0.05, which it is <strong>not</strong>. For the case of two classes (male, female) a more accurate estimation would be obtained by using the binomial distribution function .</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pbinom</span>(<span class="kw">min</span>(males,females),<span class="dv">20</span>,<span class="fl">0.5</span>)</code></pre></div>
+<pre><code>## [1] 0.05765915</code></pre>
+<p>The p-value using this distribution is also, but just barely, above 0.05.</p>
+</div>
+<div id="exercise-2" class="section level3 unnumbered">
+<h3>Exercise</h3>
+<ol style="list-style-type: decimal">
+<li>A researcher designs a new method to predict the binding of a compound to a protein, based on protein sequence. The predictions are ranked using an independent method as “good”, “fair” or “bad”. The current best method yields 55% good, 10% fair and 35% bad predictions. He uses the new method on a set of 230 proteins. His method yields 113 good, 35 fair and the remainder bad predictions.</li>
+</ol>
+<ul>
+<li>Does his method yield a distribution that differs significantly from the previous best method?</li>
+<li>Does his method yield better predictions?
+<div>
+<a id="DistributionsHead8" href="javascript:toggle('DistributionsSol8','DistributionsHead8');" >Show solution</a>
+</div>
+<div id="DistributionsSol8" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># expected fractions:</span>
+frac.exp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.55</span>, <span class="fl">0.1</span>, <span class="fl">0.35</span>)
+<span class="co"># total sample size</span>
+ntot &lt;-<span class="st"> </span><span class="dv">230</span>
+<span class="co"># observed counts</span>
+cnt.obs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">113</span>, <span class="dv">35</span>, ntot<span class="op">-</span><span class="dv">113</span><span class="op">-</span><span class="dv">35</span>)
+<span class="co"># expected counts</span>
+cnt.exp &lt;-<span class="st"> </span>frac.exp <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(cnt.obs)
+X2 &lt;-<span class="st"> </span><span class="kw">sum</span>((cnt.obs <span class="op">-</span><span class="st"> </span>cnt.exp)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>cnt.exp)
+<span class="kw">pchisq</span>(X2, <span class="dt">df=</span><span class="dv">3</span><span class="op">-</span><span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.02096784</code></pre>
+<p>So, yes this distribution differs significantly from that of the best method. However, the ‘good’ category has a lower fraction, whereas the ‘fair’ category has a higher fraction than the best method. You could compare the total OK-ish ones (good + fair), which is 64% in the new method, compared to 65% in the previous, which is not significantly different:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># expected fractions:</span>
+frac.exp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.55</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="fl">0.35</span>)
+ntot &lt;-<span class="st"> </span><span class="dv">230</span>
+cnt.obs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">113</span> <span class="op">+</span><span class="st"> </span><span class="dv">35</span>, ntot <span class="op">-</span><span class="st"> </span><span class="dv">113</span> <span class="op">-</span><span class="st"> </span><span class="dv">35</span>)
+cnt.exp &lt;-<span class="st"> </span>frac.exp <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(cnt.obs)
+X2 &lt;-<span class="st"> </span><span class="kw">sum</span>((cnt.obs <span class="op">-</span><span class="st"> </span>cnt.exp)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>cnt.exp)
+<span class="kw">pchisq</span>(X2, <span class="dt">df=</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.8357244</code></pre>
+<p>Hence, samples have moved from the good to the fair category, but not from bad to good or fair. There is no improvement compared to the previous method, rather the method performs worse.</p>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="the-f-distribution" class="section level2">
+<h2><span class="header-section-number">11.8</span> The F-distribution</h2>
+<p>The F- distribution, with <span class="math inline">\(d_1\)</span> and <span class="math inline">\(d_2\)</span> degrees of freedom, arises as the ratio</p>
+<p><span class="math display">\[
+F = \frac{U_1/d_1}{U_2/d_2}
+\]</span></p>
+<p>of two chi-square distributed quantities, <span class="math inline">\(U_1=\sum_i Z_{1i}^2\)</span> and <span class="math inline">\(U_2=\sum_j Z_{2j}^2\)</span>, with <span class="math inline">\(d_1\)</span> and <span class="math inline">\(d_2\)</span> degrees of freedom. In most statistical tests, like ANOVA, the question is whether this ratio is significantly larger than 1, so whether the scaled sum of squares <span class="math inline">\(U_1/d_1\)</span> is larger than the scaled sum of squares <span class="math inline">\(U_2/d_2\)</span>. Note that we can calculate this test statistic also when <span class="math inline">\(Z_{1i}\)</span> and <span class="math inline">\(Z_{2i}\)</span> are not standard normal-distributed, as long as they all have <span class="math inline">\(\mu=0\)</span>, and <strong>equal</strong> but possibly unknown variances <span class="math inline">\(\sigma^2\)</span>. because the random variables <span class="math inline">\(Z_{1i}/\sigma\)</span> and <span class="math inline">\(Z_{2j}/\sigma\)</span> will be standard normal-distributed. Taking the ratio:</p>
+<p><span class="math display">\[
+\frac{U_1/(d_1 \cdot \sigma^2)}{U_2/(d_2 \cdot \sigma^2)} = \frac{U_1/d_1}{U_2/d_2} = F
+\]</span></p>
+<p>we see that we do not need to know the variances, as long as they are equal.</p>
+<div id="analysis-of-variance" class="section level3">
+<h3><span class="header-section-number">11.8.1</span> Analysis of variance</h3>
+<p>The most important application of the F-distribution is in the analysis of variance (ANOVA). The null hypothesis tested in ANOVA is that the distributions of <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span> are equal, with alternative hypothesis that the average of <span class="math inline">\(U_1\)</span> is larger than the average of <span class="math inline">\(U_2\)</span>. <em>i.e.</em> <span class="math inline">\(F &gt; 1\)</span>, <em>i.e.</em> we perform a one-sided test in ANOVA. This is because we always calculate <span class="math inline">\(U_2\)</span> as the residual sum of squares of a model with more parameters than the model that gave the residual sum of squares <span class="math inline">\(U_1\)</span>. So, it must be true that <span class="math inline">\(U_2 \leq U_1\)</span>. The question then is whether also the residuals sum of squares scaled by the degrees of freedom are different: <span class="math inline">\(\frac{U_2}{d_2} &lt; \frac{U_1}{d_1}\)</span>, and if so, whether the difference is significant. In fact, the test used in ANOVA is a little more subtle, because there we test whether <span class="math inline">\(\frac{U_2}{d_2} &lt; \frac{U_1 - U_2}{d_1 - d_2}\)</span>, as you will see below.</p>
+<div id="comparing-alternative-models" class="section level4 unnumbered">
+<h4>Comparing alternative models</h4>
+<p>Suppose you are studying plant growth and want to compare the effect on crop yield of three alternative fertilization methods. With two alternative fertilization methods you could use the t-test to find out whether the average yield differs between the two alternatives. In the case of three or more alternatives you might want to know whether fertilization has any effect on crop yield. This is answered by the classical “one-way ANOVA” test. In fact, what you do here is testing whether one simple model M1, that says that all plants have equal average yield <span class="math inline">\(\mu\)</span>, explains the data just as well as a more complicated model M2 that says that the average yield from treatment group <span class="math inline">\(j\)</span> differs by some amount <span class="math inline">\(a_j\)</span> from the average yield or from the yield of a control group.</p>
+<p>Say that we measure the yield <span class="math inline">\(w_{ij}\)</span> of <span class="math inline">\(i = 1 \dots n\)</span> plants in each of <span class="math inline">\(j = 1 \dots k\)</span> treatment groups.</p>
+<p>The model formula’s would be for model M1: <span class="math display">\[
+w_{ij} = \mu + \epsilon_{ij}
+\]</span> and for model M2: <span class="math display">\[
+w_{ij} = \mu + a_j + \epsilon_{ij}
+\]</span></p>
+<p>where the <span class="math inline">\(\epsilon_{ij}\)</span> are normal-distributed error terms. The <span class="math inline">\(a_j\)</span> are called the ‘treatment effects’. If they were all equal to 0, model M2 would be equal to model M1. M1 and M2 are linear models which can be fitted to the data <span class="math inline">\(w_{ij}\)</span> with the <code>lm()</code> function in R. Fitting them is actually the same as calculating means of (groups of) measurements, <em>i.e.</em> the best (least squares) estimator for <span class="math inline">\(\mu\)</span> in M1 and M2 is <span class="math inline">\(\overline{w} = \frac{\sum_j \sum_i w_{ij}}{k \cdot n}\)</span> (meaning that <span class="math inline">\(\overline{w}\)</span> is the average of all weights) and for the <span class="math inline">\(a_j\)</span> in M2 it is <span class="math inline">\(\hat{a_j} = \frac{\sum_i w_{ij}}{n} - \overline{w} = \overline{w_j} - \overline{w}\)</span>. This says that the least squares estimate of <span class="math inline">\(a_j\)</span> is the difference between <span class="math inline">\(\overline{w_j}\)</span>, the average weights in treatment group <span class="math inline">\(j\)</span>, minus the overall average weight <span class="math inline">\(\overline{w}\)</span>.</p>
+<p>Clearly, model M2, having the largest number of parameters, will yield the best fit to the data. It will have the lowest residual sum of squares (RSS). Let’s call the residual sum of squares of M1 <span class="math inline">\(\text{RSS}_1\)</span> and that of M2 <span class="math inline">\(\text{RSS}_2\)</span>. For each of the models these are: <span class="math display">\[
+\text{RSS}_1 = \sum_j \sum_i (w_{ij} - \overline{w})^2
+\]</span> and <span class="math display">\[
+\text{RSS}_2 = \sum_j \sum_i (w_{ij} - (\overline{w} + \hat{a_j}))^2 = \sum_j \sum_i (w_{ij} - (\overline{w} + (\overline{w_j} - \overline{w})))^2 = \sum_j \sum_i (w_{ij} - \overline{w_j})^2
+\]</span></p>
+<p>The additional parameters of the full model M2 lead to a reduction of the RSS relative to the reduced model M1 of size <span class="math inline">\(\text{RSS}_1 - \text{RSS}_2\)</span>. Are the additional parameters in M2 justified to obtain this reduction? The test statistic for this question is</p>
+<p><span class="math display">\[
+F = \frac{(\text{RSS}_1 - \text{RSS}_2)/(d_1  -d_2)}{\text{RSS}_2/d_2}
+\]</span></p>
+<p>where <span class="math inline">\(d_1\)</span> and <span class="math inline">\(d_2\)</span> are the numbers of degrees of freedom of M1 and M2. The number of degrees of freedom of M1 and M2 equals <span class="math inline">\(n - p\)</span>, where <span class="math inline">\(n\)</span> is the number of measurements and <span class="math inline">\(p\)</span> is the number of parameters in the model. For M1 this is <span class="math inline">\(n -1\)</span>, however for M2 it is, perhaps somewhat unexpectedly, <span class="math inline">\(n - 3\)</span>. That’s unexpected at first sight, because M2 has four parameters (<span class="math inline">\(\mu\)</span>, <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_2\)</span> and <span class="math inline">\(a_3\)</span>). However, the model is fully determined by three parameters, meaning that a three-parameter model would yield exactly the same RSS as a four-parameter model. In fact, only the three parameters <span class="math inline">\(b_j = \mu + a_j\)</span> are fitted when performing linear regression.</p>
+<p>In the case that M1 fits the data perfectly (null hypothesis), apart from some normal-distributed error, the reduction in RSS per reduced degree of freedom will be equal to the RSS per degrees of freedom of model M2, and F should be somewhere near 1. Alternatively, a value <span class="math inline">\(F \gg 1\)</span> would indicate a significant reduction in RSS.</p>
+<div class="rmdnote">
+<p>
+In many statistics books you will see an alternative formulation for the test statistic for this problem. The RSS of the data is split into a “within group RSS” and “between group RSS”: <span class="math display"><span class="math display">\[
+\sum_j \sum_i (w_{ij} - \overline{w})^2 = \underbrace{\sum_i \sum_j (w_{ij} - \overline{w_j})^2}_{\text{Within group RSS}} + \underbrace{\sum_j (\overline{w_j} - 
+\overline{w})^2}_{\text{Between group RSS}}
+\]</span></span>
+</p>
+<p>
+Then the F-statistic for this problem (<em>i.e.</em> whether any of the <span class="math inline"><span class="math inline">\(a_j\)</span></span> is significantly different from 0) is written as
+</p>
+<p>
+<span class="math display"><span class="math display">\[
+F = \frac{\text{Between group RSS}/(d1-d2)}{\text{Within group RSS}/d2}
+\]</span></span>
+</p>
+<p>
+If you work out the formulas, you will see that this F-statistic is equivalent to the one formulated above. I have chosen the formulation above to demonstrate the equivalence with testing significance of parameters in regression models in the section below.
+</p>
+</div>
+</div>
+<div id="exercise-3" class="section level4 unnumbered">
+<h4>Exercise</h4>
+<ol style="list-style-type: decimal">
+<li>You compare fertilization treatments A, B and C, and weigh three plants per treatment. The weights are: A: 1.26, 1.31, 1.07; B: 1.45, 1.79, 1.34; C:1.07, 0.409, 0.611.
+<ol style="list-style-type: lower-alpha">
+<li>Put the data in a data frame that includes the groups as a factor
+<div>
+<a id="DistributionsHead9" href="javascript:toggle('DistributionsSol9','DistributionsHead9');" >Show solution</a>
+</div>
+<div id="DistributionsSol9" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">treat=</span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>), <span class="dt">each=</span><span class="dv">3</span>)), <span class="dt">weight =</span> <span class="kw">c</span>(<span class="fl">1.26</span>, <span class="fl">1.31</span>, <span class="fl">1.07</span>, <span class="fl">1.45</span>, <span class="fl">1.79</span>, <span class="fl">1.34</span>, <span class="fl">1.07</span>, <span class="fl">0.409</span>, <span class="fl">0.611</span>))</code></pre></div>
+</div></li>
+<li>Make a boxplot (just using the <code>plot</code> function)
+<div>
+<a id="DistributionsHead10" href="javascript:toggle('DistributionsSol10','DistributionsHead10');" >Show solution</a>
+</div>
+<div id="DistributionsSol10" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(d)</code></pre></div>
+<p><img src="StatR_files/figure-html/unnamed-chunk-202-1.png" width="672" /></p>
+</div></li>
+<li>Fit the two alternative models M1 and M2 and calculate their residual sums of squares as well as the degrees of freedom
+<div>
+<a id="DistributionsHead11" href="javascript:toggle('DistributionsSol11','DistributionsHead11');" >Show solution</a>
+</div>
+<div id="DistributionsSol11" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(weight<span class="op">~</span><span class="dv">1</span>, d)
+m2 &lt;-<span class="st"> </span><span class="kw">lm</span>(weight<span class="op">~</span>treat, d)
+rss1 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">residuals</span>(m1)<span class="op">^</span><span class="dv">2</span>)
+rss2 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">residuals</span>(m2)<span class="op">^</span><span class="dv">2</span>)
+n &lt;-<span class="st"> </span><span class="kw">length</span>(d<span class="op">$</span>treat)
+df1 &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+df2 &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">3</span></code></pre></div>
+</div></li>
+<li>Calculate the F-statistic as shown above. Is it significantly larger than 1?
+<div>
+<a id="DistributionsHead12" href="javascript:toggle('DistributionsSol12','DistributionsHead12');" >Show solution</a>
+</div>
+<div id="DistributionsSol12" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F &lt;-<span class="st"> </span>((rss1 <span class="op">-</span><span class="st"> </span>rss2)<span class="op">/</span>(df1 <span class="op">-</span><span class="st"> </span>df2))<span class="op">/</span>(rss2<span class="op">/</span>df2)
+F</code></pre></div>
+<pre><code>## [1] 8.509283</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(F,df1<span class="op">-</span>df2,df2)</code></pre></div>
+<pre><code>## [1] 0.01771002</code></pre>
+<p>So, the value is significantly higher than 1</p>
+</div></li>
+<li>Perform the same analysis by only carrying out an ANOVA on model M2, using the <code>anova()</code> function. This function automatically compares it to the simpler model M1 (which is always the same for this type of problem).
+<div>
+<a id="DistributionsHead13" href="javascript:toggle('DistributionsSol13','DistributionsHead13');" >Show solution</a>
+</div>
+<div id="DistributionsSol13" style="display: none">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(m2)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: weight
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## treat      2 1.0540 0.52701  8.5093 0.01771 *
+## Residuals  6 0.3716 0.06193                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre></li>
+</ol>
+</div></li>
+</ol>
+</div>
+<div id="comparing-alternative-regression-models" class="section level4 unnumbered">
+<h4>Comparing alternative regression models</h4>
+<p>Suppose that you have a data set consisting of <span class="math inline">\((x_i,y_i)\)</span> pairs, where <span class="math inline">\(\mathbf{x}\)</span> is the independent and <span class="math inline">\(\mathbf{y}\)</span> the dependent variable. You want to know whether you should fit a first or second degree polynomial to the data. <em>I.e.</em> model M1: <span class="math display">\[
+y_i = a_0 + a_1 x_i + \epsilon_i
+\]</span> or model M2: <span class="math display">\[
+y_i = a_0 + a_1 x_i + a_2 x_i^2 + \epsilon_i
+\]</span> where <span class="math inline">\(\epsilon_i\)</span> is the error term. We call M1 a reduced form of the full model M2, because it is equal to M2, with the constraint that <span class="math inline">\(a_2=0\)</span>. Clearly, the model M2 will have a better fit to the data, because it contains an additional parameter. This will be apparent from the lower sum of squared residuals for M2 than for M1, or <span class="math inline">\(\sum \epsilon_i^2\)</span> will be smaller for M2 than for M1. The same question as above can be asked: does that additional parameter lead to a reduction in residual sum of squares (<span class="math inline">\(\text{RSS}_1 - \text{RSS}_2\)</span>) that warrants an additional parameter? The number of degrees of freedom in <span class="math inline">\(\text{RSS}_1\)</span> and <span class="math inline">\(\text{RSS}_2\)</span> are <span class="math inline">\(d_1=n-p_1\)</span> and <span class="math inline">\(d_2=n-p_2\)</span>, where <span class="math inline">\(n\)</span> is the number of measurements and <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> are the number of parameters in M1 and M2, respectively. In the case of the comparison M1 and M2 here, <span class="math inline">\(\text{RSS}_2\)</span> will have 1 degree of freedom less than <span class="math inline">\(\text{RSS}_1\)</span>. The F-test statistic for this problem is:</p>
+<p><span class="math display">\[
+F = \frac{(\text{RSS}_1 - \text{RSS}_2)/(d_1  -d_2)}{\text{RSS}_2/d_2}
+\]</span></p>
+<p>It can be used to answer the question: is the “quantity of RSS” in the number of degrees of freedom (<span class="math inline">\(d1 - d2\)</span>) significantly larger than in <span class="math inline">\(\text{RSS}_2/d_2\)</span>, <em>i.e.</em> the normalized RSS in the best fitting model? If it is not, then the improvement of fit is not more than expected based just on the additional parameters of M2 when M1 would already fit perfectly well and <span class="math inline">\(\text{RSS}_1\)</span> contains only experimental noise, and is not due to lack of fit.</p>
+</div>
+<div id="exercise-4" class="section level4 unnumbered">
+<h4>Exercise</h4>
+<ol style="list-style-type: decimal">
+<li>You have measurements of some variable <span class="math inline">\(y\)</span> that is a function of another variable <span class="math inline">\(x\)</span>: <span class="math inline">\(x=0,1,2,3,4\)</span> and <span class="math inline">\(y=-0.179,1.187,2.918,4.124,6.384\)</span>.
+<ol style="list-style-type: lower-alpha">
+<li>Plot the data and make two linear models (function <code>lm()</code>), one in which you fit a first-degree polynomial (line) and another where you fit a second-degree polynomial (parabola). To fit a second degree polynomial you should use the R-formula <code>y~x + I(x^2)</code> in the <code>lm()</code> function.
+<div>
+<a id="DistributionsHead14" href="javascript:toggle('DistributionsSol14','DistributionsHead14');" >Show solution</a>
+</div>
+<div id="DistributionsSol14" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)
+y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.179</span>,<span class="fl">1.187</span>,<span class="fl">2.918</span>,<span class="fl">4.124</span>,<span class="fl">6.384</span>)
+<span class="kw">plot</span>(x,y,<span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)
+m2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+</div></li>
+<li>You want to know whether the second-degree polynomial has a significantly better fit than the first-degree polynomial. Obtain the residual sums of squares from the <code>lm</code> objects. Also calculate their degrees of freedom (<span class="math inline">\(n - k\)</span>, where <span class="math inline">\(n\)</span> is the number of measurements, <span class="math inline">\(k\)</span> the number of fitted parameters)
+<div>
+<a id="DistributionsHead15" href="javascript:toggle('DistributionsSol15','DistributionsHead15');" >Show solution</a>
+</div>
+<div id="DistributionsSol15" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ss1 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">residuals</span>(m1)<span class="op">^</span><span class="dv">2</span>)
+ss2 &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">residuals</span>(m2)<span class="op">^</span><span class="dv">2</span>)
+df1 &lt;-<span class="st"> </span><span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
+df2 &lt;-<span class="st"> </span><span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">3</span></code></pre></div>
+</div></li>
+<li>Calculate the F-statistic according to the formula above. Is it significantly larger than 1?
+<div>
+<a id="DistributionsHead16" href="javascript:toggle('DistributionsSol16','DistributionsHead16');" >Show solution</a>
+</div>
+<div id="DistributionsSol16" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F &lt;-<span class="st"> </span>((ss1<span class="op">-</span>ss2)<span class="op">/</span>(df1<span class="op">-</span>df2))<span class="op">/</span>(ss2<span class="op">/</span>(df2))
+<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(F,(df1<span class="op">-</span>df2),df2)</code></pre></div>
+<pre><code>## [1] 0.3228608</code></pre>
+</div>
+The reduction in sum of squares is not significantly different from what would be expected by the additional parameter in M2 if M1 already fits perfectly well.</li>
+<li>Perform the same test with the <code>anova()</code> function (just fill in: <code>anova(model1, model2)</code>, where <code>model1</code> and <code>model2</code> are the <code>lm</code> objects.)
+<div>
+<a id="DistributionsHead17" href="javascript:toggle('DistributionsSol17','DistributionsHead17');" >Show solution</a>
+</div>
+<div id="DistributionsSol17" style="display: none">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(m1,m2)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: y ~ x
+## Model 2: y ~ x + I(x^2)
+##   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
+## 1      3 0.24850                           
+## 2      2 0.13456  1   0.11394 1.6936 0.3229</code></pre></li>
+</ol>
+</div></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="formulasyntax.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="linearmodels.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

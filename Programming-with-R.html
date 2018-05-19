@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="file-io.html">
+<link rel="next" href="vectorization.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Programming-with-R" class="section level1">
+<h1><span class="header-section-number">CHAPTER 7</span> Programming with R</h1>
+<div id="defining-a-function" class="section level2">
+<h2><span class="header-section-number">7.1</span> Defining a function</h2>
+<p>R has many built-in functions. However, often you will encounter situations in which you want to make your own new function, for example because you will repeatedly do a similar, somewhat complicated calculation on one or more objects. In R you can define your own functions by using the <code>function</code> statement. The general structure of a function definition in R is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">functionName &lt;-<span class="st"> </span><span class="cf">function</span> (argument1, argument2, ...) {
+    <span class="co"># here comes the function body doing things with the arguments and calculating some &#39;object&#39;. Then we return that object.</span>
+  <span class="kw">return</span>(object)
+}</code></pre></div>
+<p>where <code>functionName</code> is the new name by which you call (use) your function, the argument list (one or more) is given in brackets, and the <em>function body</em> contains the calculations performed on the <em>arguments</em>. The calculated object is returned explicitly with <code>return(object)</code> or, alternatively, if it is the result of the last calculation in the function body then it is implicitly returned. Subsequently, you call your new function as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">functionName</span>(value1, value2, ...)</code></pre></div>
+<p>Typically, complex functions are written in R-script files for re-use. These files can then be read into an R-session using R’s <code>source()</code> function, for example.</p>
+<p>Let’s define a very simple function called “Circlesurface” that calculates the surface of a circular disc (<span class="math inline">\(\pi \cdot r^{2}\)</span>), given its radius (the only argument for this function):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Circlesurface &lt;-<span class="st"> </span><span class="cf">function</span>(radius) pi<span class="op">*</span>radius<span class="op">^</span><span class="dv">2</span></code></pre></div>
+<p>Here, since our <em>function body</em> contains only one statement, we don’t have to put it in a <em>code block</em> surrounded by curly brackets (see below). And you also see that we use the implicit return of the last calculated value in the function body. After submitting this function to R, we can use it to calculate the surfaces of discs with given radius:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Circlesurface</span>(<span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 314.1593</code></pre>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Circlesurface</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</code></pre></div>
+<pre><code>## [1]  3.141593 12.566371 28.274334 50.265482</code></pre>
+<p>which will calculate the surface of discs with radii 1, 2, 3 and 4 (Why does your function also work on a vector with multiple elements?). More complicated functions may return more than one element:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Sphere &lt;-<span class="st"> </span><span class="cf">function</span>(radius) {
+  v &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span>pi<span class="op">*</span>radius<span class="op">^</span><span class="dv">3</span>
+  s &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">*</span>pi<span class="op">*</span>radius<span class="op">^</span><span class="dv">2</span>
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">volume=</span>v, <span class="dt">surface=</span>s))
+}</code></pre></div>
+<p>Here we recognize</p>
+<ul>
+<li><p>The function heading (first line), specifying the name of the function (Sphere) and the input parameter or argument (radius)</p></li>
+<li><p>The function specification. As the function comprises multiple statements, the function specification now has to be embraced by curly braces “{ … }” in a so-called <em>code block</em>.</p></li>
+<li><p>The return values (last line in the block). Sphere will return the volume and surface of a sphere, as a <code>list</code> object.</p></li>
+</ul>
+<p>The earth has approximate radius 6371 km, so its volume (km<sup>3</sup>) and surface (km<sup>2</sup>) are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sphere</span>(<span class="dv">6371</span>)</code></pre></div>
+<pre><code>## $volume
+## [1] 1.083207e+12
+## 
+## $surface
+## [1] 510064472</code></pre>
+<p>The next statement will only display the volume of spheres with radius 1, 2, … 5</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sphere</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)<span class="op">$</span>volume</code></pre></div>
+<pre><code>## [1]   4.18879  33.51032 113.09734 268.08257 523.59878</code></pre>
+<p>Sometimes it is convenient to provide default values for the input parameters. For instance, the next function estimates the density of “standard mean ocean water” (in kg/m<sup>3</sup>), as a function of temperature, T, (and for salinity=0, pressure=1 atm); the input parameter T is by default equal to 20°C:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Rho_W &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">T=</span><span class="dv">20</span>) {
+  <span class="fl">999.842594</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.06793952</span> <span class="op">*</span><span class="st"> </span>T <span class="op">-</span><span class="st"> </span><span class="fl">0.00909529</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st">  </span><span class="fl">0.0001001685</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.120083e-06</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">4</span> <span class="op">+</span><span class="st">  </span><span class="fl">6.536332e-09</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">5</span>
+}</code></pre></div>
+<p>Calling the function without specifying temperature, uses the default value:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Rho_W</span>()</code></pre></div>
+<pre><code>## [1] 998.2063</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Rho_W</span>(<span class="dv">20</span>)</code></pre></div>
+<pre><code>## [1] 998.2063</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Rho_W</span>(<span class="dv">0</span>)</code></pre></div>
+<pre><code>## [1] 999.8426</code></pre>
+<p>Finally, we have now seen functions with one argument, but you can also build functions with multiple arguments by providing the arguments in a comma-separated list in the argument brackets.</p>
+</div>
+<div id="program-flow-control" class="section level2">
+<h2><span class="header-section-number">7.2</span> Program flow control</h2>
+<p>Complex functions or procedures often require the encoding of alternative computational paths or the repeated application of a single computational path (looping)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. For example, our <code>Rho_W()</code> function defined above is only valid for a certain range of temperatures, let’s say -5°C to 50°C. If the query temperature is outside this range, instead of extrapolating to a probably false density value, it is safer to return the <code>NA</code> value (not available). To implement this we need code in our function that tests whether we are in the correct temperature range and, based on this test, return either the interpolated density or <code>NA</code>. We can use the if/else construct. In general, an if/else construct looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (condition) {
+    <span class="co"># do things</span>
+} <span class="cf">else</span> {
+    <span class="co"># do other things</span>
+}</code></pre></div>
+<p>Specifically, in our case we want to test whether T is between -5°C and 50°C, or both <span class="math inline">\(T\geqq-5\)</span> and <span class="math inline">\(T\leqq50\)</span> must be true. To see how these logical and comparison operators work, first have a look at their help pages <code>help(Comparison)</code> and <code>help(Logic)</code>. Let us test them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">T &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">10</span>
+T <span class="op">&gt;=</span><span class="st"> </span><span class="op">-</span><span class="dv">5</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">T <span class="op">&lt;=</span><span class="st"> </span><span class="dv">50</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">T <span class="op">&gt;=</span><span class="st"> </span><span class="op">-</span><span class="dv">5</span> <span class="op">&amp;&amp;</span><span class="st"> </span>T <span class="op">&lt;=</span><span class="st"> </span><span class="dv">50</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">T &lt;-<span class="st"> </span><span class="dv">1</span>
+T <span class="op">&gt;=</span><span class="st"> </span><span class="op">-</span><span class="dv">5</span> <span class="op">&amp;&amp;</span><span class="st"> </span>T <span class="op">&lt;=</span><span class="st"> </span><span class="dv">50</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>So, in the <code>if</code> statement of our adapted Rho_W function we can use the condition <code>T &gt;= -5 &amp;&amp; T &lt;= 50</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Rho_W &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">T=</span><span class="dv">20</span>) {
+  <span class="cf">if</span> (T <span class="op">&gt;=</span><span class="st"> </span><span class="op">-</span><span class="dv">5</span> <span class="op">&amp;&amp;</span><span class="st"> </span>T <span class="op">&lt;=</span><span class="st"> </span><span class="dv">50</span>) {
+    <span class="fl">999.842594</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.06793952</span> <span class="op">*</span><span class="st"> </span>T <span class="op">-</span><span class="st"> </span><span class="fl">0.00909529</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.0001001685</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.120083e-06</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.536332e-09</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">5</span>
+  } <span class="cf">else</span> {
+    <span class="ot">NA</span>
+  }
+}</code></pre></div>
+<p>The indentation that we use here is only for aesthetical purposes and is not interpreted by R. Also note that function statements automatically return the last value just before function exit, in this case either the result of the polynomial formula or <code>NA</code>. To make the return value more explicitly known to the reader of the code, we could have written:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Rho_W &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">T=</span><span class="dv">20</span>) {
+  <span class="cf">if</span> (T <span class="op">&gt;=</span><span class="st"> </span><span class="op">-</span><span class="dv">5</span> <span class="op">&amp;&amp;</span><span class="st"> </span>T <span class="op">&lt;=</span><span class="st"> </span><span class="dv">50</span>) {
+    <span class="kw">return</span>(<span class="fl">999.842594</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.06793952</span> <span class="op">*</span><span class="st"> </span>T <span class="op">-</span><span class="st"> </span><span class="fl">0.00909529</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.0001001685</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.120083e-06</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="fl">6.536332e-09</span> <span class="op">*</span><span class="st"> </span>T<span class="op">^</span><span class="dv">5</span>)
+  } <span class="cf">else</span> {
+    <span class="kw">return</span>(<span class="ot">NA</span>)
+  }
+}</code></pre></div>
+<p>For simple cases of if/else decisions, there is the one-liner instruction <code>ifelse</code>. The special thing about <code>ifelse</code> is that it returns an object with the same shape as the condition object when it is coerced into logical mode (see <code>help(ifelse)</code>). This can be handy, but also confusing sometimes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+<span class="kw">ifelse</span>(a<span class="op">&lt;</span><span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] 0 0 1 0 1</code></pre>
+<p>The condition object is <code>a &lt; 3</code>, is coerced into a logical vector <code>c(TRUE, TRUE, FALSE, TRUE, FALSE)</code>. Accordingly, either 0 (<code>TRUE</code> cases) or 1 (<code>FALSE</code> cases) are plugged in the output vector. However, for the usual programmatic <code>if (condition) {do thing 1} else {do thing 2}</code> construction this doesn’t work:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (a<span class="op">&lt;</span><span class="dv">3</span>) {<span class="dv">0</span>} <span class="cf">else</span> {<span class="dv">5</span>}</code></pre></div>
+<pre><code>## Warning in if (a &lt; 3) {: the condition has length &gt; 1 and only the first
+## element will be used</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p>As the warning message already says, the if/else construction can not use a logical vector of length greater than 1, and if the condition statement evaluates to a vector with more than one element only the first element will be used for the program flow decision. So, you should take care that in an if/else construction the condition statement always coerces to a logical vector of length 1, otherwise you can get surprising results. This is also the reason that you should preferably use the <code>&amp;&amp;</code> and <code>||</code> operators (logical AND and OR) instead of <code>&amp;</code> and <code>|</code> in these condition statements (see <code>help(Logic)</code>).</p>
+<p>Looping several times through the same set of statements is another desirable program flow feature. There are a few ways to do this, the most common being the <code>for</code> and the <code>while</code> loops. The <code>for</code> loop uses an iterator statement, which has the structure <code>var in seq</code>, where <code>var</code> is a variable that assumes, before each turn of the loop, the next value in the vector <code>seq</code>, starting from the first element. Looping stops after the last element is used. The <code>while</code> loop uses a condition statement that it tests before starting each turn of the loop. If the condition evaluates to <code>TRUE</code>, looping continues, whereas it stops if the condition evaluates to <code>FALSE</code>. Some examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&#39;one&#39;</span>, <span class="st">&#39;two&#39;</span>, <span class="st">&#39;three&#39;</span>)) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&#39;Loop number&#39;</span>,i))
+}</code></pre></div>
+<pre><code>## [1] &quot;Loop number one&quot;
+## [1] &quot;Loop number two&quot;
+## [1] &quot;Loop number three&quot;</code></pre>
+<p>Here the variable <code>i</code> iterates through the sequence (vector) <code>c('one', 'two', 'three')</code>. Each loop, <code>i</code> has a different content which is used in the <code>print(paste(...))</code> statement.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="dv">0</span>
+cube &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="cf">while</span> (cube <span class="op">&lt;</span><span class="st"> </span><span class="dv">100</span>) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The cube of&quot;</span>, i, <span class="st">&quot;is smaller than 100&quot;</span>))
+  i &lt;-<span class="st"> </span>i<span class="op">+</span><span class="dv">1</span>
+  cube &lt;-<span class="st"> </span>i<span class="op">^</span><span class="dv">3</span>
+}
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;We stopped because the cube of&quot;</span>, i, <span class="st">&quot;is larger than 100&quot;</span>))</code></pre></div>
+<p>Notice that, in contrast to the case of <code>for</code> loops, it is easy to write infinitely continuing <code>while</code> loops. For example, if we had forgotten to write the statement <code>i &lt;- i+1</code> in the looping block. If that happens, stop the calculation with ctrl-z or, if that doesn’t work, terminate the R-process with the task manager (ctrl-alt-delete).</p>
+</div>
+<div id="literature" class="section level2">
+<h2><span class="header-section-number">7.3</span> Literature</h2>
+<p>An additional introduction to programming in R can be found in the manual <em>R Language Definition</em> on the R website (<a href="http://www.r-project.org" class="uri">http://www.r-project.org</a>). Advanced programming issues and creation of packages are treated in the manual <em>Writing R Extensions</em> on the same website and in <span class="citation">Chambers (<a href="#ref-Chambers2008">2008</a>)</span>.</p>
+</div>
+<div id="exercises-3" class="section level2">
+<h2><span class="header-section-number">7.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><strong>The function “Sphere”</strong>. Extend the “Sphere” function on  with the circumference of the sphere at the place of maximal radius. The formula for estimating the circumference of a circle with radius r is: <span class="math inline">\(2\cdot\pi\cdot r\)</span>. What is the circumference of the earth near the equator?
+<div>
+<a id="ProgrammingHead1" href="javascript:toggle('ProgrammingSol1','ProgrammingHead1');" >Show solution</a>
+</div>
+<div id="ProgrammingSol1" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Sphere &lt;-<span class="st"> </span><span class="cf">function</span>(radius) {
+  v &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span>pi<span class="op">*</span>radius<span class="op">^</span><span class="dv">3</span>
+  s &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">*</span>pi<span class="op">*</span>radius<span class="op">^</span><span class="dv">2</span>
+  c &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>radius
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">volume=</span>v, <span class="dt">surface=</span>s, <span class="dt">circumference=</span>c))
+}</code></pre></div>
+<p>The circumference of the Earth equals <code>Sphere(6371)$circumference</code>=4.003017410^{4} km.</p>
+</div></li>
+<li><p><strong>An R-function to estimate saturated oxygen concentrations</strong>. The saturated oxygen concentration in water (<span class="math inline">\(\mu\)</span>mol.kg<sup>-1</sup>), as function of temperature (T), and salinity (S in ppt, parts per thousand) can be calculated by SatOx=<span class="math inline">\(e^{A}\)</span> where:</p>
+<span class="math display">\[\begin{multline}
+A = -173.9894 + \frac{25559.07}{T} + 146.4813 \cdot \ln \left( \frac{T}{100} \right) - 22.204 \cdot \frac{T}{100} \\
+ + S \cdot \left[ -0.037362 + 0.016504 \cdot \frac{T}{100} - 0.0020564 \cdot \left( \frac{T}{100} \right)^2 \right]
+\end{multline}\]</span>
+<p>and <span class="math inline">\(T\)</span> is temperature in Kelvin (<span class="math inline">\(T_{Kelvin}=T_{Celsius}+273.15\)</span>).</p>
+Tasks:
+<ul>
+<li>Make a function that implements this formula; the default values for temperature and salinity are 20°C and 35 ppt, respectively. The temperature <em>input</em> should be in degrees Celsius.</li>
+<li>What is the saturated oxygen concentration at the default conditions? (Answer: 225.2346)</li>
+<li>Estimate the saturated oxygen concentration for a range of temperatures from 0°C to 30°C, and salinity 35 ppt. (Do not use loops!).</li>
+</ul>
+<div>
+<a id="ProgrammingHead2" href="javascript:toggle('ProgrammingSol2','ProgrammingHead2');" >Show solution</a>
+</div>
+<div id="ProgrammingSol2" style="display: none">
+<ul>
+<li></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SatOx &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">T=</span><span class="dv">20</span>, <span class="dt">S=</span><span class="dv">35</span>) {
+  T &lt;-<span class="st"> </span>T <span class="op">+</span><span class="st"> </span><span class="fl">273.15</span>
+  A &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">173.9894</span> <span class="op">+</span><span class="st"> </span>(<span class="fl">25559.07</span><span class="op">/</span>T) <span class="op">+</span><span class="st"> </span><span class="fl">146.4813</span><span class="op">*</span><span class="kw">log</span>(T<span class="op">/</span><span class="dv">100</span>)<span class="op">-</span><span class="fl">22.204</span><span class="op">*</span>(T<span class="op">/</span><span class="dv">100</span>) <span class="op">+</span><span class="st"> </span>S<span class="op">*</span>(<span class="op">-</span><span class="fl">0.037362</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.016504</span><span class="op">*</span>(T<span class="op">/</span><span class="dv">100</span>)<span class="op">-</span><span class="fl">0.0020564</span><span class="op">*</span>(T<span class="op">/</span><span class="dv">100</span>)<span class="op">^</span><span class="dv">2</span>)
+  <span class="kw">return</span>(<span class="kw">exp</span>(A))
+}</code></pre></div>
+<ul>
+<li><code>SatOx()</code><span class="math inline">\(=225.2345729\)</span></li>
+<li><code>SatOx(T=seq(0,30,by=5))</code><span class="math inline">\(=349.6541533, 308.2286415, 274.9097853, 247.7234524, 225.2345729, 206.3833132, 190.3754653\)</span></li>
+</ul>
+</div></li>
+</ol>
+<div id="programming-loops" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Loops</h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>Column averages</strong>. Create a matrix <code>a</code> with 10 columns</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dt">ncol=</span><span class="dv">10</span>)</code></pre></div>
+<p>Also create a vector <code>avgs</code> with 10 zeros. Now make a <code>for</code> loop that fills in the column average for every column in <code>a</code> at the corresponding position in the <code>avgs</code> vector. The result should look like</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avgs</code></pre></div>
+<pre><code>##  [1]  5.5 15.5 25.5 35.5 45.5 55.5 65.5 75.5 85.5 95.5</code></pre>
+In chapter <a href="vectorization.html#vectorization">8</a> you will learn a much more efficient way to do the same.
+<div>
+<a id="ProgrammingHead3" href="javascript:toggle('ProgrammingSol3','ProgrammingHead3');" >Show solution</a>
+</div>
+<div id="ProgrammingSol3" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avgs &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length=</span><span class="kw">dim</span>(a)[<span class="dv">2</span>], <span class="dt">mode=</span><span class="st">&#39;numeric&#39;</span>)
+<span class="co"># Or, alternatively</span>
+avgs &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">dim</span>(a)[<span class="dv">2</span>])
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(a)[<span class="dv">2</span>]) {
+  avgs[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(a[,i])
+}</code></pre></div>
+</div></li>
+<li><strong>Fibonacci numbers</strong>. The Fibonacci numbers are calculated by the following relation: <span class="math inline">\(F_{n}=F_{n-1}+F_{n-2}\)</span>, with <span class="math inline">\(F_{1}=F_{2}=1\)</span>. Tasks:
+<ul>
+<li>Compute the first 50 Fibonacci numbers; store the results in a vector (use R function <code>vector()</code> to create it). You have to use a loop here.</li>
+<li>For large <span class="math inline">\(n\)</span>, the ratio <span class="math inline">\(F_{n}/F_{n-1}\)</span> approaches the “golden mean”: <span class="math inline">\(\left(1+\sqrt{5}\right)/2\)</span>. What is the value of <span class="math inline">\(F_{50}/F_{49}\)</span>; is it equal to the golden mean?</li>
+<li>When is <span class="math inline">\(n\)</span> large enough? (i.e. sufficiently close (difference <span class="math inline">\(&lt;1e-6\)</span>) to the golden mean).</li>
+</ul>
+<div>
+<a id="ProgrammingHead4" href="javascript:toggle('ProgrammingSol4','ProgrammingHead4');" >Show solution</a>
+</div>
+<div id="ProgrammingSol4" style="display: none">
+<ul>
+<li></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fibs &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length=</span><span class="dv">50</span>,<span class="dt">mode=</span><span class="st">&#39;numeric&#39;</span>)
+fibs[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+fibs[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">3</span><span class="op">:</span><span class="dv">50</span>) {
+  fibs[i] &lt;-<span class="st"> </span>fibs[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>fibs[i<span class="op">-</span><span class="dv">2</span>]
+}</code></pre></div>
+<ul>
+<li><code>fibs[50]/fibs[49]</code><span class="math inline">\(=1.618034\)</span>. <code>(1 + sqrt(5))/2</code><span class="math inline">\(=1.618034\)</span>. So, yes at this level of accuracy they are equal.</li>
+<li>Since the ratio of two consecutive Fibonacci numbers can be larger or smaller than <span class="math inline">\(&lt;1e-6\)</span> we have to test for the <em>absolute</em> difference between the Golden mean and the ratio:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ratio &lt;-<span class="st"> </span>fibs[<span class="dv">2</span><span class="op">:</span><span class="dv">50</span>]<span class="op">/</span>fibs[<span class="dv">1</span><span class="op">:</span><span class="dv">49</span>]
+<span class="kw">which</span>(<span class="kw">abs</span>(ratio <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>))<span class="op">/</span><span class="dv">2</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e-6</span>)</code></pre></div>
+<pre><code>##  [1] 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38
+## [24] 39 40 41 42 43 44 45 46 47 48 49</code></pre>
+<p>So, starting with the 16-th ratio (<code>fibs[17]/fibs[16]</code>) the difference with the Golden mean is smaller than <span class="math inline">\(1e-6\)</span>.</p>
+</div></li>
+</ol>
+</div>
+<div id="diversity-of-deep-sea-nematodes" class="section level3 unnumbered">
+<h3>Diversity of deep-sea nematodes</h3>
+<p>Starting from your code from the exercise  to estimate diversity indices for deep sea station M160b, now write a loop that does so for all the stations in <code>Nemaspec</code>.</p>
+<ol style="list-style-type: decimal">
+<li><p>First create a matrix called <code>div</code>, with the number of rows equal to the number of deep sea stations, and with 6 columns, one for each diversity index. This matrix will contain the diversity values.</p></li>
+<li><p>The column names of <code>div</code> are: “N”, “S”, “N1”, “N2”, “N3”, and “ES”. The row names of matrix <code>div</code> are the station names (= the column names of <code>Nemaspec</code>). Tip: Use R-commands <code>colnames()</code>, <code>rownames()</code>.</p></li>
+<li><p>Now loop over all columns of data frame <code>Nemaspec</code>, estimate the diversity indices and put the results in the correct row of matrix <code>div</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(Nemaspec)) {
+  <span class="co"># Here write your part of the code</span>
+}</code></pre></div></li>
+<li><p>Show matrix <code>div</code> to the screen.</p></li>
+</ol>
+</div>
+<div id="diversity-indices-a-function-optional" class="section level3 unnumbered">
+<h3>Diversity indices – a function (optional)</h3>
+<p>Based on the results obtained in the previous section, make a function that will calculate the diversity indices for any data matrix.</p>
+</div>
+<div id="rarefaction-diversity-optional" class="section level3 unnumbered">
+<h3>Rarefaction diversity (optional)</h3>
+<p>In ecology, rarefaction is a technique to compare species richness computed from samples of different sizes. Here, try an alternative way of estimating the number of species per 100 individuals by taking random “subsamples” of 100 individuals <em>with replacement</em> and estimating the number of species from this sub-sample (this is a so-called bootstrap method). If the procedure is repeated often enough, the mean value should converge to the expected number of species, ES(100). This is the rarefaction method of <span class="citation">Sanders (<a href="#ref-Sanders1968">1968</a>)</span>. You may need the following new R-functions<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>:</p>
+<ul>
+<li><p><code>round()</code> (converting reals to integers),</p></li>
+<li><p><code>cumsum()</code> (take a cumulative sum),</p></li>
+<li><p><code>sample()</code> (take random selection of elements, set <code>replace=TRUE</code>),</p></li>
+<li><p><code>table()</code> (to make a table of counts),</p></li>
+</ul>
+<p>as well as <code>length()</code>, <code>mean()</code>. <span class="citation">Hurlbert (<a href="#ref-Hurlbert1971">1971</a>)</span> showed that rarefaction generally overestimates the true estimated number of species. Can you corroborate this finding?</p>
+
+</div>
+</div>
+<div id="add-prog-ex" class="section level2">
+<h2><span class="header-section-number">7.5</span> Additional programming exercises</h2>
+<p>For programming enthusiasts.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong><em>The factorial function.</em></strong> Create 3 implementations of the factorial function <span class="math inline">\(n!=1\cdot2\ldots n\)</span>. Test the speed of your factorial functions by using the <code>system.time()</code> function to measure the time it takes to calculate 10000 times <span class="math inline">\(50!\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Using a for loop</p></li>
+<li><p>Using recursion (i.e. the function calls itself in the function body)</p></li>
+<li><p>Using vectorized R-operators</p></li>
+</ol>
+<div>
+<a id="addProgHead1" href="javascript:toggle('addProgSol1','addProgHead1');" >Show solution</a>
+</div>
+<div id="addProgSol1" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The loop version</span>
+fac1 &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
+    ans &lt;-<span class="st"> </span><span class="dv">1</span>
+    <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(n)) ans &lt;-<span class="st"> </span>ans <span class="op">*</span><span class="st"> </span>i
+    <span class="kw">return</span>(ans)
+}
+
+<span class="co"># The recursive version.</span>
+fac2 &lt;-<span class="st"> </span><span class="cf">function</span>(n) <span class="cf">if</span> (n <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="dv">1</span> <span class="cf">else</span> n <span class="op">*</span><span class="st"> </span><span class="kw">fac2</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+
+<span class="co"># The vectorized version</span>
+fac3 &lt;-<span class="st"> </span><span class="cf">function</span>(n) <span class="kw">prod</span>(<span class="kw">seq</span>(n))
+
+<span class="co"># Measuring the speed of each function by repeating fac(50) N times</span>
+<span class="co"># shows that the vectorized version is fastest in R</span>
+N &lt;-<span class="st"> </span><span class="dv">10000</span>
+<span class="kw">sapply</span>(<span class="kw">c</span>(<span class="st">&#39;fac1&#39;</span>,<span class="st">&#39;fac2&#39;</span>,<span class="st">&#39;fac3&#39;</span>), <span class="cf">function</span>(x) {
+  <span class="kw">system.time</span>(<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) <span class="kw">do.call</span>(x,<span class="kw">list</span>(<span class="dv">50</span>)))
+  })</code></pre></div>
+<pre><code>##             fac1  fac2  fac3
+## user.self  0.098 0.249 0.078
+## sys.self   0.000 0.000 0.000
+## elapsed    0.098 0.249 0.078
+## user.child 0.000 0.000 0.000
+## sys.child  0.000 0.000 0.000</code></pre>
+</div></li>
+<li><p><strong>The sieve of Eratosthenes.</strong> Create an implementation of the sieve of Eratosthenes. This algorithm, known in ancient Greece, finds all prime numbers smaller than a certain number <span class="math inline">\(N\)</span>. It works as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Make a list of all numbers <span class="math inline">\(1\ldots N\)</span></p></li>
+<li><p>Set a test variable <span class="math inline">\(x\)</span> equal to 2</p></li>
+<li><p>Remove all multiples of <span class="math inline">\(x\)</span> from the list</p></li>
+<li><p>If <span class="math inline">\(x&lt;N\)</span> then increase <span class="math inline">\(x\)</span> by <span class="math inline">\(1\)</span> and go to step 3, otherwise stop</p></li>
+</ol>
+The efficiency of the algorithm can be increased considerably by observing that you can start removing multiples of <span class="math inline">\(x\)</span> from a value of <span class="math inline">\(x^{2}\)</span>, since a multiple of <span class="math inline">\(x\)</span> below <span class="math inline">\(x^{2}\)</span> must also have been a multiple of a number smaller than <span class="math inline">\(x\)</span>. Furthermore, you can now also see that you can stop the procedure in step 4 much earlier than when <span class="math inline">\(x\geqslant N\)</span>, namely when <span class="math inline">\(x&gt;\sqrt{N}\)</span>. To construct the implementation, use vectorized operators as much as possible. Check the correctness of your algorithm against the ``A000040’’ sequence, which lists the first 59 prime numbers. See <a href="http://oeis.org/A000040" class="uri">http://oeis.org/A000040</a>.
+<div>
+<a id="addProgHead2" href="javascript:toggle('addProgSol2','addProgHead2');" >Show solution</a>
+</div>
+<div id="addProgSol2" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A simple sieve</span>
+<span class="st">&#39;sieve1&#39;</span> &lt;-<span class="st"> </span><span class="cf">function</span> (n) {
+    ans &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">:</span>n
+    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">trunc</span>(<span class="kw">sqrt</span>(n))) {
+        r &lt;-<span class="st"> </span>i<span class="op">^</span><span class="dv">2</span><span class="op">:</span>n
+        ans &lt;-<span class="st"> </span>ans[<span class="op">!</span>(ans <span class="op">%in%</span><span class="st"> </span>r[r <span class="op">%%</span><span class="st"> </span>i <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])]
+    }
+    <span class="kw">return</span>(ans)
+}
+
+<span class="co"># My most efficient one, in the sense that it avoids all double work. Is much faster for large n!</span>
+<span class="st">&#39;sieve2&#39;</span> &lt;-<span class="st"> </span><span class="cf">function</span> (n) {
+    <span class="co"># First set up a logical vector, length n, that will keep track of whether a number has been sieved out</span>
+    selection &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="kw">rep</span>(<span class="ot">TRUE</span>,n<span class="op">-</span><span class="dv">1</span>))
+    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">trunc</span>(<span class="kw">sqrt</span>(n))) {
+        <span class="co"># If i was sieved out before, because it was a multiple of a smaller number, then testing it is unnecessary</span>
+        <span class="cf">if</span> (selection[i]) {
+            <span class="co"># set up r: the range of numbers to be tested</span>
+            r &lt;-<span class="st"> </span>(i<span class="op">^</span><span class="dv">2</span><span class="op">:</span>n)
+            <span class="co"># remove from r the numbers that were already sieved out before</span>
+            r &lt;-<span class="st"> </span>r[selection[r]]
+            <span class="co"># set the positions in &#39;selection&#39; corresponding to multiples of i to FALSE</span>
+            selection[r[r <span class="op">%%</span><span class="st"> </span>i <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]] &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+        }
+    }
+    <span class="kw">return</span>((<span class="dv">1</span><span class="op">:</span>n)[selection])
+}
+
+<span class="co"># Recursive version. Because R doesn&#39;t like deep recursion it will not work for large n</span>
+<span class="st">&#39;sieve3&#39;</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
+    minlen &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)
+    <span class="co"># define the recursive function inside the calling function</span>
+    <span class="st">&#39;partsieve&#39;</span> &lt;-<span class="st"> </span><span class="cf">function</span>(l1) {
+        <span class="cf">if</span> (<span class="kw">length</span>(l1) <span class="op">&lt;</span><span class="st"> </span>minlen) {
+            <span class="kw">return</span>(l1)
+        }  <span class="cf">else</span> {
+            i &lt;-<span class="st"> </span>l1[<span class="dv">1</span>]
+            l2 &lt;-<span class="st"> </span>l1[<span class="op">-</span><span class="dv">1</span>]
+            <span class="kw">return</span>(<span class="kw">c</span>(i, <span class="kw">partsieve</span>(l2[l2 <span class="op">%%</span><span class="st"> </span>i <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>])))
+        }
+    }
+    <span class="kw">partsieve</span>(<span class="dv">2</span><span class="op">:</span>n)
+}
+
+<span class="co"># One from Swanand https://saysmymind.wordpress.com/2013/02/06/sieve-of-eratosthenes-in-r-and-sql</span>
+<span class="co"># Is approximately 4 x faster than my sieve2</span>
+sieve4 =<span class="st"> </span><span class="cf">function</span>(n) {
+  <span class="co"># a holds a sequence of numbers from 2 to n</span>
+  a =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span>n)
+  <span class="co"># we start from 2 since it is the beginning of prime numbers,</span>
+  <span class="co"># it is also the loop variable</span>
+  l =<span class="st"> </span><span class="dv">2</span>
+  <span class="co"># r holds the results</span>
+  r =<span class="st"> </span><span class="kw">c</span>()
+  <span class="co">#while the square of loop variable is less than n</span>
+  <span class="cf">while</span> (l<span class="op">*</span>l <span class="op">&lt;</span><span class="st"> </span>n) {
+    <span class="co"># the prime number is the first element in vector a</span>
+    r =<span class="st"> </span><span class="kw">c</span>(r,a[<span class="dv">1</span>])
+    <span class="co"># remove elements from a which are multiples of l</span>
+    a =<span class="st"> </span>a[<span class="op">-</span>(<span class="kw">which</span>(a <span class="op">%%</span><span class="st"> </span>l <span class="op">==</span><span class="st"> </span><span class="dv">0</span>))]
+    <span class="co"># the loop variable is the first variable remaining in a</span>
+    l =<span class="st"> </span>a[<span class="dv">1</span>]
+  }
+  <span class="co"># the result is r and all the remaining elements in a</span>
+  <span class="kw">c</span>(r,a)
+}
+
+<span class="co"># Testing on the sequence &quot;A000040&quot; the first 59 prime numbers. See http://oeis.org/A000040</span>
+A000040 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">19</span>, <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">37</span>, <span class="dv">41</span>,  <span class="dv">43</span>, <span class="dv">47</span>, <span class="dv">53</span>, <span class="dv">59</span>, <span class="dv">61</span>, <span class="dv">67</span>, <span class="dv">71</span>, <span class="dv">73</span>, <span class="dv">79</span>, <span class="dv">83</span>, <span class="dv">89</span>, <span class="dv">97</span>, <span class="dv">101</span>, <span class="dv">103</span>, <span class="dv">107</span>, <span class="dv">109</span>, <span class="dv">113</span>, <span class="dv">127</span>, <span class="dv">131</span>, <span class="dv">137</span>, <span class="dv">139</span>, <span class="dv">149</span>, <span class="dv">151</span>, <span class="dv">157</span>, <span class="dv">163</span>, <span class="dv">167</span>, <span class="dv">173</span>, <span class="dv">179</span>, <span class="dv">181</span>, <span class="dv">191</span>, <span class="dv">193</span>, <span class="dv">197</span>, <span class="dv">199</span>, <span class="dv">211</span>, <span class="dv">223</span>, <span class="dv">227</span>, <span class="dv">229</span>, <span class="dv">233</span>, <span class="dv">239</span>, <span class="dv">241</span>, <span class="dv">251</span>, <span class="dv">257</span>, <span class="dv">263</span>, <span class="dv">269</span>, <span class="dv">271</span>)
+<span class="co"># test whether the sets are of the same size</span>
+<span class="kw">length</span>(<span class="kw">sieve1</span>(<span class="dv">271</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">length</span>(A000040)</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">sieve2</span>(<span class="dv">271</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">length</span>(A000040)</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">sieve3</span>(<span class="dv">271</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">length</span>(A000040)</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># length(sieve4(271)) - length(A000040)</span>
+
+<span class="co"># test whether all elements of A000040 are in the sieved sets</span>
+<span class="kw">all</span>(A000040 <span class="op">%in%</span><span class="st"> </span><span class="kw">sieve1</span>(<span class="dv">271</span>))</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(A000040 <span class="op">%in%</span><span class="st"> </span><span class="kw">sieve2</span>(<span class="dv">271</span>))</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(A000040 <span class="op">%in%</span><span class="st"> </span><span class="kw">sieve3</span>(<span class="dv">271</span>))</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all(A000040 %in% sieve4(271))</span>
+<span class="co"># these two tests together prove correctness of the sieve functions for n=271</span>
+
+<span class="co"># Testing calculation time on a large N (recursive version will not work)</span>
+N &lt;-<span class="st"> </span><span class="dv">500000</span>
+<span class="kw">system.time</span>(<span class="kw">sieve1</span>(N))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   5.848   0.000   5.849</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">sieve2</span>(N))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.553   0.000   0.553</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># system.time(sieve4(N))</span>
+
+<span class="co"># We can use the replicate function to repeat the same system.time call repeatedly. The output is automatically converted to a vector. Taking the average of the outcomes gives a more accurate restimation</span>
+<span class="kw">apply</span>(<span class="kw">replicate</span>(<span class="dv">5</span>,<span class="kw">system.time</span>(<span class="kw">sieve1</span>(N))),<span class="dv">1</span>,mean)</code></pre></div>
+<pre><code>##  user.self   sys.self    elapsed user.child  sys.child 
+##     5.1430     0.0000     5.1436     0.0000     0.0000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(<span class="kw">replicate</span>(<span class="dv">5</span>,<span class="kw">system.time</span>(<span class="kw">sieve2</span>(N))),<span class="dv">1</span>,mean)</code></pre></div>
+<pre><code>##  user.self   sys.self    elapsed user.child  sys.child 
+##     0.6902     0.0000     0.6902     0.0000     0.0000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># apply(replicate(5,system.time(sieve4(N))),1,mean)</span></code></pre></div>
+</div></li>
+<li><p><strong>Stratified partitioning.</strong> Create a function that performs a so-called stratified partitioning of a data set. Stratified partitioning is needed when doing cross-validations of classifiers, for example. Suppose you have the Iris data set and you have a classifier that predicts the iris species based on Sepal and Petal dimensions. In cross-validation you divide the data set in equal parts, for example 10, and then take 9/10-th of the data to train the classifier and use the remaining 1/10-th to test the classifier. Every 1/10-th partition is used once for testing, and hence you get a 10-fold cross-validation. To obtain representative data sets, it is important that the frequency of the different species in the partitions resembles that of the complete data set as close as possible. The partitions are then said to be stratified over the factor ``Species’’.</p>
+The function is called <code>partition(x, p, f)</code>, where <code>x</code> is a data frame, <code>p</code> is the number of desired partitions, and <code>f</code> is character string with the name of the factor over which stratification should take place. The output is the same data frame with an additional  column that contains the label of the partition (1 … p).
+<div>
+<a id="addProgHead3" href="javascript:toggle('addProgSol3','addProgHead3');" >Show solution</a>
+</div>
+<div id="addProgSol3" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">partition &lt;-<span class="st"> </span><span class="cf">function</span>(x, p, f) {
+  <span class="co"># The data frame x has N rows with classes documented in the factor column with name &#39;f&#39;.</span>
+  <span class="co"># We want p partitions stratified over f.</span>
+  <span class="co"># The code can be easily extended to cases where stratification takes place over multiple</span>
+  <span class="co"># factor columns</span>
+  <span class="co">#</span>
+  <span class="co"># Create a partition column</span>
+  x<span class="op">$</span>partition &lt;-<span class="st"> </span><span class="ot">NA</span>
+  <span class="co"># Calculate the sizes of the stratification groups</span>
+  groupsizes &lt;-<span class="st"> </span><span class="kw">table</span>(x[[f]])
+  groupnames &lt;-<span class="st"> </span><span class="kw">names</span>(groupsizes)
+  <span class="co"># Each group gets a random distribution of labels 1:p. If groupsize %% p is larger</span>
+  <span class="co"># than 0, then the remainder of the rows gets a random selection of labels 1:p.</span>
+  <span class="cf">for</span> (gn <span class="cf">in</span> groupnames) {
+    <span class="co"># - the first call to &#39;sample&#39; randomly permutes the row index numbers in a group</span>
+    <span class="co"># - the second call to &#39;sample&#39; adds one random value from 1..p to the index number. This</span>
+    <span class="co"># prevents the first groupsize %% p partitions to always get the remaining rows.</span>
+    labels &lt;-<span class="st"> </span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>groupsizes[gn]) <span class="op">+</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>p,<span class="dv">1</span>))<span class="op">%%</span>p <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+    x<span class="op">$</span>partition[x[[f]]<span class="op">==</span>gn] &lt;-<span class="st"> </span>labels
+  }
+  <span class="kw">return</span>(x)
+}
+<span class="co">#</span>
+<span class="co"># alternative one-liner using the &quot;data.table&quot; package, (x must be a data.table object):</span>
+<span class="co"># partition &lt;- function(x, p, f) {</span>
+<span class="co">#   x[,partition := (sample(1:.N) + sample(1:p,1))%%p + 1, by=f]</span>
+<span class="co"># }</span></code></pre></div>
+</div></li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Chambers2008">
+<p>Chambers, J. M. 2008. <em>Software for Data Analysis. Programming with R</em>. New York, NY: Springer. doi:<a href="https://doi.org/10.1007/978-0-387-75936-4">10.1007/978-0-387-75936-4</a>.</p>
+</div>
+<div id="ref-Sanders1968">
+<p>Sanders, H. 1968. “Marine Benthic Diversity: A Comparative Study.” <em>Am. Nat.</em> 102: 243–83.</p>
+</div>
+<div id="ref-Hurlbert1971">
+<p>Hurlbert, S. H. 1971. “The Non-Concept of Species Diversity: A Critique and Alternative Parameters.” <em>Ecology</em> 52: 577–86. <a href="http://www.jstor.org/stable/1934145" class="uri">http://www.jstor.org/stable/1934145</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>The <code>help(Control)</code> page gives more information about control structures in R.<a href="Programming-with-R.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>This exercise requires significant thought and imagination; there are several ways to do this.<a href="Programming-with-R.html#fnref3">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="file-io.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vectorization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

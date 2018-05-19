@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="class-dairy-strains.html">
+<link rel="next" href="resampling-techniques.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="naivebayes" class="section level1">
+<h1><span class="header-section-number">CHAPTER 20</span> Naïve Bayes classifiers</h1>
+<p><strong>Techniques: building a Naive Bayes classifier</strong></p>
+<div id="the-naive-bayes-classifier" class="section level2">
+<h2><span class="header-section-number">20.1</span> The Naive Bayes classifier</h2>
+<p>We treat the Naive Bayes classifier because it is a classifier that is popular and used often in classification tasks. Once you have internalized Bayes Law, the method is also easy to understand. Despite its simplicity and the simplifying assumptions behind it, the Bayes Classifier is very successful in many classification tasks. We explain the classifier using an example.</p>
+</div>
+<div id="a-crime-scene" class="section level2">
+<h2><span class="header-section-number">20.2</span> A crime scene</h2>
+<p>At a conference for members of boards of directors a murder has taken place: the head of a company has been shot in his hotel room. The window to his room, located on the ground floor, is open. Those that arrived at the scene immediately after they heard the shot, perceived a hint of perfume in the room, but they could not remember whether it was a masculine or feminine perfume. The police found a footprint, most likely belonging to the murderer, in the flower bed below the window. The foot size was 24.3 cm. Since the conference hotel was at a strictly guarded site, only a conference participant could be the murderer. The police wants to know whether, based on current evidence, it is more likely that a man or a woman was the murderer.</p>
+<div class="figure">
+<img src="images/sherlock-holmes.jpg" alt="Sherlock lights a pipe" />
+<p class="caption">Sherlock lights a pipe</p>
+</div>
+<p>We are going to use a <strong>naïve Bayes classifier</strong> to solve this problem. We are told that a person has a particular foot size. What does this tell us about the gender of this person? If there is a correlation between foot size and gender, then the variable <strong>foot size</strong> “carries information” about the variable <strong>gender</strong>. We know that such a correlation exists. If the footprint size is small, it tells us that the chance that it belongs to a woman is larger than that it belongs to a man, since in the entire population, women have this foot size more often than men. We were also told that the murderer wears perfume. This gives information about the gender if there is a difference in the fraction of men or women that wear perfume. How can we combine these two pieces of information to a single number that tells us whether it is more likely that the person is a woman or a man? To tackle this problem we need to recall the teachings of the reverend <a href="https://en.wikipedia.org/wiki/Thomas_Bayes">Thomas Bayes</a>. Sherlock Holmes used Bayesian reasoning, we may conclude from his slogan “when you have eliminated the impossible, whatever remains, however improbable, must be the truth”.</p>
+</div>
+<div id="reconstructing-bayes-lawtheorem" class="section level2">
+<h2><span class="header-section-number">20.3</span> Reconstructing Bayes law/theorem</h2>
+<p>We have to use Bayes law. Bayes law is about two (or more) characteristics in a population and about whether and how much knowing one characteristic tells us about an other chracteristic. We reconstruct Bayes law using the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th>perfumed \ gender</th>
+<th>male</th>
+<th>female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>yes</strong></td>
+<td>0.10</td>
+<td>0.35</td>
+</tr>
+<tr class="even">
+<td><strong>no</strong></td>
+<td>0.40</td>
+<td>0.15</td>
+</tr>
+</tbody>
+</table>
+<p>This table concerns the general population of people, not just boards of directors. Two variables are defined for each member of the population, “gender” and “perfumed” (wearing perfume). The probabilities with which the combinations of the values of these variables (male, female, yes, no) occur in the population is shown in the table. Each entry in the table represents a <em>joint probability</em>. The joint probability is the probability of finding this combination of properties when choosing a person at random from the population. Note that the sum of all probabilities adds up to 1, as it should. In terms of probabilities, Bayes law is about conditional probabilities, <em>i.e.</em> the probability of making an observation about one variable, <em>when the value of another variable is given</em>. Suppose you have observed that a person is a man, <em>i.e.</em> you know that gender=male. In this case we only have to consider the first column of the table to know something about the other variable (perfumed). From the first column of the table we can calculate the chance of observing that this man also wears perfume. It is:</p>
+<p><span class="math display">\[
+Pr(\text{perfumed=yes} | \text{gender=man}) = \frac{Pr(\text{perfumed=yes , gender=man})}{Pr(\text{gender=man})} = \frac{0.10}{0.10 + 0.40} = 0.20
+\]</span></p>
+<p>The terminology is as follows: <span class="math inline">\(Pr(A|B)\)</span> is the probability of an observation A on an object (<em>i.e.</em> observing that a variable has a particular value) under the condition that observation B on this object was already made (<em>i.e.</em> we know that another variable has a particular value). This is <span class="math inline">\(Pr(\ldots|\ldots)\)</span> is called a <strong>conditional probability</strong>. <span class="math inline">\(Pr(A, B)\)</span> is a <strong>joint probability</strong>, <em>i.e.</em> a probability of making both observations A and B on an object. In what follows, we will use an abbreviated version of the terms used above. We will abbreviate <strong>perfumed</strong> to P, <strong>gender</strong> to <span class="math inline">\(G\)</span>, male to m and female to f. We use italics <span class="math inline">\(G\)</span> to indicate gender, because it is the variable that we want to predict from other variables. So, the formula above abbreviates to:</p>
+<p><span class="math display">\[
+Pr(\text{P=yes} | G=\text{m}) = \frac{Pr(\text{P=yes}, G=\text{m})}{Pr(G=\text{m})} = \frac{0.10}{0.10 + 0.40} = 0.20
+\]</span></p>
+<p><span class="math inline">\(Pr(G=\text{m})\)</span> is also called a “marginal probability”. It can be written “in the margin” of the table above as the sum of the probabilities in the “male”-column. This relation is also often written as expressing the joint probability in terms of a conditional and a marginal probability:</p>
+<p><span class="math display">\[
+Pr(\text{P=yes}, G=\text{m}) = Pr(\text{P=yes} | G=\text{m}) \cdot Pr(G=\text{m})
+\]</span></p>
+<p>We can also reason the other way around. Suppose we have observed that the person wears perfume. What is the chance of this person being a man? This is</p>
+<p><span class="math display">\[
+Pr(G=\text{m} | \text{P=yes}) = \frac{Pr(\text{P=yes}, G=\text{m})}{Pr(\text{P=yes})} = \frac{0.10}{0.10 + 0.35} = 0.22
+\]</span></p>
+<p>or</p>
+<p><span class="math display">\[
+Pr(\text{P=yes}, G=\text{m}) = Pr(G=\text{m} | \text{P=yes}) \cdot Pr(\text{P=yes})
+\]</span></p>
+<p>Clearly, the joint probability <span class="math inline">\(Pr(\text{P=yes}, G=\text{m})\)</span> connects the two conditional probabilities, and this is what Bayes’s law states. It can be derived easily from the two previous statements (<strong>Bayes’s law</strong> or <strong>Bayes’s theorem</strong>):</p>
+<p><span class="math display">\[
+Pr(G=\text{m} | \text{P=yes}) = \frac{Pr(G=\text{m}) \cdot Pr(\text{P=yes} | G=\text{m)}}{Pr(\text{P=yes})}
+\]</span></p>
+<p><span class="math display">\[
+\left( = \frac{0.50 \cdot 0.20}{0.45} = 0.22 \right)
+\]</span></p>
+<p>Or, stated more generally</p>
+<p><span class="math display">\[
+Pr(G|\text{P}) = \frac{Pr(G) \cdot Pr(\text{P}|G)}{Pr(\text{P})}
+\]</span></p>
+<p>In the language of Bayesian statisticians, <span class="math inline">\(Pr(G)\)</span> is called a “prior” probability (distribution) and <span class="math inline">\(Pr(\text{P}|G)\)</span> is called a “likelihood” (distribution). In the average human population, the fraction of men is approximately equal to the fraction of women, so the prior distribution <span class="math inline">\(Pr(G)\)</span> is 1:1 (m:f). But, we investigate boards of directors. In this (sub) population the prior distribution <span class="math inline">\(Pr(G)\)</span> is not the same as in the general population. Here it is 80:20 (m:f), <em>i.e.</em> <span class="math inline">\(Pr(G=\text{m})\)</span>=0.80. Among men and women in boards of directors, the use of perfume is similar to that in the general population, <em>i.e.</em> the likelihoods <span class="math inline">\(Pr(\text{P}|G)\)</span> are the same as in the general population, namely 70% of the women wears perfume and 20% of the men. You take a member of this population and observed that he or she uses perfume (P=yes). If we consider this population, what are the odds that this person is a man or a woman? It is</p>
+<p><span class="math display">\[
+Pr(G=\text{m} | \text{P=yes}) = \frac{Pr(G=\text{m}) \cdot Pr(\text{P=yes}|G=\text{m})}{Pr(\text{P=yes})} = \frac{0.80 \cdot 0.20}{Pr(\text{P=yes})} = \frac{0.16}{Pr(\text{P=yes})}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+Pr(G=\text{f} | \text{P=yes}) = \frac{Pr(G=\text{f}) \cdot Pr(\text{P=yes}|G=\text{f})}{Pr(\text{P=yes})} = \frac{0.20 \cdot 0.70}{Pr(\text{P=yes})} = \frac{0.14}{Pr(\text{P=yes})}
+\]</span></p>
+<p>Although we do not explicitly calculate <span class="math inline">\(Pr(\text{P=yes})\)</span>, we can already say that, based on this information only, it is more likely that we are dealing with a man than with a woman (<span class="math inline">\(Pr(G=\text{m} | \text{P=yes}) &gt; Pr(G=\text{f} | \text{P=yes})\)</span>), because we divide both expressions above by the same marginal probabilty <span class="math inline">\(Pr(\text{P=yes})\)</span>.</p>
+</div>
+<div id="deciding-on-the-class" class="section level2">
+<h2><span class="header-section-number">20.4</span> Deciding on the class</h2>
+<p>The previous calculation demonstrates how we could use prior and likelihood distributions to make a decision on the gender classification of this person. The rule, called <strong>maximum a posteriori</strong> rule or <strong>MAP rule</strong>, is that we decide on that value of gender that maximizes the <span class="math inline">\(Pr(G|\text{P})\)</span>, hence the value for gender that maximizes the numerators calculated above. Since</p>
+<p><span class="math display">\[
+Pr(G=\text{m}|\text{P=yes}) \varpropto 0.80 \cdot 0.20 = 0.16
+\]</span></p>
+<p>and (<span class="math inline">\(\varpropto\)</span> means: “is proportional to”)</p>
+<p><span class="math display">\[
+Pr(G=\text{f}|\text{P=yes}) \varpropto 0.20 \cdot 0.70 = 0.14
+\]</span></p>
+<p>using the MAP rule we would classify the person as a man. It is not a very convincing case though, because the values do not differ very much. Actually, although we do not use these numerical values, they do tell us something about the degree to which we should be convinced of a classification. It is, namely, possible to reconstruct the probability <span class="math inline">\(Pr(G=\text{m}|\text{P=yes})\)</span> from them. The sum of the two conditional probabilities is equal to the marginal probability:</p>
+<p><span class="math display">\[
+Pr(G=\text{m}|\text{P=yes}) + Pr(G=\text{f}|\text{P=yes}) = Pr(\text{P=yes})
+\]</span></p>
+<p>because <span class="math inline">\(G=\text{m}\)</span> and <span class="math inline">\(G=\text{f}\)</span> covers all possible combinations (the whole row in the table) corresponding to <span class="math inline">\(\text{P=yes}\)</span>. Therefore,</p>
+<p><span class="math display">\[
+Pr(G=\text{m}|\text{P=yes}) = \frac{0.80 \cdot 0.20}{0.80 \cdot 0.20 + 0.20 \cdot 0.70} = 0.53
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+Pr(G=\text{f}|\text{P=yes}) =  \frac{0.20 \cdot 0.70}{0.80 \cdot 0.20 + 0.20 \cdot 0.70} = 0.47
+\]</span></p>
+<p>showing <em>quantitatively, in terms of probabilities</em> that our case for the classification “male” is not a very strong one. However, we do not use these conditional probabilities in a naïve Bayesian classifier. There, we only want to know which of the numerators on the right hand side yields the maximum value.</p>
+<p>To conclude: given only the observation of perfume, and the proportion of men among boards of directors, we would, using a Bayes classifier, decide that the murderer is most likely a man.</p>
+</div>
+<div id="continuous-predicting-variables" class="section level2">
+<h2><span class="header-section-number">20.5</span> Continuous predicting variables</h2>
+<p><strong>perfumed</strong> or <strong>P</strong> is a discrete variable, a <code>factor</code> in R terminology. How do we do the same analysis with a continuous variable like foot size? And furthermore, how do we combine this information with information about wearing perfume to decide on the gender classifcication of the murderer? Let’s deal with these two problems one by one. First, how do we extend our previous analysis to the case of a continuous variable like foot size? Previously we knew the discrete conditional distribution <span class="math inline">\(Pr(\text{P}|G)\)</span>, <em>i.e.</em> the probabilities of all combinations of values of gender and perfumed, and we could make a table of these probabilities. Now, we need to have information about the (continuous) distribution of foot sizes among men and among women, <em>i.e.</em> <strong>probability density</strong> functions <span class="math inline">\(f\)</span> of foot size <em>conditional on gender</em>. Suppose, for simplicity, that these are normal-distributed with means <span class="math inline">\(\mu_m\)</span> and <span class="math inline">\(\mu_f\)</span> and standard deviations <span class="math inline">\(\sigma_m\)</span> and <span class="math inline">\(\sigma_f\)</span>. We have measured these means and standard deviations in the general human population and assume that they are valid for boards of directors as well. Then, abbreviating the variable “foot size” as <strong>S</strong>, we have</p>
+<p><span class="math display">\[
+f(\text{S}=s | G=\text{m}) = \frac{1}{\sqrt{2 \pi \sigma_m^2}} e^{\left(\frac{s-\mu_m}{2 \sigma_m}\right)^2}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+f(\text{S}=s | G=\text{f}) = \frac{1}{\sqrt{2 \pi \sigma_f^2}} e^{\left(\frac{s-\mu_f}{2 \sigma_f}\right)^2}
+\]</span></p>
+<p>For a population in which <span class="math inline">\(\mu_m\)</span>=26.9, <span class="math inline">\(\mu_f\)</span>=24.2, <span class="math inline">\(\sigma_m\)</span>=1.4 and <span class="math inline">\(\sigma_f\)</span>=1 these would look like the figure below.</p>
+<p><img src="StatR_files/figure-html/footsizedensity-1.png" width="672" /></p>
+<p>The police observed that “foot size=24.3” (grey dashed line). We could make a decision rule that is based on the conditional density functions, namely that whichever density is larger at the given size corresponds to the gender that we decide is most likely. We should note that probability density is not a probability! We get a probability from a probability density function by integrating over a piece of the variable “foot size”. However, the probability density at “foot size=24.3” is almost proportional to a small integrated interval around this value. Therefore, we can use both probability density functions to obtain values that are proportional to the conditional probabilities of observing foot sizes close to 24.3. Having 80% of men again as marginal probability, we get <span class="math display">\[
+Pr(G=\text{m}|\text{S}=24.3) \varpropto f_m(24.3) \cdot 0.80 = 0.041
+\]</span> and <span class="math display">\[
+Pr(G=\text{f}|\text{S}=24.3) \varpropto f_f(24.3) \cdot 0.20 = 0.079
+\]</span> In this case we would decide that the murderer is a woman. Note again that these are <strong>not probabilities</strong>, but are only numbers proportional to the conditional probabilities <span class="math inline">\(Pr(G|\text{S})\)</span>.</p>
+<p>Also in this case we can reconstruct the conditional probabilities:</p>
+<p><span class="math display">\[
+Pr(G=\text{m}|\text{S}=24.3) = \frac{f_m(24.3) \cdot 0.80}{f_m(24.3) \cdot 0.80 + f_f(24.3) \cdot 0.20} = 0.34
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+Pr(G=\text{f}|\text{S}=24.3) = \frac{f_f(24.3) \cdot 0.20}{f_m(24.3) \cdot 0.80 + f_f(24.3) \cdot 0.20} = 0.66
+\]</span></p>
+<p>It shows that the case is a little more, you could say almost twice as much, in favour of a woman than a man being the murderer.</p>
+<div class="rmdnote">
+<p>
+Using Gaussian probability density functions to model the distributions of “foot size” is only one way of modeling a distribution. Many other standard distributions can be applied in naïve Bayes classifiers. You can use whichever distribution best fits the real distribution, or fits your well-founded ideas about it. Modeling and smoothing is particularly important if the number of training samples is small compared to the “sampling space”, as is clearly the case with continuous variables. You can find a few examples of distribution models used in naive Bayes classifiers in <a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier">Wikipedia</a>.
+</p>
+</div>
+</div>
+<div id="combining-information-from-different-predictor-variables" class="section level2">
+<h2><span class="header-section-number">20.6</span> Combining information from different predictor variables</h2>
+<p>How do we combine the two pieces of information about the variables perfumed and foot size to decide whether we are dealing with a man or a woman? For this we need the Bayes chain rule, or chain rule for conditional probabilities. It says that the joint probability of observing certain values for variables <span class="math inline">\(A_n, A_{n-1}, \ldots, A_1\)</span> is</p>
+<p><span class="math display">\[
+Pr(A_n, A_{n-1}, \ldots, A_1, B) = Pr(A_n | A_{n-1}, \ldots A_1, B) \cdot Pr(A_{n-1} \ldots A_1, B)
+\]</span></p>
+<p>This rule can be applied recursively to <span class="math inline">\(Pr(A_{n-1} \ldots A_1, B)\)</span> <em>etc.</em>, to get a chain of conditional probalities on the right-hand side:</p>
+<p><span class="math display">\[
+\begin{multline}
+Pr(A_n, A_{n-1}, \ldots, A_1, B) = \\
+Pr(A_n | A_{n-1}, \ldots A_1, B) \cdot Pr(A_{n-1} | A_{n-2} \ldots A_1, B) \cdot \: \ldots \: \cdot Pr(A_1|B) \cdot Pr(B)
+\end{multline}
+\]</span></p>
+<p>For example, in case of three variables foot size, perfumed and gender, we get, using the chain rule twice</p>
+<span class="math display" id="eq:chainruleProblem">\[\begin{equation}
+Pr(\text{P},\text{S},G) = Pr(\text{P}|\text{S},G) \cdot Pr(\text{S}|G) \cdot Pr(G)
+\tag{20.1}
+\end{equation}\]</span>
+<p>It is often difficult to obtain distributions conditional on multiple variables, like <span class="math inline">\(Pr(\text{P}|\text{S},G)\)</span>. In particular, when the number of conditional variables is large, it is practically impossible to properly sample the space of all combinations (all dimensions) of predictive variables. To simplify matter, a <strong>naïve assumption</strong> is made, giving Naïve Bayes classifiers their name. It is that <em>the observation of every variable is conditionally independent of the observation of the other variables, when conditioned on the variable that we want to predict</em>. In our case this means that <strong>we assume</strong> that:</p>
+<p><span class="math display">\[
+Pr(\text{P}|\text{S},G) = Pr(\text{P}|G)
+\]</span></p>
+<p>Or stated in words: knowing the gender gives us all information about the probability density of foot size. Having additional knowledge of wearing perfume does not change these probability densities (“perfumed carries no <strong>additional</strong> information about foot size <strong>if we know gender</strong> (condition on gender)”). This simplifies the formula <a href="naivebayes.html#eq:chainruleProblem">(20.1)</a> for the joint probability considerably:</p>
+<p><span class="math display">\[
+Pr(\text{P},\text{S},G) = Pr(\text{P}|G) \cdot Pr(\text{S}|G) \cdot Pr(G)
+\]</span></p>
+<p>Instead of having to make a model of a two-dimensional distribution <span class="math inline">\(Pr(\text{P}|\text{S},G)\)</span>, we approximate the joint distribution using the one-dimensional <span class="math inline">\(Pr(\text{P}|G)\)</span>. The two conditional probabilities on the right hand side were already used above when studying the individual variables. Now, we only need to calculate their product to combine the information about the two variables! The joint probability on the left hand side can also be written as</p>
+<p><span class="math display">\[
+Pr(\text{P},\text{S},G) = Pr(G|\text{P},\text{S}) \cdot Pr(\text{P}, \text{S})
+\]</span></p>
+<p>Combining the two formulas we obtain Bayes law for the distribution of <span class="math inline">\(G\)</span> when <span class="math inline">\(\text{P}\)</span> and <span class="math inline">\(\text{S}\)</span> are known:</p>
+<p><span class="math display">\[
+Pr(G|\text{P},\text{S}) = \frac{Pr(\text{P}|G) \cdot Pr(\text{S}|G) \cdot Pr(G)}{Pr(\text{P}, \text{S})}
+\]</span></p>
+<p>where <span class="math inline">\(Pr(\text{P}, \text{S})\)</span> is again a marginal probability that we do not need to know when comparing the different possibilities for gender classification. We only need to know relative sizes of the numerator <span class="math inline">\(Pr(\text{P}|G) \cdot Pr(\text{S}|G) \cdot Pr(G)\)</span>!</p>
+<p>In general, the <strong>naïve assumption</strong> allows us to quantify the odds having only information about the one-dimensional conditional probability distributions <span class="math inline">\(Pr(A_i | G)\)</span> when <span class="math inline">\(G\)</span> is the variable that we want to predict with the classifier.</p>
+<p>So let’s see what we get when combining the two pieces of information, “S=24.3” and “P=yes”.</p>
+<p><span class="math display">\[
+Pr(G=\text{m}|\text{S=24.3}, \text{P=yes}) \varpropto f_m(24.3) \cdot 0.20 \cdot 0.80 = 0.0081
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+Pr(G=\text{f}|\text{S=24.3}, \text{P=yes}) \varpropto f_f(24.3) \cdot 0.70 \cdot 0.20 = 0.0556
+\]</span></p>
+<p>which, using the MAP rule, leaves us no other option than to conclude that the murderer was a woman!</p>
+<p>Also in this case we can reconstruct the conditional probability itself:</p>
+<p><span class="math display">\[
+Pr(G=\text{f}|\text{S=24.3}, \text{P=yes}) = \frac{0.0556}{0.0081 + 0.0556} = 0.87
+\]</span></p>
+<p>Surprisingly, this becomes a much more convincing case than when studying either of the single pieces of evidence individually! We should note that the numerical correctness of this probability may strongly depend on the correctness of the naïve assumption! The naïve assumption of conditional independence of the observed variables seems reasonable in case of variables “foot size” and “perfumed”. However, there are cases where it is clearly incorrect. For example, suppose that we also observe “shoe brand” (B) as a variable, from the imprint of a shoe sole. The probability of observing a certain shoe brand will not only depend on the gender, the variable that we want to predict, but also on the foot size. This is the case if certain shoe brands only produce small sizes for males, for example italian brands. If you know that you’re dealing with a man, then knowing his foot size gives you additional information about the probability of observing this particular brand! Therefore <span class="math inline">\(Pr(\text{B}|\text{S},G) \neq Pr(\text{B}|G)\)</span>! Nevertheless, it was shown that often, naïve Bayes classifiers perform surprisingly well, even when the assumption of conditional independence of observed variables is clearly incorrect. Below we will see an example of that case. One of the reasons is, of course, that we do not use the exact numerical outcome of the likelihood product, or the conditional probability itself, but we only want to know which one is largest. This gives the method a certain robustness against violation of the assumption of conditional independence. Another reason is that, because of the simplicity of the model (due to conditional independence we use much less parameters to fit the probability distribution that models the data), it is quite insensitive to over-fitting.</p>
+<div class="rmdimportant">
+<p>
+It is important to realize that there is a difference between “independence of variables” and “independence of variables <em>conditioned on an other variable</em>”. For example, the naïve assumption which says that “foot size” and “perfumed” are independent conditioned on gender, does not mean that “perfumed” and “foot size” are independent. They clearly are not! However, what it means is that when we look at the subpopulation of men only, we do not expect a relation between “foot size” and “perfumed”, nor do we expect such a relation when we look at women only. In other words, the correlation between foot size and perfumed is fully explained by the gender.
+</p>
+</div>
+</div>
+<div id="exercises-17" class="section level2">
+<h2><span class="header-section-number">20.7</span> Exercises</h2>
+<div id="predicting-iris-species" class="section level3">
+<h3><span class="header-section-number">20.7.1</span> Predicting iris species</h3>
+<p>Let’s try this on a little more realistic data set, namely the iris data:</p>
+<pre><code>##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 30           4.7         3.2          1.6         0.2     setosa
+## 40           5.1         3.4          1.5         0.2     setosa
+## 56           5.7         2.8          4.5         1.3 versicolor
+## 85           5.4         3.0          4.5         1.5 versicolor
+## 131          7.4         2.8          6.1         1.9  virginica
+## 134          6.3         2.8          5.1         1.5  virginica</code></pre>
+<p>Here we have a variable, Species, that we want to predict. It has three levels: setosa, versicolor, virginica. The predictor variables are all continuous valued. We will split the data in a training set, from which we will construct the “likelihood” and “prior” distributions, and a test set on which we will apply our classifier. In the “board of directors murder” example, we estimated the likelihood distributions (concerning the use of perfume and foot size) from the general population of human beings, and adapted the prior (male/female) distribution to what we knew about it for boards of directors. Here we will estimate these from the training set.</p>
+<ol style="list-style-type: decimal">
+<li>Make two index vectors, <code>trainset</code> and <code>testset</code> that can be applied, using a construct like <code>iris[trainset,]</code>, to split the iris data frame into a set of training samples (80% of the data) and a set of test samples (20%). Use a <strong>random</strong> selection of the data to make the split. Then split the data.
+<div>
+<a id="naiveBayesHead1" href="javascript:toggle('naiveBayesSol1','naiveBayesHead1');" >Show solution</a>
+</div>
+<div id="naiveBayesSol1" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trainset &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">rownames</span>(iris), <span class="dt">size=</span><span class="kw">trunc</span>(<span class="fl">0.8</span><span class="op">*</span><span class="kw">dim</span>(iris)[<span class="dv">1</span>]))
+testset &lt;-<span class="st"> </span><span class="kw">rownames</span>(iris)[<span class="op">!</span>(<span class="kw">rownames</span>(iris) <span class="op">%in%</span><span class="st"> </span>trainset)]
+trainsamples &lt;-<span class="st"> </span>iris[trainset,]
+testsamples &lt;-<span class="st"> </span>iris[testset,]</code></pre></div>
+</div></li>
+</ol>
+<p><em>Note: from here on, there are two ways of carrying out this exercise: building a classifier using your own functions, in steps 2-4 as suggested below, or by using the <code>naiveBayes</code> function from the <code>e1071</code> package. To build the classifier yourself you need somewhat advanced mastering of the R language (or: you obtain this craftsmanship by building it yourself).</em></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Calculate an 1 <span class="math inline">\(\times\)</span> 3 array of priors from the test set (you know, the expected fractions of each of the three species), or make a prior based on your belief of what fractions you could expect. The columns should carry the species names.
+<div>
+<a id="naiveBayesHead2" href="javascript:toggle('naiveBayesSol2','naiveBayesHead2');" >Show solution</a>
+</div>
+<div id="naiveBayesSol2" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Either calculate a prior:</span>
+prior &lt;-<span class="st"> </span><span class="kw">tapply</span>(
+  <span class="kw">rep</span>(<span class="dv">1</span><span class="op">/</span><span class="kw">length</span>(trainsamples<span class="op">$</span>Species), <span class="kw">length</span>(trainsamples<span class="op">$</span>Species)),
+  trainsamples<span class="op">$</span>Species, sum)
+<span class="co"># Or make one based on your belief of the distribution:</span>
+prior &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dt">dim=</span><span class="dv">3</span>, <span class="dt">dimnames=</span><span class="kw">list</span>(<span class="kw">levels</span>(iris<span class="op">$</span>Species)))</code></pre></div>
+</div></li>
+<li>Calculate means and standard deviations of the four predictor variables for each of the species using the training set. We will need these to model their distributions conditional on species using normal distributions. Put the means and standard deviations in a list, where each element corresponds to a predictor variable and consists of matrices with three rows (corresponding to the species) and two columns (corresponding to the mean and standard deviation conditioned on species). Below you will find out why such a list is a convenient arrangement of the data. <strong>Tip</strong>: use a <code>tapply</code> nested in an <code>lapply</code> to generate a list containig for each of the predictor variables a list of vectors of mean and standard deviations conditional on Species. Use <code>tapply</code> as shown in the exercises in Chapter <a href="vectorization.html#vectorization">8</a>. Subsequently, put the inner lists in a matrix using <code>cbind()</code> called with <code>do.call()</code>.
+<div>
+<a id="naiveBayesHead3" href="javascript:toggle('naiveBayesSol3','naiveBayesHead3');" >Show solution</a>
+</div>
+<div id="naiveBayesSol3" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb &lt;-<span class="st"> </span><span class="kw">lapply</span>(
+  <span class="kw">apply</span>(trainsamples[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">2</span>, <span class="cf">function</span>(x){
+    <span class="kw">tapply</span>(x, trainsamples[[<span class="dv">5</span>]], <span class="cf">function</span>(x){
+      <span class="kw">c</span>(<span class="kw">mean</span>(x),<span class="kw">sd</span>(x))})}
+    ),
+  <span class="cf">function</span>(x){<span class="kw">do.call</span>(rbind,x)}
+)</code></pre></div>
+<hr />
+<p><strong>Explanation</strong>: The code consists of two nested apply-like functions. The outer part (<code>lapply</code>) loops over each of the predictor columns and sends it to the inner function. The inner part calculates the mean and standard deviation of that column split by species (using the fifth <code>Species</code> column) and puts it in a vector (mean, stdev).</p>
+</div>
+<p>To be able to calculate a Gaussian probability density below, we need a function that takes a <strong>value</strong>, a <strong>mean</strong> and a <strong>standard deviation</strong> and returns the corresponding probability density. The standard <code>dnorm()</code> function seems to do this exactly.</p></li>
+<li>Now comes a difficult part. For each sample in the test set you have to calculate the <code>dnorm()</code> using the list constructed above.
+<div>
+<a id="naiveBayesHead4" href="javascript:toggle('naiveBayesSol4','naiveBayesHead4');" >Show solution</a>
+</div>
+<div id="naiveBayesSol4" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">posteriors &lt;-<span class="st"> </span><span class="kw">t</span>(
+  <span class="kw">apply</span>(testsamples[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">1</span>,
+       <span class="cf">function</span>(y) {
+         <span class="kw">apply</span>(
+           <span class="kw">sapply</span>(<span class="kw">names</span>(y),
+                  <span class="cf">function</span>(varname) {
+                    <span class="kw">apply</span>(nb[[varname]], <span class="dv">1</span>, <span class="cf">function</span>(x) {
+                      <span class="kw">dnorm</span>(y[[varname]],x[<span class="dv">1</span>],x[<span class="dv">2</span>])
+                      }
+                    )
+                  }), <span class="dv">1</span>, prod)
+      }))
+
+<span class="kw">head</span>(posteriors)</code></pre></div>
+<pre><code>##        setosa   versicolor    virginica
+## 12 5.42363976 1.735489e-14 9.631906e-25
+## 14 0.01700747 2.757857e-18 3.329668e-30
+## 21 2.14396121 2.473334e-13 4.767107e-23
+## 22 2.91354920 1.661920e-13 1.151746e-23
+## 27 2.67218120 3.834907e-12 1.516280e-22
+## 39 0.48441983 7.361253e-16 1.804447e-27</code></pre>
+<hr />
+<p><strong>Explanation</strong>: The nested set of apply-like functions above looks quite complicated, but it solves the problem very effectively. How do you construct such a method? I started from the center, and asked: what if I have one variable from one row of the test set, how do I then calculate the conditionals?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">varname &lt;-<span class="st"> &quot;Sepal.Length&quot;</span> <span class="co"># for example</span>
+y &lt;-<span class="st"> </span>testsamples[<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="co"># first sample, for example</span></code></pre></div>
+<p>Then the following <code>apply</code> gives me a vector of conditional values for this variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(nb[[varname]], <span class="dv">1</span>, <span class="cf">function</span>(x) {<span class="kw">dnorm</span>(y[[varname]],<span class="dt">mean=</span>x[<span class="dv">1</span>],<span class="dt">sd=</span>x[<span class="dv">2</span>])})</code></pre></div>
+<pre><code>##     setosa versicolor  virginica 
+## 0.91174102 0.08842467 0.01081573</code></pre>
+<p>I need to calculate these conditionals for each predictor variable. So, I take a vector with the names of y (<code>names(y)</code>) and <code>lapply</code> the previous function to each of these names. I then get a list of conditionals containing an entry for each of the predictor variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="kw">names</span>(y), <span class="cf">function</span>(varname) {
+  <span class="co"># now the previous piece of code</span>
+  <span class="kw">apply</span>(nb[[varname]], <span class="dv">1</span>, <span class="cf">function</span>(x) {<span class="kw">dnorm</span>(y[[varname]],x[<span class="dv">1</span>],x[<span class="dv">2</span>])})
+  })</code></pre></div>
+<pre><code>## [[1]]
+##     setosa versicolor  virginica 
+## 0.91174102 0.08842467 0.01081573 
+## 
+## [[2]]
+##     setosa versicolor  virginica 
+##  0.9929458  0.1316289  0.5752756 
+## 
+## [[3]]
+##       setosa   versicolor    virginica 
+## 1.748784e+00 1.269976e-06 6.186876e-14 
+## 
+## [[4]]
+##       setosa   versicolor    virginica 
+## 3.425766e+00 1.174091e-06 2.502125e-09</code></pre>
+<p>I get a list of vectors with the same length! Using <code>sapply</code> instead of <code>lapply</code> would “simplify” this list of vectors to a matrix, which is easier to use in the subsequent step:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="kw">names</span>(y), <span class="cf">function</span>(varname) {
+  <span class="co"># now the previous piece of code</span>
+  <span class="kw">apply</span>(nb[[varname]], <span class="dv">1</span>, <span class="cf">function</span>(x) {<span class="kw">dnorm</span>(y[[varname]],x[<span class="dv">1</span>],x[<span class="dv">2</span>])})
+})</code></pre></div>
+<pre><code>##            Sepal.Length Sepal.Width Petal.Length  Petal.Width
+## setosa       0.91174102   0.9929458 1.748784e+00 3.425766e+00
+## versicolor   0.08842467   0.1316289 1.269976e-06 1.174091e-06
+## virginica    0.01081573   0.5752756 6.186876e-14 2.502125e-09</code></pre>
+<p>For each of the posteriors, I need to calculate the product conditioned on species name, which means that I need to calculate the products per row of the previous matrix, using a construct <code>apply(..., 1, prod)</code>. <code>prod</code> calculates the product of elements in a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(
+  <span class="co"># the previous piece of code</span>
+  <span class="kw">sapply</span>(<span class="kw">names</span>(y), <span class="cf">function</span>(varname) {
+    <span class="kw">apply</span>(nb[[varname]], <span class="dv">1</span>, <span class="cf">function</span>(x) {<span class="kw">dnorm</span>(y[[varname]],x[<span class="dv">1</span>],x[<span class="dv">2</span>])})
+    }),
+  <span class="dv">1</span>, prod)</code></pre></div>
+<pre><code>##       setosa   versicolor    virginica 
+## 5.423640e+00 1.735489e-14 9.631906e-25</code></pre>
+<p>Now this was for one row, y, of the test data. I now make a function of the previous piece of code and apply it to all rows in the <code>testsamples</code> data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(testsamples[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">1</span>,
+      <span class="cf">function</span>(y) {
+        <span class="co"># the previous piece of code</span>
+        <span class="kw">apply</span>(
+          <span class="kw">sapply</span>(<span class="kw">names</span>(y), <span class="cf">function</span>(varname) {
+            <span class="kw">apply</span>(nb[[varname]], <span class="dv">1</span>, <span class="cf">function</span>(x) {<span class="kw">dnorm</span>(y[[varname]],x[<span class="dv">1</span>],x[<span class="dv">2</span>])})
+            }),
+          <span class="dv">1</span>, prod)
+      })</code></pre></div>
+<p>This gives the result with posteriors in rows and samples in columns. I want to have then in the transposed arrangement, so I transpose the previous matrix and get the desired result.</p>
+</div></li>
+<li>Make a prediction of the species for each flower in the test samples based on the likelihoods. Also calculate the fraction of correct predictions. Tip: use the <code>max.col()</code> function.
+<div>
+<a id="naiveBayesHead5" href="javascript:toggle('naiveBayesSol5','naiveBayesHead5');" >Show solution</a>
+</div>
+<div id="naiveBayesSol5" style="display: none">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">priors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)
+predictions &lt;-<span class="st"> </span><span class="kw">colnames</span>(posteriors)[<span class="kw">max.col</span>(<span class="kw">t</span>(<span class="kw">t</span>(posteriors)<span class="op">*</span>priors))]
+
+correct &lt;-<span class="st"> </span><span class="kw">sum</span>(predictions<span class="op">==</span><span class="kw">as.character</span>(testsamples[[<span class="dv">5</span>]]))<span class="op">/</span><span class="kw">length</span>(predictions)
+
+correct</code></pre></div>
+<pre><code>## [1] 0.9666667</code></pre>
+<p>This shows that a naïve Bayes classifier performs very well on this data set.</p></li>
+<li>Is the naïve assumption valid for the predictor variables in the iris data set? Demonstrate why or why not.
+<div>
+<a id="naiveBayesHead6" href="javascript:toggle('naiveBayesSol6','naiveBayesHead6');" >Show solution</a>
+</div>
+<div id="naiveBayesSol6" style="display: none">
+<p>No, it is clearly invalid. For example, we plot the petal width against the petal length. Clearly, both variables are correlated with species (which is why we can use them to identify the species). However, in contrast to the naïve assumption, we see that within each species both variables are also correlated: if you would only draw the red points, for example, you would still observe a correlation between both variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(iris<span class="op">$</span>Petal.Length, iris<span class="op">$</span>Petal.Width, <span class="dt">col=</span>iris<span class="op">$</span>Species, <span class="dt">pch=</span><span class="dv">19</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/naba_condindepend-1.png" width="672" /></p>
+<p>This means that, under the condition that we know which species we have, we can make a prediction about the petal length and width. However, we can predict the petal length even more accurately if we also know the petal width (or the other way around).</p>
+</div></li>
+</ol>
+</div>
+<div id="predicting-income" class="section level3">
+<h3><span class="header-section-number">20.7.2</span> Predicting income</h3>
+<ol start="7" style="list-style-type: decimal">
+<li>The <a href="https://archive.ics.uci.edu/ml/datasets/Adult">adult data set</a> contains census data from the american population. It also contains a column that says whether a person earns more or less than 50000 dollar per year. The goal is to predict the income from the other variables. The predictor variables are continuous and discrete (which is more advanced than the previous exercise). Instead of calculating model conditional distributions using your own code, use the <code>naiveBayes()</code> function from the <code>e1071</code> package to do that. Split the data (80:20) in a training and a test set, and predict the income (more or less than 50K) from the model distributions. How well does your predictor perform?
+<div>
+<a id="naiveBayesHead7" href="javascript:toggle('naiveBayesSol7','naiveBayesHead7');" >Show solution</a>
+</div>
+<div id="naiveBayesSol7" style="display: none">
+<div class="rmdconstruction">
+
+</div>
+</div></li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="class-dairy-strains.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resampling-techniques.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="nerve-fiber.html">
+<link rel="next" href="class-dairy-strains.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="classifiers" class="section level1">
+<h1><span class="header-section-number">CHAPTER 18</span> Logistic regression</h1>
+<div id="classifiers" class="section level2">
+<h2><span class="header-section-number">18.1</span> Classifiers</h2>
+<p>A classifier is a statistical model, based on a function with a specific type of output. The output of a classifier function is a <em>class label</em> or a <em>distribution over class labels</em>. Many classifiers are capable of procuding both types of output. Classifiers are used when the dependent or reponse variable is a class label, or in R-terms, when the reponse variable is a factor. A class label could be “Male”, or “Malignant” or “Iris versicolor”. Corresponding distributions over class labels would be:</p>
+<ul>
+<li>Male: 0.9, Female: 0.1</li>
+<li>Benign: 0.05, Malignant: 0.95</li>
+<li>Iris setosa: 0.01, Iris virginica: 0.24, Iris versicolor: 0.75</li>
+</ul>
+<p>An alternative to the latter would be</p>
+<ul>
+<li>Iris setosa: 0.01, Iris virginica or Iris versicolor: 0.99</li>
+</ul>
+<p>Distributions over class labels can be interpreted as probabilities. The first example would tell us that the probability that the person is a man is 90%, and that it is a female is 10%. The requirement for these distributions to be proper probabilities is that the numbers add up to <span class="math inline">\(1\)</span>.</p>
+<!-- Below, I will discuss a few important types of classifiers. Chapter \@ref(naivebayes) is devoted to a single type of classifier, the naive Bayes classifier.  -->
+<p>Logistic regression is an important type of classifier, usually applied when there are two classes, that yields a distribution over the alternative labels. Another type of classifier, the naive Bayes classifier, is discussed in chapter <a href="naivebayes.html#naivebayes">20</a>.</p>
+</div>
+<div id="logistic-regression" class="section level2">
+<h2><span class="header-section-number">18.2</span> Logistic regression</h2>
+<p>Logistic regression functions are functions that yield a distribution over class labels as an output. Logistic regression is typically used in classifications with two alternatives, <em>i.e.</em> when the reponse variable has two levels.</p>
+<p>We start with the example that we saw before (chapter <a href="linearmodels.html#linearmodels">12</a>), the bodymetrics data set, <a href="data/linearmodels/bodymetrics.tab">data/linearmodels/bodymetrics.tab</a>. It contains measurements of height, weight and age of approximately 500 males and females. Suppose that instead of wanting to predict the height from the gender, we want to do it the other way around: predicting gender from height. Let’s make a histogram of the height differentiated by gender to see hwat the possibilities are:</p>
+<div class="figure"><span id="fig:clas01"></span>
+<img src="StatR_files/figure-html/clas01-1.png" alt="Histogram of body heights, using a bin width of $5$ cm" width="672" />
+<p class="caption">
+Figure 18.1: Histogram of body heights, using a bin width of <span class="math inline">\(5\)</span> cm
+</p>
+</div>
+<p>In this histogram I also added a smoothed version of the height distributions for both sexes. These are normal distributions (see chapter <a href="distributions.html#distributions">11</a>) with different means, but having equal variance<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> (and hence, equal standard deviation). Using either the counts in the bins or the heights of the smoothed distributions we can calculate the probability that a person with a certain body height is a man or a woman. Let’s call the probability that a person with body height <span class="math inline">\(x\)</span> is a male <span class="math inline">\(p(x)\)</span>. Then the probability that this person is a female equals <span class="math inline">\(1 - p(x)\)</span>. In the figure below I have plotted the probability <span class="math inline">\(p(x)\)</span> calculated by using the binned counts from the histogram as well as the smoothed distibutions. It is simply the height of the male bin divided by the sum of the male and female bin, or the value of the density function for males divided by the sum of density functions of males and females.</p>
+<div class="figure"><span id="fig:clas02"></span>
+<img src="StatR_files/figure-html/clas02-1.png" alt="The same histogram as above. The probability $p (x)$ that the person is a man at the given height $x$ is added, either calculated from the histogram bins (red dots) or from the smoothed distributions in figure above (blue line)." width="672" />
+<p class="caption">
+Figure 18.2: The same histogram as above. The probability <span class="math inline">\(p (x)\)</span> that the person is a man at the given height <span class="math inline">\(x\)</span> is added, either calculated from the histogram bins (red dots) or from the smoothed distributions in figure above (blue line).
+</p>
+</div>
+<p>Having these estimations of the probability <span class="math inline">\(p(x)\)</span> It would be straight-forward to make a classifier based on the predictor height (<span class="math inline">\(x\)</span>): if the probability <span class="math inline">\(p(x) &gt; 0.5\)</span> then the label is ‘male’, otherwise, when <span class="math inline">\(p(x) \leq 0.5\)</span>, the label is ‘female’. Linear discriminant analysis (LDA) works exactly in this way: it obtains a description of the probability <span class="math inline">\(p(x)\)</span> from smoothed normal distributions of the individual classes. However, there is another approach of obtaining a function <span class="math inline">\(p(x)\)</span>, which is used by logistic regression. To see how it works, we need the concept of <strong>odds</strong><a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a>. The odds is the ratio <span class="math inline">\(\displaystyle \frac{p(x)}{1-p(x)}\)</span>, or how much more likely the person is a male than a female. This ratio equals <span class="math inline">\(1\)</span> when the person is equally likely to be a man or a woman. In figure <a href="classifiers.html#fig:clas02">18.2</a> we can see that <span class="math inline">\(p = 1 - p = 0.5\)</span> at a height of a little more than <span class="math inline">\(170\)</span> cm.</p>
+<p>Rather than using the odds itself, it is common to use its natural logarithm also called the <strong>log-odds</strong></p>
+<span class="math display" id="eq:log-odss">\[\begin{equation}
+  \ln{\left(\frac{p(x)}{1-p(x)}\right)}
+  \tag{18.1}
+\end{equation}\]</span>
+<p>The function</p>
+<span class="math display" id="eq:logit">\[\begin{equation}
+  l(p) = \ln{\left(\frac{p}{1-p}\right)}
+  \tag{18.2}
+\end{equation}\]</span>
+<p>is called the <strong>logit</strong> function. Logistic regression is based on the fact that something peculiar happens if we transform the probability <span class="math inline">\(p(x)\)</span> with the logit function to <span class="math inline">\(l(p(x))\)</span>. This is shown below for the values of <span class="math inline">\(p(x)\)</span> calculated from the smoothed distributions:</p>
+<div class="figure"><span id="fig:clas02a"></span>
+<img src="StatR_files/figure-html/clas02a-1.png" alt="Logit transform of probability $p(x)$ as calculated from the smooth distributions plotted as a function of the body height $x$." width="384" />
+<p class="caption">
+Figure 18.3: Logit transform of probability <span class="math inline">\(p(x)\)</span> as calculated from the smooth distributions plotted as a function of the body height <span class="math inline">\(x\)</span>.
+</p>
+</div>
+<p>As you will guess, this perfect straight line is not a coincidence. This is what you get if you use two normal distributions with equal standard deviation but different means to model the underlying distributions. The slope of this line will be steeper when the two distributions have less overlap, and the point where it passes through the <span class="math inline">\(x\)</span>-axis is the point of equal odds. Logistic regression uses this fact. If apparently we can fit the log-odds by a straight line <span class="math inline">\(f(x) = \beta_0 + \beta_1 x\)</span>:</p>
+<p><span class="math display">\[
+\ln{\left( \frac{p(x)}{1-p(x)} \right) } = f(x)
+\]</span> then let’s find out how <span class="math inline">\(p(x)\)</span> itself can be modeled as a function of <span class="math inline">\(x\)</span>:</p>
+<span class="math display" id="eq:logistic">\[\begin{align*}
+  \frac{p(x)}{1-p(x)} &amp;= e^{f(x)} \\
+  p(x) &amp;= e^{f(x)} - e^{f(x)}p(x) \\
+  p(x) \left( 1 + e^{f(x)} \right) &amp;= e^{f(x)} \\
+  p(x) &amp;= \frac{e^{f(x)}}{1 + e^{f(x)}} = \frac{1}{1 + e^{-f(x)}}   \tag{18.3}
+\end{align*}\]</span>
+<p>Equation <a href="classifiers.html#eq:logistic">(18.3)</a> is called the logistic equation. This is the function that is used in logistic regression to fit <span class="math inline">\(p(x)\)</span> to the data.</p>
+<div id="logistic-regression-a-case-of-generalized-linear-modeling" class="section level3">
+<h3><span class="header-section-number">18.2.1</span> Logistic Regression: a case of Generalized Linear Modeling</h3>
+<p>Logistic regression is a special case of a framework more general modeling techniques called <strong>Generalized Linear Modeling</strong> or GLM. In contrast to ordinary linear models, generalized linear models have two modifications:</p>
+<ol style="list-style-type: decimal">
+<li>The response variable <span class="math inline">\(y\)</span> does not have to be normal-distributed.</li>
+<li>A linear function of the predictor variables is transformed through a non-linear, so-called <em>link function</em> to fit the sampled response variable.</li>
+</ol>
+<p>The second modification needs some explanation. In statistical modeling we actually predict the parameters of a distribution of the response variable rather than the response variable itself. In linear modeling, since the underlying distribution is assumed to be the normal distribution, the predicted parameter <span class="math inline">\(\mu\)</span> is the expected value of the response variable itself. However for other distributions this is not necessarily the case.</p>
+<p>For example, in logistic regression, the random variable can only have two values, 0 or 1<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>. The variable <span class="math inline">\(y&#39;\)</span> is Bernoulli-distributed, the distribution that you get with one throw of a possibly unfair coin (see chapter <a href="distributions.html#distributions">11</a>). The Bernoulli distribution has a single parameter, <span class="math inline">\(\theta\)</span>, which is the probabilty that the outcome of a single draw will equal 1. In logistic regression, we try to predict this parameter <span class="math inline">\(\theta\)</span> from predictor variables.</p>
+<p>The link function referred to above in the second modification is, for the case of logistic regression, the logit function <span class="math inline">\(l\)</span> in eq <a href="classifiers.html#eq:logit">(18.2)</a>. The logit function links the parameter of the distribution that we want to predict (here <span class="math inline">\(\theta\)</span>) to a linear function of the predictor variable(s).</p>
+<p>Fitting of GLM’s, in contrast to ordinary LM’s or non-linear models with normal-distributed response variables, is not carried out by minimizing the sum of squared residuals. The reason is that least-squares does not yield unbiased estimates if the response variable is not normal-distributed. To fit a GLM, a technique called <strong>likelihood maximization</strong> is used. For normal-distributed response variables, likelihood maximization coincides with minimization of the sum of squared residuals. This does not hold for other distributions.</p>
+<div class="rmdnote">
+<h3 id="likelihood-an-likelihood-maximization" class="unnumbered">Likelihood an likelihood maximization</h3>
+<p>If we think a certain probability distribution applies to events that we measure, for example ‘head’ in a coin toss or ‘2.41’ for a measurement, then the <strong>likelihood</strong> of the event is the probability that it occurs according to our probability distribution or, if the variable is continuous, then it is the value of the probability density function. <strong>Examples</strong>:</p>
+<ul>
+<li>(<strong>Discrete variable</strong>) We believe that tosses from a coin that we have are drawn from a Bernoulli distribution with parameter <span class="math inline">\(\theta\)</span>. Then likelihood of observing a ‘1’ (head) in a coin toss equals <span class="math inline">\(l = \theta\)</span>. In this case it is just the probability of making this observation.</li>
+<li>(<strong>Continuous variable</strong>) We believe that measurements of suitcase weight in an airport are drawn from a normal distribution with parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, then the likelihood of observing weight <span class="math inline">\(y\)</span> equals <span class="math display">\[
+l = \frac{1}{\sigma\sqrt{2\pi}} e^{-\left( \frac{y - \mu}{\sigma} \right)^2}
+\]</span></li>
+</ul>
+<p>If we make multiple independent draws <span class="math inline">\(1 \ldots n\)</span> from the distribution, then the likelihood <span class="math inline">\(\mathcal{L}\)</span> of the entire data set is the product of their individual likelihoods <span class="math inline">\(\mathcal{L} = l_1 \times \ldots \times l_n\)</span>. In case of discrete distributions, <span class="math inline">\(\mathcal{L}\)</span> is just the probability of the joint events, or the probability of measuring the complete data set. Since the <span class="math inline">\(l_i\)</span> are numbers ususally considerably smaller than 1, <span class="math inline">\(\mathcal{L}\)</span> is an extremely small number, unpractical to use in calculations. Therefore, ususally the <strong>log-likelihood</strong> is calculated:</p>
+<p><span class="math display">\[ \ln(\mathcal{L}) = \ln(l_1 \times \ldots \times l_n) = \ln(l_1) + \ldots +  \ln(l_n) = \Sigma_i \ln(l_i)\]</span> The likelihood can be used to select parameters that maximize the observation of a data set under a particular statistical model. In the case of our logistic regression example, we have a data set of indepenent response (<span class="math inline">\(y\)</span>, being gender, translated to 0 or 1) and predictor (<span class="math inline">\(x\)</span>, beign body height) pair observations <span class="math inline">\((y_i, x_i)\)</span> where <span class="math inline">\(i=1 \ldots n\)</span>, and we have a model that predicts the probability that the person is a man:</p>
+<p><span class="math display">\[\theta(x, \beta_0, \beta_1) = \frac{e^{f(x, \beta_0, \beta_1)}}{1 + e^{f(x, \beta_0, \beta_1)}}, \quad \text{with } f(x, \beta_0, \beta_1) = \beta_0 + \beta_1 x\]</span> as a function of <span class="math inline">\(x\)</span> and the parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. These parameters still need to be determined. Since the pairs <span class="math inline">\((y_i, x_i)\)</span> are numbers that we can substitute, the (log-)likelihood of the entire data set will only be a function of the two parameters. The likelihood of a single observation <span class="math inline">\((y_i, x_i)\)</span> is (see chapter <a href="distributions.html#distributions">11</a>):</p>
+<p><span class="math display">\[
+l_i(\beta_0, \beta_1) = \theta(x_i, \beta_0, \beta_1)^{y_i} \times \left( 1 - \theta(x_i, \beta_0, \beta_1) \right)^{1 - {y_i}}
+\]</span> and the log-likelihood of the entire data set will be <span class="math display">\[
+\ln(\mathcal{L}(\beta_0, \beta_1)) = \sum_i \theta(x_i, \beta_0, \beta_1)^{y_i} \times \left( 1 - \theta(x_i, \beta_0, \beta_1) \right)^{1 - {y_i}}
+\]</span></p>
+<p>Likelihood maximazation then boils down to choosing the parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in such a way that <span class="math inline">\(\mathcal{L}(\beta_0, \beta_1)\)</span> (or <span class="math inline">\(\ln(\mathcal{L}(\beta_0, \beta_1))\)</span>) is maximized. In other words, the probability of observing the data set is maximized under our model.</p>
+</div>
+</div>
+<div id="logistic-regression-in-r" class="section level3">
+<h3><span class="header-section-number">18.2.2</span> Logistic regression in R</h3>
+<p>In R we perform logistic regression using the <code>glm()</code> function for generalized linear modeling. This function is part of the standard <code>stats</code> package which is loaded at the start of R. The function can be called in the same way as the <code>lm()</code> function for the example of predicting gender from body height:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.fit &lt;-<span class="st"> </span><span class="kw">glm</span>(gender <span class="op">~</span><span class="st"> </span>height, <span class="dt">data=</span>bodymetrics, <span class="dt">family=</span><span class="st">&#39;binomial&#39;</span>)</code></pre></div>
+<p>The argument <code>family='binomial'</code> tells the algorithm that the response variable has a binomial distribution<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. The fitted prediction of <span class="math inline">\(\theta(x)\)</span> looks as follows:</p>
+<div class="figure"><span id="fig:clas04"></span>
+<img src="StatR_files/figure-html/clas04-1.png" alt="Logistic regression of the bodymetrics data using the gender as the response variable and height as the predictor variable. The vertical red line is the divide between the probability of being male larger or smaller than $0.5$." width="672" />
+<p class="caption">
+Figure 18.4: Logistic regression of the bodymetrics data using the gender as the response variable and height as the predictor variable. The vertical red line is the divide between the probability of being male larger or smaller than <span class="math inline">\(0.5\)</span>.
+</p>
+</div>
+<p>The fit has the following coefficients for the function <span class="math inline">\(f(\text{height}) = \beta_0 + \beta_1 \text{height}\)</span></p>
+<ul>
+<li><span class="math inline">\(\beta_0 = -46.8\)</span></li>
+<li><span class="math inline">\(\beta_1 = 0.273\)</span></li>
+</ul>
+<p>So, the fitted linear function <span class="math inline">\(f(x)\)</span> equals the log-odds of the probability that the person is a man. This is equal to 0 if <span class="math inline">\(p = 1-p = 0.5\)</span>, and it is <span class="math inline">\(&gt;0\)</span> if the probability that the person is a man is larger than that the person is a woman. The fitted <span class="math inline">\(f(\text{height})\)</span> equals zero when <span class="math inline">\(\text{height} = -\frac{\beta_0}{\beta_1} = 171\)</span> cm. A vertical line is drawn at this position in figure <a href="classifiers.html#fig:clas04">18.4</a>. The fitted model can be used as a true classifier by using the rule:</p>
+<p><span class="math display">\[
+   \text{gender} = 
+\begin{cases}
+    \text{male}, &amp; \text{if } p \geq 0.5 \\
+    \text{female}, &amp; \text{if } p &lt; 0.5
+\end{cases}
+\]</span> which is equivalent to</p>
+<p><span class="math display">\[
+   \text{gender} = 
+\begin{cases}
+    \text{male}, &amp; \text{if } \text{height} \geq - \beta_0 / \beta_1 \\
+    \text{female}, &amp; \text{if } \text{height} &lt; - \beta_0 / \beta_1
+\end{cases}
+\]</span></p>
+<p>One way to assess the goodness of fit of this model is to make a <em>confusion matrix</em>, a table that tells you per level of the response variable how well the classifier fitted the training data:</p>
+<pre><code>##      prediction
+## truth   F   M
+##     F 216  44
+##     M  45 202</code></pre>
+<p>This shows that the prediction for males and females is approximately equally accurate, and that the overall accuracy equals 82%, which is fair, but not very good (1 in 5 is false). Can it be improved?</p>
+<p>We have other predictors as well, namely weight and age, and there is no reason to not add them to the linear predictor equation: <span class="math inline">\(f(x) = \beta_0 + \beta_1 \text{height} + \beta_2 \text{weight} + \ldots\)</span>. Let’s add weight:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.fit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(gender <span class="op">~</span><span class="st"> </span>height <span class="op">+</span><span class="st"> </span>weight, <span class="dt">data=</span>bodymetrics, <span class="dt">family=</span><span class="st">&#39;binomial&#39;</span>)</code></pre></div>
+<p>This yields the following confusion table:</p>
+<pre><code>##      prediction
+## truth   F   M
+##     F 222  38
+##     M  37 210</code></pre>
+<p>with an overall correct prediction of 85%. This is a little better than before but not much. We could have expected this, because it appeared earlier that height and weight are highly correlated, indicating that if you know one, the other doesn’t yield much additional information.</p>
+<!-- It is not difficult to prove that when individual distributions are modeled as normal-distributions, that the probability $p$ calculated from them will be of the form $\frac{1}{1 + e^{-f(x)}}$, where $f(x) = \beta_0 + \beta_1 x$. If the two levels of the factor have means $\mu_1$ and $\mu_2$ and common variance $\sigma^2$ then for the two levels the distributions are: -->
+<!-- \begin{align*} -->
+<!--   d_1(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{x-\mu_1}{\sigma} \right)^2} \\ -->
+<!--   d_2(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{x-\mu_2}{\sigma} \right)^2} -->
+<!-- \end{align*} -->
+<!-- The probability $p(x)$ that an object with predictor value $x$ belongs to the first class is  -->
+<!-- $$ -->
+<!-- p(x) = \frac{d_1(x)}{d_1(x) + d_2(x)} = \frac{\frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{x-\mu_1}{\sigma} \right)^2}}{\frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{x-\mu_1}{\sigma} \right)^2} + \frac{1}{\sigma \sqrt{2\pi}} e^{-\left( \frac{x-\mu_2}{\sigma} \right)^2}} = \ldots -->
+<!-- $$ -->
+<!-- We can immediately delete a number of factors common in the numerator and denominator: -->
+<!-- $$ -->
+<!-- \ldots = \frac{e^{-\left( \frac{x-\mu_1}{\sigma} \right)^2}}{e^{-\left( \frac{x-\mu_1}{\sigma} \right)^2} + e^{-\left( \frac{x-\mu_2}{\sigma} \right)^2}} = \frac{e^{-(x-\mu_1)^2}}{e^{-(x-\mu_1)^2} + e^{-(x-\mu_2)^2}} = \frac{1}{1 + e^{(x - \mu_1)^2 - (x - \mu_2)^2}} = \ldots -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- = \frac{1}{1 + e^{-(2 (\mu_1 - \mu_2) x + \mu_2^2 - \mu_1^2)}} -->
+<!-- $$ -->
+<!-- This equation has the same form as the logistic equation, with -->
+<!-- $$ -->
+<!-- f(x) = 2 (\mu_1 - \mu_2) x + \mu_2^2 - \mu_1^2 -->
+<!-- $$ -->
+</div>
+<div id="exercises-15" class="section level3">
+<h3><span class="header-section-number">18.2.3</span> Exercises</h3>
+<div class="rmdconstruction">
+
+</div>
+<!-- ## Discriminant analysis -->
+<!-- ## Classification and regression trees (CART) -->
+<!-- ## Balanced training data -->
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="10">
+<li id="fn10"><p>Means and variance were calculated from the data<a href="classifiers.html#fnref10">↩</a></p></li>
+<li id="fn11"><p>Odd: in 16-th century England an “amount by which one thing exceeds or falls short of another”, but see, in the online <a href="https://www.etymonline.com/word/odd?ref=etymonline_crossreference">etymology dictionary</a>, its origin from the Norse <em>oddi</em> and strange development in that language from a word that is related to dutch and german <em>oord</em> or <em>Ort</em> (point, place). Odd is truly odd.<a href="classifiers.html#fnref11">↩</a></p></li>
+<li id="fn12"><p>If the original random variable has two character labels, like ‘M’ and ‘F’, then these are first converted to a new variable <span class="math inline">\(y&#39;\)</span> that has the values <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>.<a href="classifiers.html#fnref12">↩</a></p></li>
+<li id="fn13"><p>Actually, a Bernoulli distribution.<a href="classifiers.html#fnref13">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nerve-fiber.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="class-dairy-strains.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
