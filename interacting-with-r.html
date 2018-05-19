@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="elementary-datatypes.html">
+<link rel="next" href="graphics.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interacting-with-r" class="section level1">
+<h1><span class="header-section-number">CHAPTER 4</span> Interacting with R</h1>
+<div id="controlling-r-from-a-script" class="section level2">
+<h2><span class="header-section-number">4.1</span> Controlling R from a script</h2>
+<p>There are two basic ways to tell R what you want it to do: by typing in commands one by one in the R console as we did in chapter <a href="quick-start.html#quick-start">2</a>, or by writing a script that can contain multiple commands and send the whole script or parts of the script to R for interpretation. If you want to be able to save your work, which is highly desirable for future reference or for repeating the same procedures on different data, the easiest way to control R is by writing a script and by saving this. The MS-Windows R-GUI (Graphical User Interface) contains a very simple editor, which, as far as editing properties are concerned is not much more sophisticated than notepad. You invoke this editor from the R-GUI menu by choosing “File|New script”.</p>
+</div>
+<div id="other-editors" class="section level2">
+<h2><span class="header-section-number">4.2</span> Other editors</h2>
+<p>The Windows R-GUI internal editor is a very simple editor. There are several other more sophisticated editors, with syntax highlighting and all kinds of other handy stuff making writing and managing scripts much easier. The best development in this area was the creation of the RStudio IDE (Integrated Development Environment, <a href="http://www.rstudio.com" class="uri">http://www.rstudio.com</a>). It is currently the best editor for data analysis, scripting, reporting, as well as package development in R, and it is available for all major operating systems. In section <a href="interacting-with-r.html#easy-organizing">4.6</a> you will find some additional information about the possibilities of this IDE.</p>
+<p>If you program a lot in other languages too, then you might be using <a href="http://www.eclipse.org">eclipse</a> as an editing and managing environment. You can use this editor for R as well if you think of serious programming in R (meaning lots of files and package construction). The eclipse plug-in for R called “StatET” can be found at <a href="http://www.walware.de/it/statet" class="uri">http://www.walware.de/it/statet</a>. Using eclipse to the full benefit and configuring it for use with R is much more complex than using RStudio and it only pays off when you are already using eclipse. RStudio is the right choice for ordinary data analysis tasks, even for the advanced programmer!</p>
+</div>
+<div id="working-with-packages" class="section level2">
+<h2><span class="header-section-number">4.3</span> Working with packages</h2>
+<p>Scientists inventing new or more efficient data analysis methods often make these available for the scientific community by creating an R-package. An R-package is a coherent set of functions and new data structure definitions (classes) that are developed to solve a specific class of problems. By this mechanism you can use other people’s work by installing their packages on your computer. Since almost every new statistical tool is quickly implemented in R, either by the scientists themselves or by some other enthusiastic R-programmer, these tools are at your disposal much earlier than with any commercial software package for statistical analyses. An example is the novel correlation measure called “distance covariance” <span class="citation">(Székely and Rizzo <a href="#ref-Szekely2009">2009</a>)</span>. It was implemented by the authors in the R-package “energy” concomitantly with their publication.</p>
+<p>Suppose you have a problem that you want to solve, and you suspect that other people might have solved a similar problem before. You wonder whether anybody wrote an R-package for the problem. To find this package, if it exists, go to the CRAN website (<em>Comprehensive R Archive Network</em>, <a href="http://cran.r-project.org/mirrors.html" class="uri">http://cran.r-project.org/mirrors.html</a>). Choose one of the mirror sites and on the left hand menu click on the “Search” link. Type a few keywords in the search field and see whether you can find a package that meets your needs (<em>notice that above the search field alternative search methods are given</em>). Another way is to follow to the link “Contributed extension packages”. You will then get a full list of available packages. If you have found one or more suitable packages, you have to download and install them. You can do that from the console command line. Suppose you want to install packages with the names “pkg1” and “pkg2” as well as its dependencies. “Dependencies” are other packages which a package that you want to install needs to function properly. Then this command can be used to install all those packages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;pkg1&quot;</span>,<span class="st">&quot;pkg2&quot;</span>), <span class="dt">dependencies=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="rmdrstudio">
+<p>
+Packages can also be managed and installed from RStudio, and this is probably the preferred way when you start working with Rstudio. In the background Rstudio will call the same command as we did above. However Rstudio presents a nice little menu with options. The menu can be started from the lower right panel under the “Packages” tab, by pressing the “Install Packages” button. You should know in advance the names of the packages that you want to install.
+</p>
+</div>
+<p>Of course, to use the new packages in an R-session you will first have to call them into that session with the <code>library()</code> or <code>require()</code> functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;pkg1&quot;</span>)
+<span class="kw">require</span>(<span class="st">&quot;pkg2&quot;</span>)</code></pre></div>
+<p>The dependencies will be called in automatically with these calls. The difference between <code>library()</code> and <code>require()</code> is merely cosmetic and only visible if they fail to locate a package. Whereas <code>require()</code> returns <code>FALSE</code> and issues a warning message upon this event, <code>library()</code> will halt and issue an error statement.</p>
+</div>
+<div id="where-your-packages-are-installed" class="section level2">
+<h2><span class="header-section-number">4.4</span> Where your packages are installed</h2>
+<p>If you are the administrator of the PC that you work on you can follow the normal procedure for package installation. Otherwise you may have to tell R that it has to install (and read) packages from a directory that you have write-rights for. However, before you do that, you should check whether a default user package directory is already defined. In the R-console type</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.getenv</span>(<span class="st">&quot;R_LIBS_USER&quot;</span>)</code></pre></div>
+<p>If this yields a path like “~/R/x86_64-pc-linux-gnu-library/3.4” then that will be the directory where packages that you install will be stored. R will automatically also search in this directory if you try to load a package in an R-session. You can just install packages as described in the previous section.</p>
+<p>If the previous commands did not yield a directory then you can make a subdirectory “Rlibraries” in your home directory. First create that directory. In case your working directory is located on a network, please make sure that your home directory maps to a virtual drive (“U:&quot;, for example), and not to some pointer like”////file/…“, because R will not understand the latter syntax. Then, in the R console type the following commands:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lib.dir &lt;-<span class="st"> </span><span class="kw">choose.dir</span>()</code></pre></div>
+<p>This will give you a pop-up screen. Select the newly created “Rlibraries” directory in it. Then type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">.libPaths</span>(lib.dir)</code></pre></div>
+<p>This command adds the newly created directory to the search path for R libraries. Type</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">.libPaths</span>()</code></pre></div>
+<p>to check whether the new path is indeed present in the set of library search paths.</p>
+<p>Now you can follow the normal procedure for package installation. The new package will be installed in your “Rlibraries” directory. <em>After closing R, your addition to the library search path is lost</em>. So, if you install a library in a non-standard directory you will have to add it to the search path again after re-starting R. To do that, just use the previous two commands again. Alternatively, you can specify the location of a non-standard library tree with the <code>lib.loc</code> parameter when attempting to load it; see the help page for the <code>library()</code> and <code>require()</code> functions.</p>
+</div>
+<div id="reproducible-research" class="section level2">
+<h2><span class="header-section-number">4.5</span> Reproducible research</h2>
+<p>Experimental research should be reproducible, otherwise the results can not be trusted. Reproducibility is a very important issue in computational sciences and data analysis as well, as demonstrated by the increasing attention for “Reproducible Research” <span class="citation">(Peng <a href="#ref-Peng2011">2011</a>; Ince, Hatton, and Graham-Cumming <a href="#ref-Ince2012">2012</a>)</span>. The “Reproducible Research” concept is born from the fact that many computer scientists or data analysts experience how difficult it can be to reproduce the results of others, or even their own results. To improve this situation there are a few rules and tools that help making data analysis reproducible:</p>
+<ol style="list-style-type: decimal">
+<li>Organize files and folders in a fixed manner</li>
+<li>Document your R-code with comments</li>
+<li>Make an <em>analysis document</em> with extensive comments and “literate programming”</li>
+<li>Provide a bibliography</li>
+<li>Mention versions of software used (R, package versions)</li>
+<li>Save data sources in an open format and protect files from mutation</li>
+<li>Make generic code (that can be executed on other machines, other data, test data)</li>
+</ol>
+<div id="staying-organized" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Staying organized</h3>
+<p>The goal of organizing your work is to be able to find, interpret and reproduce your results easily. Keeping all files of a project together in a properly named folder is one of basic and most easy ways to stay organized (figure <a href="interacting-with-r.html#fig:project-directory">4.1</a>).</p>
+<p>One of the ideas in reproducible research is to weave executable code and explanatory text together in the final report or paper of the work, using so-called “literate programming”. Literate programming means that you mix programming code with extensive descriptions, or even with the text of the final report. This guarantees availability of code used for calculations to any future reader of the document. For readability, the document containing code and text can be converted to a nicely typeset document in which the output of the code is presented as numbers, tables, figures <em>etc</em>. To facilitate this process, a number of computational tools have been created, also for R. One of the modern tools for literate programming in R is the R-package “knitr”. An extensive listing of these tools can be found on the CRAN website (<a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">https<!-- -->://cran.r-project.org/web/views/ReproducibleResearch.html</a>).</p>
+<div class="figure"><span id="fig:project-directory"></span>
+<img src="images/projectDirectory.png" alt="One way to organize your project directory, in this case using Rstudio. The R-Markdown source documents (.Rmd extension) and their output (.HTML in this case) are kept in the root folder of the project. The 'scripts' folder holds scripts not present in the R-Markdown file as well as those sourced by the R-Markdown file as external scripts (see below). The 'output data' folder holds all file output from the scripts. Keep the source data in read-only mode, if possible." width="30%" />
+<p class="caption">
+Figure 4.1: One way to organize your project directory, in this case using Rstudio. The R-Markdown source documents (.Rmd extension) and their output (.HTML in this case) are kept in the root folder of the project. The ‘scripts’ folder holds scripts not present in the R-Markdown file as well as those sourced by the R-Markdown file as external scripts (see below). The ‘output data’ folder holds all file output from the scripts. Keep the source data in read-only mode, if possible.
+</p>
+</div>
+<p>Of course, if you want to reproduce results, you also need to know which versions of programs and packages were used to obtain earlier results. And, if you have tried different analyses, or change something after publishing or reporting you also need different “frozen” versions of your analysis. Let’s define a few desirable features for organizing work with R:</p>
+<ul>
+<li>Work should be gathered in folders that correspond to well-defined projects. In a project folder we should keep:
+<ul>
+<li>A copy of the original raw data as well as sample annotations <em>etc</em>. in a format readable using R functions. The raw data files preferably have a read-only status.</li>
+<li>The R scripts with comments (Comments are essential: you will be surprised how quickly you forget why you did certain things).</li>
+<li>Documents describing the interpretation of the analysis, and in which output from R, like figures and tables, is integrated.</li>
+</ul></li>
+<li>We should also note the version numbers of R and packages that were used for an analysis.</li>
+<li>In case of complex and long-term projects we should keep frozen versions of R-scripts and other documents.</li>
+</ul>
+<p>With these rules we should land somewhere right of the center of the “reproducibility spectrum” as depicted in figure <a href="interacting-with-r.html#fig:reproducibility-spectrum">4.2</a></p>
+<div class="figure"><span id="fig:reproducibility-spectrum"></span>
+<img src="images/reproducibilitySpectrum.png" alt="The reproducibility spectrum for computational sciences. Reproduced from @Peng2011" width="100%" />
+<p class="caption">
+Figure 4.2: The reproducibility spectrum for computational sciences. Reproduced from <span class="citation">Peng (<a href="#ref-Peng2011">2011</a>)</span>
+</p>
+</div>
+</div>
+</div>
+<div id="easy-organizing" class="section level2">
+<h2><span class="header-section-number">4.6</span> Easy organizing with RStudio</h2>
+<p>RStudio has several mechanisms built in that help you keeping the requirements just defined above.</p>
+<ol style="list-style-type: decimal">
+<li><p>In RStudio the natural way to organize your work is in Projects. A project has an associated base folder, the <strong>workdirectory</strong> (see Chapter <a href="file-io.html#file-io">6</a>) in which documents, scripts and data can be organized in subfolders, if desired.</p></li>
+<li><p>RStudio has a few options available for weaving R code and R output with documentation together in a source document. Such a source document can be converted to different final output formats, like HTML (web-page like), PDF, or Word. These documents (source and output) are perfect for saving your analysis and for communicating about it with your colleagues.</p></li>
+<li><p>RStudio provides an interface for two popular versioning systems, the older “Subversion” and the highly flexible distributed versioning system “Git” (<a href="http://git-scm.com" class="uri">http://git-scm.com</a>). For either tool you need a working installation (subversion or git) on your OS. There are standard packages available for most operating systems, including Windows.</p></li>
+</ol>
+<p>You should <strong>always use the first two possibilities</strong>. The third, Git, is an advanced feature that pays back especially in group projects, and when the focus lies on programming rather than data analysis.</p>
+<div class="figure"><span id="fig:rmarkdown-example"></span>
+<img src="images/Rstudio_start.png" alt="An example of an R Markdown document. It is a simple text file with markup elements that are instructions for document formatting. It is interspersed with R code chunks between the triple backtick delimiters ```, displayed in grey in Rstudio. The elements between the curly brackets in the code chunks are parameters for the knitr package. See http://yihui.name/knitr/options for a list of knitr options." width="70%" />
+<p class="caption">
+Figure 4.3: An example of an R Markdown document. It is a simple text file with markup elements that are instructions for document formatting. It is interspersed with R code chunks between the triple backtick delimiters ```, displayed in grey in Rstudio. The elements between the curly brackets in the code chunks are parameters for the knitr package. See <a href="http://yihui.name/knitr/options" class="uri">http://yihui.name/knitr/options</a> for a list of knitr options.
+</p>
+</div>
+<div id="rmarkdown-documents" class="section level3 unnumbered">
+<h3>Rmarkdown documents</h3>
+<p>R-Markdown documents are a type of source document in which code and text can be weaved together. Using R-Markdown syntax is one of the easiest ways to make source documents. R-Markdown documents are text documents with Markup commands that that can be interpreted as instructions for output document formatting. For example, a single hash in front of a text, <code># My Title</code>, will produce the text that looks like a title (large font, <em>etc</em>.). You can find other markup commands under the menu ‘Help | Markdown Quick Reference’. To start an R-Markdown document in RStudio, click on File | New | R Markdown. A new example Markdown document pops up (figure <a href="interacting-with-r.html#fig:rmarkdown-example">4.3</a>), to which you can make changes. To generate the HTML output you save the RMarkdown file (in your project folder) and click on the “knit” button. The functions from the knitr package will execute the R code parts and generate HTML output from the R-output (figure <a href="interacting-with-r.html#fig:rmarkdown-output">4.4</a>). They will also translate the Markdown commands to HTML tags, and weave this together with the R-output to a valid HTML document.</p>
+<div class="figure"><span id="fig:rmarkdown-output"></span>
+<img src="images/Rstudio_start_output.png" alt="The HTML output of the default R Markdown document." width="70%" />
+<p class="caption">
+Figure 4.4: The HTML output of the default R Markdown document.
+</p>
+</div>
+<p>Other types of output for R-Markdown documents are PDF and Word. The output type can be chosen from the dropdown menu under the “knitr” button. The translation of an R-Markdown file (extension “Rmd”) into one of these final formatted documents is done in a two-step process (figure <a href="interacting-with-r.html#fig:rmarkdown-processing">4.5</a>). In the first step, the code chunks in the document are executed, figures are made, and the output is translated into Markdown code, and produces a Markdown (extension “Md”) file. For example, when the code produced a figure, that figure is stored in a (temporary) file and at the original position of the R-code, Markdown commands are placed that import the figure. In the second step, the program Pandoc translates the Markdown file to a final output file.</p>
+<div class="figure"><span id="fig:rmarkdown-processing"></span>
+<img src="images/Rmarkdown_processing.png" alt="The two-step processing of an R-Markdown document called 'analysis.Rmd' to a HTML, PDF or other format. The Knitr package takes care of the execution of R-code (in blue) and translation of its output to Markdown syntax (pink). Pandoc creates a formatted document (HTML or PDF) from a Markdown document." width="70%" />
+<p class="caption">
+Figure 4.5: The two-step processing of an R-Markdown document called ‘analysis.Rmd’ to a HTML, PDF or other format. The Knitr package takes care of the execution of R-code (in blue) and translation of its output to Markdown syntax (pink). Pandoc creates a formatted document (HTML or PDF) from a Markdown document.
+</p>
+</div>
+<p>Another type of source document is the “R Sweave” type. R-sweave documents are just LaTeX documents intercalated with R-code. The second phase of the processing in figure <a href="interacting-with-r.html#fig:rmarkdown-processing">4.5</a> is taken care of by the latex program. LaTeX markup syntax is much more complex than Markdown. The main reason to use Sweave in some cases is that it allows much more flexibility in the output format. In principle all the flexibility of LaTeX itself.</p>
+<div class="rmdcaution">
+<p>
+In this course you should use R-Markdown, unless you are already proficient in LaTeX and insist on using that system. LaTeX markup is much more prone to the introduction of errors, and the generation of output, particularly the analysis of errors, can be tedious if you are not an experienced user. It is a bad idea to combine the goal of learning of R with that of learning LaTeX. Even for experienced LaTeX users it may not be a good idea to make life more difficult. Using LaTeX does not yield extra points in this course …
+</p>
+</div>
+</div>
+<div id="externalizing-code" class="section level3 unnumbered">
+<h3>Externalizing code</h3>
+<p>It is not always convenient to experiment with code in a Markdown or Sweave document, because you need to generate the document to see the effects of code changes, and R-error messages are difficult to retrieve. That is why I often put the R-code in a separate document (code externalization), and include that R-code via the <code>read_chunk()</code> function from the knitr package in the Markdown or Sweave document. The procedure is explained on the <a href="http://yihui.name/knitr/demo/externalization">knitr website</a>. It also has some clarifying demo files.</p>
+</div>
+</div>
+<div id="displaying-information-about-your-r-session" class="section level2">
+<h2><span class="header-section-number">4.7</span> Displaying information about your R session</h2>
+<p>Although most R-code and package writers take care to maintain backward compatibility of algorithms, it can sometimes happen that a script that previously worked suddenly fails. In many cases this is due to deprecation of a function. In such a case you might want to restore the original environment. You can in principle run multiple versions of R in parallel on the same PC. You will need to print version numbers in your original report though. A simple way to do this is by using the <code>sessionInfo()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
+<pre><code>## R version 3.4.3 (2017-11-30)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 16.04.4 LTS
+## 
+## Matrix products: default
+## BLAS: /usr/lib/openblas-base/libblas.so.3
+## LAPACK: /usr/lib/libopenblasp-r0.2.18.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.16     rstudioapi_0.7   knitr_1.20       magrittr_1.5    
+##  [5] munsell_0.4.3    colorspace_1.3-2 rlang_0.2.0      highr_0.6       
+##  [9] stringr_1.3.0    plyr_1.8.4       tools_3.4.3      grid_3.4.3      
+## [13] gtable_0.2.0     xfun_0.1         png_0.1-7        htmltools_0.3.6 
+## [17] yaml_2.1.18      lazyeval_0.2.1   rprojroot_1.3-2  digest_0.6.15   
+## [21] tibble_1.4.2     bookdown_0.7     ggplot2_2.2.1    evaluate_0.10.1 
+## [25] rmarkdown_1.9    stringi_1.1.7    compiler_3.4.3   pillar_1.2.2    
+## [29] scales_0.5.0     backports_1.1.2</code></pre>
+<p>The first two lines show the R version number and the platform on which it was run. The <em>locale</em> section shows local settings of the platform. The <em>attached base packages</em> and <em>other attached packages</em> show which packages from the base installation and custom packages are loaded and attached in the session (attached means that you can access their functions from the console. The <em>loaded via a namespace (and not attached)</em> section shows which packages make functions available to attached packages without being attached themselves, which means that their functions can not be directly accessed from the console.</p>
+</div>
+<div id="citing-r-and-r-packages-in-reports-and-papers" class="section level2">
+<h2><span class="header-section-number">4.8</span> Citing R and R-packages in reports and papers</h2>
+<p>It is important to cite the use of R and of specific packages when writing a report or a paper. First of all, The R Development Core Team and the package programmers have invested a huge amount of work and we, the R user community, should pay them credit for it. Second, others have to be able to reproduce your data analyses, and therefore have to know exactly which tools you used. To obtain general citation details for the use of R use the command <code>citation()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>()</code></pre></div>
+<pre><code>## 
+## To cite R in publications use:
+## 
+##   R Core Team (2017). R: A language and environment for
+##   statistical computing. R Foundation for Statistical Computing,
+##   Vienna, Austria. URL https://www.R-project.org/.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {R: A Language and Environment for Statistical Computing},
+##     author = {{R Core Team}},
+##     organization = {R Foundation for Statistical Computing},
+##     address = {Vienna, Austria},
+##     year = {2017},
+##     url = {https://www.R-project.org/},
+##   }
+## 
+## We have invested a lot of time and effort in creating R, please
+## cite it when using it for data analysis. See also
+## &#39;citation(&quot;pkgname&quot;)&#39; for citing R packages.</code></pre>
+<p>Citation details for specific packages can usually be found in the package description in its help pages. For many packages the <code>citation()</code> function also works. For example for the <code>nlme</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">&quot;nlme&quot;</span>)</code></pre></div>
+<pre><code>## 
+## Pinheiro J, Bates D, DebRoy S, Sarkar D and R Core Team (2018).
+## _nlme: Linear and Nonlinear Mixed Effects Models_. R package
+## version 3.1-137, &lt;URL: https://CRAN.R-project.org/package=nlme&gt;.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {{nlme}: Linear and Nonlinear Mixed Effects Models},
+##     author = {Jose Pinheiro and Douglas Bates and Saikat DebRoy and Deepayan Sarkar and {R Core Team}},
+##     year = {2018},
+##     note = {R package version 3.1-137},
+##     url = {https://CRAN.R-project.org/package=nlme},
+##   }</code></pre>
+</div>
+<div id="exercise-diversity-of-deep-sea-nematodes" class="section level2">
+<h2><span class="header-section-number">4.9</span> Exercise: diversity of deep-sea nematodes</h2>
+<p>For this exercise you should use Rstudio. Open Rstudio and become acquainted with its 4 panels:</p>
+<ul>
+<li>The upper left panel is the script panel, where you write R-scripts. You can execute parts of this code by selecting it and pressing the “Run” button.</li>
+<li>The lower left panel is a console, where parts of your script are executed, You can also directly enter commands in the console.</li>
+<li>The upper right screen is the workspace management area. it shows the objects in the workspace, and it allows you to delete specific objects</li>
+<li>The lower right panel is an interface to the file system, the help system, package management, as well as an area where plots are displayed.</li>
+</ul>
+<p>Also find the help-pages for Rstudio on the internet. Before starting the exercise, make a project directory where you will keep your script and data (menu “File | New Project”).</p>
+<p>We will work on a data set consisting of nematode species densities, found in Mediterranean deep-sea sediments, at depths ranging from 160 m to 1220 m. The densities are expressed in number of individuals per 10 cm<sup>2</sup>. Nematodes are small (&lt; 1 mm) worms, and they are highly abundant in all marine sediments. The data (from <span class="citation">Soetaert, Heip, and Vincx (<a href="#ref-Soetaert1991">1991</a>)</span>) have been deposited as a table in a comma-separated-values (csv) format on the course website: <a href="data/nemaspec">http<!-- -->://www.few.vu.nl/~molenaar/courses/statR/data/nemaspec</a>. Download the file “nemaspec.csv” to a “source data” subdirectory of your project directory and open it in RStudio. Check its structure. You may also open the file in Excel, but do not forget to close it before proceeding. Excel is very territorial, and will not allow another program, such as R, to access a file that it is open in itself. On the first line is the heading (the names of the stations), the first column contains the species names. Before importing the file in R change the working directory (see chapter <a href="file-io.html#file-io">6</a> for the concept of working directory). Make sure that your project directory is open on the Files tab in the lower right panel in Rstudio. Then set this to the working directory by pressing the “More” button and choosing “Set As Working Directory”. In the console you should see that Rstudio has sent a command like the following to the console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;C:/Rwork/nematodes&#39;</span>)</code></pre></div>
+<p>Now open a new R-script tab in Rstudio, and at the top write a few comments: Title and purpose of the script, date, your name, R-version <em>etc</em>. Note that in an R-script, everything one a line behind a # is regarded as a comment. Now save the script as an R-script to the wording directory.</p>
+<p>Execute the following commands, submitting each line from the script to R to check its correctness. Read the comma-delimited file, using R-command <code>read.csv</code>. Type <code>?read.csv</code> for help (you will learn more about file-IO in chapter <a href="file-io.html#file-io">6</a>). Specify that the first row of the data file is the heading (<code>header=TRUE</code>) and that the first column contains the row names (<code>row.names=1</code>). Put the data in data frame <code>Nemaspec</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nemaspec &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;nemaspec.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
+<p>Check the contents of Nemaspec, for example by clicking on its name in the Workspace management area. You can also display part of it in the console using the <code>head()</code> function: <code>head(Nemaspec)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Nemaspec)</code></pre></div>
+<pre><code>##                       M160a    M160b    M280a    M280b    M530a    M530b
+## Acantholaimus             0 6.580261 0.000000 1.120782 1.315487 1.727387
+## Acantholaimus elegans     0 0.000000 1.439706 0.000000 3.956836 0.000000
+## Acantholaimus iubilus     0 0.000000 0.000000 0.000000 0.000000 1.193131
+## Acantholaimus M1          0 5.919719 0.000000 3.628518 0.000000 1.193131
+## Acantholaimus M10         0 0.000000 0.000000 1.120782 0.000000 0.000000
+## Acantholaimus M11         0 0.000000 0.000000 0.000000 0.000000 0.000000
+##                          M820a    M820b    M990a    M990b   M1220a
+## Acantholaimus         3.417313 3.748096 2.447545 3.728838 4.369345
+## Acantholaimus elegans 0.000000 2.198407 5.080900 5.330997 3.644567
+## Acantholaimus iubilus 0.000000 0.000000 1.270450 1.372789 0.000000
+## Acantholaimus M1      1.155307 0.000000 5.052036 6.225598 0.000000
+## Acantholaimus M10     0.000000 0.000000 0.000000 0.000000 1.115981
+## Acantholaimus M11     0.000000 0.000000 0.000000 2.285694 0.000000
+##                         M1220b
+## Acantholaimus         4.787512
+## Acantholaimus elegans 3.494481
+## Acantholaimus iubilus 0.000000
+## Acantholaimus M1      1.166825
+## Acantholaimus M10     0.000000
+## Acantholaimus M11     0.000000</code></pre>
+<p>The rest is up to you, <strong>but do not forget to save your script</strong>, because you will need it later in an exercise to make modifications and do additional calculations:</p>
+<ol style="list-style-type: decimal">
+<li>Select the data from station M160b (the 2<sup>nd</sup> column of <code>Nemaspec</code>); put these data in a vector <code>dens</code>. (Remember: to select a complete column, you select all rows by leaving the first index blank, or you can use the <code>$</code> operator).
+<div>
+<a id="InteractHead1" href="javascript:toggle('InteractSol1','InteractHead1');" >Show solution</a>
+</div>
+<div id="InteractSol1" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dens &lt;-<span class="st"> </span>Nemaspec<span class="op">$</span>M160b</code></pre></div>
+</div></li>
+<li>Remove from vector <code>dens</code>, the densities that are equal to 0 (tip: you could use the logical operator <code>!=</code> (not equal), or a combination of the logical <code>==</code> (equal) and <code>!</code> (not) operators). Display this vector on the screen.
+<div>
+<a id="InteractHead2" href="javascript:toggle('InteractSol2','InteractHead2');" >Show solution</a>
+</div>
+<div id="InteractSol2" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dens &lt;-<span class="st"> </span>dens[dens<span class="op">!=</span><span class="dv">0</span>]</code></pre></div>
+</div></li>
+<li>Calculate <span class="math inline">\(N\)</span>, the total nematode density of this station. The total density is simply the sum of all species densities (i.e. the sum of values in vector <code>dens</code>). What is the value of <span class="math inline">\(N\)</span> ? (Answer :699).
+<div>
+<a id="InteractHead3" href="javascript:toggle('InteractSol3','InteractHead3');" >Show solution</a>
+</div>
+<div id="InteractSol3" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N &lt;-<span class="st"> </span><span class="kw">sum</span>(dens)</code></pre></div>
+</div></li>
+<li>Divide the values in vector <code>dens</code> by the total nematode density <span class="math inline">\(N\)</span>. Put the results in vector <code>p</code>, which now contains the relative proportions for all species. The sum of all values in <code>p</code> should now equal 1. Check that.
+<div>
+<a id="InteractHead4" href="javascript:toggle('InteractSol4','InteractHead4');" >Show solution</a>
+</div>
+<div id="InteractSol4" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span>dens<span class="op">/</span>N</code></pre></div>
+</div></li>
+<li>Calculate <span class="math inline">\(S\)</span>, the number of species: this is simply the length of <code>p</code> or <code>dens</code>; call this value <span class="math inline">\(S\)</span>. (Answer: 126)
+<div>
+<a id="InteractHead5" href="javascript:toggle('InteractSol5','InteractHead5');" >Show solution</a>
+</div>
+<div id="InteractSol5" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">S &lt;-<span class="st"> </span><span class="kw">length</span>(p)</code></pre></div>
+</div></li>
+<li><p>Estimate the values of diversity indices <span class="math inline">\(N1\)</span> and <span class="math inline">\(N2\)</span> and <span class="math inline">\(N3\)</span>, given by the following formulas: <span class="math display">\[
+\begin{align*}
+N1 &amp;= -\sum p_{i}\cdot\ln(p_{i}) &amp; &amp; \text{Shannon-Wiener index} \\
+N2 &amp;= \frac{1}{\sum p_{i}^{2}} &amp; &amp; \text{Inverse Simpson index} \\
+N3 &amp;= \frac{1}{max(p_{i})} &amp; &amp; \text{Renyi diversity of infinite order}
+\end{align*}
+\]</span></p>
+where <span class="math inline">\(\sum\)</span> means summation over the index <span class="math inline">\(i\)</span>. You can calculate each of these values using only one R statement! (Answers: N1=4.502, N2=66.78, N3=22.56).
+<div>
+<a id="InteractHead6" href="javascript:toggle('InteractSol6','InteractHead6');" >Show solution</a>
+</div>
+<div id="InteractSol6" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N1 &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(p<span class="op">*</span><span class="kw">log</span>(p))
+N2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">sum</span>(p<span class="op">*</span>p)
+N3 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">max</span>(p)</code></pre></div>
+</div></li>
+<li><p>The 126 nematode species per 10 cm<sup>2</sup> were obtained by looking at all 699 individuals. Of course, the fewer individuals are determined, the fewer species will be encountered. Some researchers determine 100 individuals, other 200 individuals. To standardize their results, the expected number of species in a sample can be recalculated based on a common number of individuals. The expected number of species in a sample of size <span class="math inline">\(n\)</span>, drawn from a total population of size <span class="math inline">\(N\)</span>, which has <span class="math inline">\(S\)</span> species is given by <span class="math display">\[
+ES(n) = \sum_{i=1}^{S} \left[ 1 - \frac{ \binom{N-N_{i}}{n}}{\binom{N}{n}} \right]
+\]</span></p>
+where <span class="math inline">\(N_{i}\)</span> is the number of individuals in the i-th species in the full sample and <span class="math inline">\(\binom{N}{n}\)</span> is the so-called “binomial coefficient”, the number of different sets with size <code>n</code> that can be chosen from a set with total size <code>N</code>. In R, binomial coefficients are calculated with the statement <code>choose(N,n)</code>. What is the expected number of species per 100 individuals? (<span class="math inline">\(n\)</span>=100, <span class="math inline">\(N\)</span>=699, Answer: ES(100)=60.69)
+<div>
+<a id="InteractHead7" href="javascript:toggle('InteractSol7','InteractHead7');" >Show solution</a>
+</div>
+<div id="InteractSol7" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ES &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">choose</span>(N<span class="op">-</span>dens,<span class="dv">100</span>)<span class="op">/</span><span class="kw">choose</span>(N,<span class="dv">100</span>))</code></pre></div>
+</div></li>
+<li><p>Put all the diversity indices (N, S, N1, N2, N3, ES) in a vector called <code>diversity</code>, name its elements using the <code>names()</code> function, and print it to the screen. It should look like:</p>
+<pre><code>##          N          S         N1         N2         N3         ES 
+## 699.000000 126.000000   4.501515  66.778414  22.561569  60.689713</code></pre>
+<div>
+<a id="InteractHead8" href="javascript:toggle('InteractSol8','InteractHead8');" >Show solution</a>
+</div>
+<div id="InteractSol8" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diversity &lt;-<span class="st"> </span><span class="kw">c</span>(N,S,N1,N2,N3,ES)
+<span class="kw">names</span>(diversity) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;N&#39;</span>,<span class="st">&#39;S&#39;</span>,<span class="st">&#39;N1&#39;</span>,<span class="st">&#39;N2&#39;</span>,<span class="st">&#39;N3&#39;</span>,<span class="st">&#39;ES&#39;</span>)</code></pre></div>
+</div></li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Szekely2009">
+<p>Székely, G. J., and M. L. Rizzo. 2009. “Brownian Distance Covariance.” <em>Ann. Appl. Stat.</em> 3 (4): 1236–65. doi:<a href="https://doi.org/10.1214/09-AOAS312">10.1214/09-AOAS312</a>.</p>
+</div>
+<div id="ref-Peng2011">
+<p>Peng, R. D. 2011. “Reproducible Research in Computational Science.” <em>Science</em> 334 (6060): 1226–7. doi:<a href="https://doi.org/10.1126/science.1213847">10.1126/science.1213847</a>.</p>
+</div>
+<div id="ref-Ince2012">
+<p>Ince, D. C., L. Hatton, and J. Graham-Cumming. 2012. “The Case for Open Computer Programs.” <em>Nature</em> 482 (7386): 485–88. doi:<a href="https://doi.org/10.1038/nature10836">10.1038/nature10836</a>.</p>
+</div>
+<div id="ref-Soetaert1991">
+<p>Soetaert, K., C. Heip, and M Vincx. 1991. “Diversity of Nematode Assemblages Along a Mediterranean Deep-Sea Transect.” <em>Mar. Ecol. Prog. Ser.</em> 75: 275–82. <a href="http://www.int-res.com/articles/meps/75/m075p275.pdf" class="uri">http://www.int-res.com/articles/meps/75/m075p275.pdf</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="elementary-datatypes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

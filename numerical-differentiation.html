@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="resampling-techniques.html">
+<link rel="next" href="randomnumbers.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="numerical-differentiation" class="section level1">
+<h1><span class="header-section-number">CHAPTER 22</span> Numerical differentiation and smoothing</h1>
+<p><strong>(Techniques: de-noising, Savitzky-Golay filter)</strong></p>
+<div class="figure"><span id="fig:prepare"></span>
+<img src="StatR_files/figure-html/prepare-1.png" alt="Three traces of enzyme activity measurements (right panel), a growth curve (left upper panel) of a bacterial culture and a bioluminescence trace of a growing culture (left lower panel)." width="100%" />
+<p class="caption">
+Figure 22.1: Three traces of enzyme activity measurements (right panel), a growth curve (left upper panel) of a bacterial culture and a bioluminescence trace of a growing culture (left lower panel).
+</p>
+</div>
+<p>Often, the slope of an experimental trace (a time-series) like the ones in figure <a href="numerical-differentiation.html#fig:prepare">22.1</a> is needed. For example, if you are interested in rates rather than in the absolute read-out of an experiment. If you are interested in the slope at a particular point of the curve, one way of calculating that slope is to take a linear part of a trace around the point of interest and to fit a straight line or a higher order polynomial through the data. The first order derivative of the fit is an estimation of the rate of change of the signal at the particular point. For example, for the enzyme kinetic curves in figure <a href="numerical-differentiation.html#fig:prepare">22.1</a> we are interested in the initial rates, <em>i.e.</em> the rates at <span class="math inline">\(t=0\)</span>. For the growth curve in figure <a href="numerical-differentiation.html#fig:prepare">22.1</a> we are interested in changes in the growth rate over the whole curve. And for the bioluminescence curve, we are interested in the maximal bioluminescence but also in the bioluminescence normalized to (divided by the) amount of bacteria (or optical density = OD). So, how can you calculate the first order (or higher order) derivative if you’re interested in the rate of change over the whole time series, and when you do not know the underlying mathematical shape of the curve? Or how do you calculate the maximal bioluminescence when the curve contains a lot of noise, as in the figure? We will try to answer these questions in the following exercises.</p>
+<div id="exercises-19" class="section level2">
+<h2><span class="header-section-number">22.1</span> Exercises</h2>
+<p>The data can be found in <a href="data/numdif">data/numdif</a>.</p>
+<ol style="list-style-type: decimal">
+<li>We start with the initial rates problem. For each of the curves determine by eye which of the points belong to an approximately linear part of the curve near the point <span class="math inline">\(t=0\)</span>, or at least to a portion of the curve around <span class="math inline">\(t=0\)</span> where the slope doesn’t change too much, and we can still expect a reasonable fit. Then fit first-, second- and third-order polynomials through those points, and calculate the initial rates. How many points do you need at least for each of the polynomials, and what do you notice about those initial rate estimates? Which polynomial gives the right answer? Make detailed plots of the curves and fits to support the answer.
+<div>
+<a id="NumDifHead1" href="javascript:toggle('NumDifSol1','NumDifHead1');" >Show solution</a>
+</div>
+<div id="NumDifSol1" style="display: none">
+<p>Clearly, we need at least a number of points equal to the number of parameters of the fitted curve, <em>i.e.</em> 2 for a straight line, 3 for a 2-nd order polynomial and 4 for a 3-rd order polynomial. But taking that bare minimum doesn’t leave any room for filtering out measurement error. We notice that the curves start to bend off already close to the first point, especially for E3, so we should not take too many points for the straight line fits, <em>i.e.</em> let’s take a minimum of three points there. And let’s take the minimum + 1 point for the higher order polynomials. Below, I put the results in a table. Note that I am using the <code>poly()</code> function to define polynomials in the formulas. You could also yse a formula like <code>E1 ~ I(time) + I(time^2) + I(time^3)</code> to define a third order polynomial, for example. However, <code>poly()</code> from the <code>stats</code> package makes it easier to formulate higher order polynomials.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">file.path</span>(baseurl,<span class="st">&#39;data/numdif/enzymekinetics.tab&#39;</span>)
+d &lt;-<span class="st"> </span><span class="kw">read.table</span>(f, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">head=</span><span class="ot">TRUE</span>)
+fits &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (deg <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
+  fits &lt;-<span class="st"> </span><span class="kw">cbind</span>(fits, <span class="kw">c</span>(
+    <span class="kw">lm</span>(E1<span class="op">~</span>stats<span class="op">::</span><span class="kw">poly</span>(<span class="dt">x=</span>time, <span class="dt">degree=</span>deg, <span class="dt">raw=</span><span class="ot">TRUE</span>), d[<span class="dv">1</span><span class="op">:</span>(deg<span class="op">+</span><span class="dv">2</span>),])<span class="op">$</span>coefficients[<span class="dv">2</span>], 
+    <span class="kw">lm</span>(E2<span class="op">~</span>stats<span class="op">::</span><span class="kw">poly</span>(<span class="dt">x=</span>time, <span class="dt">degree=</span>deg, <span class="dt">raw=</span><span class="ot">TRUE</span>), d[<span class="dv">1</span><span class="op">:</span>(deg<span class="op">+</span><span class="dv">2</span>),])<span class="op">$</span>coefficients[<span class="dv">2</span>], 
+    <span class="kw">lm</span>(E3<span class="op">~</span>stats<span class="op">::</span><span class="kw">poly</span>(<span class="dt">x=</span>time, <span class="dt">degree=</span>deg, <span class="dt">raw=</span><span class="ot">TRUE</span>), d[<span class="dv">1</span><span class="op">:</span>(deg<span class="op">+</span><span class="dv">2</span>),])<span class="op">$</span>coefficients[<span class="dv">2</span>])
+                )
+}
+<span class="co"># Above: fully qualifying the stats::poly function, because I have loaded the &quot;signal&quot;</span>
+<span class="co"># package which contains another &quot;poly&quot; function  </span>
+<span class="kw">rownames</span>(fits) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&#39;E&#39;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">sep=</span><span class="st">&#39;&#39;</span>)
+<span class="kw">colnames</span>(fits) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;poly1&#39;</span>,<span class="st">&#39;poly2&#39;</span>,<span class="st">&#39;poly3&#39;</span>)
+fits</code></pre></div>
+<pre><code>##          poly1       poly2       poly3
+## E1 0.007116667 0.008396667 0.009251587
+## E2 0.014750000 0.016965000 0.018663889
+## E3 0.033250000 0.041141667 0.043980159</code></pre>
+<p>It shows that the initial rate estimates increase with the order of the fitted polynomial, and that this can make a dramatic difference. Which approach is right? That depends on the noise in the data. Higher order polynomials adapt better to high curvature, but also to noise in the data. A detailed plot of the fits to E1 is shown below</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(E1<span class="op">~</span>time, d[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,])
+coefs &lt;-<span class="st"> </span><span class="kw">lm</span>(E1<span class="op">~</span>stats<span class="op">::</span><span class="kw">poly</span>(time,<span class="dv">1</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>),d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,])<span class="op">$</span>coefficients
+<span class="kw">curve</span>(coefs[<span class="dv">1</span>]<span class="op">+</span>coefs[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>)
+coefs &lt;-<span class="st"> </span><span class="kw">lm</span>(E1<span class="op">~</span>stats<span class="op">::</span><span class="kw">poly</span>(time,<span class="dv">2</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>),d[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,])<span class="op">$</span>coefficients
+<span class="kw">curve</span>(coefs[<span class="dv">1</span>]<span class="op">+</span>coefs[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span>coefs[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&#39;darkgreen&#39;</span>)
+coefs &lt;-<span class="st"> </span><span class="kw">lm</span>(E1<span class="op">~</span>stats<span class="op">::</span><span class="kw">poly</span>(time,<span class="dv">3</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>),d[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,])<span class="op">$</span>coefficients
+<span class="kw">curve</span>(coefs[<span class="dv">1</span>]<span class="op">+</span>coefs[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span>coefs[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span><span class="op">+</span>coefs[<span class="dv">4</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">3</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/detailplots-1.png" width="672" /></p>
+<p>It shows that a straight line is likely to underestimate the initial rate, and that it fits badly to the three points. However, whether a third order polynomial is a better fit than a second order polynomial can not be answered without additional data. For that we would need to obtain more information about the technical error in the measurement.</p>
+</div></li>
+<li>We will now attack the second problem. The first thing we need to know is that we are actually not interested in the absolute rate of biomass growth, but in the specific growth rate (called <span class="math inline">\(\mu\)</span>), <em>i.e.</em> the rate of biomass growth per amount of biomass. This is a more general measure of growth of a microbial culture, because all individuals in a culture contribute to growth at any moment in time. So clearly, the growth rate increases with the amount of cells, or the amount of biomass <span class="math inline">\(x\)</span>. Hence, we are actually interested in the quantity <span class="math display">\[
+\mu(t) = \frac{1}{x(t)} \cdot \frac{d\,x(t)}{d\,t}
+\]</span> We still need to estimate <span class="math inline">\(dx(t)/dt\)</span>, but have to divide this quantity by <span class="math inline">\(x(t)\)</span> to obtain an estimate of <span class="math inline">\(\mu(t)\)</span> at any time of the culture. A naive approach to this problem of numerical differentiation is to apply a discretized version of the mathematical operation of differentiation. Suppose you have a series of measurements of a variable <span class="math inline">\(x\)</span> at different, regularly spaced time points, <em>i.e.</em> you have a series of ordered pairs <span class="math inline">\((t_i, x_i)\)</span>. Because of the regular interval, there is a constant difference <span class="math inline">\(\delta t\)</span> between consecutive time points. To calculate the rate at a certain time point <span class="math inline">\(t_i\)</span>, you could calculate <span class="math display">\[
+\frac{\delta x}{\delta t} = \frac{x_{i+1} - x_i}{\delta t}
+\]</span> To be more concrete, suppose we are interested in the first order derivative of the growth curve shown in . Apply the above formula to calculate the first order derivative of the curve and estimate <span class="math inline">\(\mu(t)\)</span>. Use the function <code>diff()</code>. Also make a line-plot of the derivative (use <code>plot()</code> with argument <code>type='l'</code>).
+<div>
+<a id="NumDifHead2" href="javascript:toggle('NumDifSol2','NumDifHead2');" >Show solution</a>
+</div>
+<div id="NumDifSol2" style="display: none">
+<p>We can calculate the difference between consecutive OD measurements using the expression <code>diff(d$OD)</code>. However, the resulting vector has one point less than the original data, hence, I chose to arbitrarily leave out the first data point to calculate <span class="math inline">\(\mu\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="kw">file.path</span>(baseurl, <span class="st">&quot;data/numdif/growth.tab&quot;</span>)
+d &lt;-<span class="st"> </span><span class="kw">read.table</span>(f, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">head=</span><span class="ot">TRUE</span>)
+delta.x &lt;-<span class="st"> </span><span class="kw">diff</span>(d<span class="op">$</span>OD)
+delta.t &lt;-<span class="st"> </span><span class="kw">diff</span>(d<span class="op">$</span>time)
+<span class="kw">plot</span>(d<span class="op">$</span>time[<span class="op">-</span><span class="dv">1</span>], (<span class="dv">1</span><span class="op">/</span>d<span class="op">$</span>OD[<span class="op">-</span><span class="dv">1</span>])<span class="op">*</span>(delta.x<span class="op">/</span>delta.t), <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab=</span><span class="st">&quot;Time (h)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Specific growth rate (1/h)&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.25</span>,<span class="fl">1.25</span>))</code></pre></div>
+<p><img src="StatR_files/figure-html/growth_naive-1.png" width="672" /></p>
+</div></li>
+<li>There are two complications with this approach. The smaller complication is that the resulting first order derivative has one point less than the original data set. Hence, we are throwing away one OD measurement, which is arbitrarily the first or the last measurement. The quotient <span class="math inline">\(\delta x/\delta t\)</span> is actually an estimate of the derivative half-way between the two bordering time-points. So, instead of throwing away an OD measurement, we could take the average between the two bordering measurements. Carry out this solution.
+<div>
+<a id="NumDifHead3" href="javascript:toggle('NumDifSol3','NumDifHead3');" >Show solution</a>
+</div>
+<div id="NumDifSol3" style="display: none">
+<p>Calculating the average of the two bordering OD measurements and using this as an estimate of the OD halfway between two time points:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OD.halfway &lt;-<span class="st"> </span>(d<span class="op">$</span>OD[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>d<span class="op">$</span>OD[<span class="op">-</span><span class="kw">length</span>(d<span class="op">$</span>OD)])<span class="op">/</span><span class="dv">2</span>
+<span class="kw">plot</span>(d<span class="op">$</span>time[<span class="op">-</span><span class="dv">1</span>], (<span class="dv">1</span><span class="op">/</span>OD.halfway)<span class="op">*</span>(delta.x<span class="op">/</span>delta.t), <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab=</span><span class="st">&quot;Time (h)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Specific growth rate (1/h)&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.25</span>,<span class="fl">1.25</span>))</code></pre></div>
+<p><img src="StatR_files/figure-html/growth_naive_improved-1.png" width="672" /></p>
+</div></li>
+<li><p>The second, more serious complication is that the noise in <span class="math inline">\(\delta x/\delta t\)</span> tends to be twice as large as the noise in <span class="math inline">\(x\)</span>, because we are subtracting two measurements of <span class="math inline">\(x\)</span>, each with their own measurement error. This is even more pronounced if you would calculate higher order derivatives. The noise becomes even worse if we divide <span class="math inline">\(\delta x/\delta t\)</span> by <span class="math inline">\(x\)</span> to obtain an estimate of the specific growth rate <span class="math inline">\(\mu\)</span>. Then the error is amplified at low values of <span class="math inline">\(x\)</span>. A way to avoid amplifying noise is by calculating a smooth version of the growth curve before numerical differentiation.</p>
+<p>Fifty years ago <span class="citation">Savitzky and Golay (<a href="#ref-Savitzky1964">1964</a>)</span> and Golay invented a method to carry out smoothing and calculate the first and higher order derivatives of experimental data in one go. The method is still applied a lot in data analysis. The idea is simple: take a window with an odd number of data points (say <span class="math inline">\(N_{odd}\)</span> points) and calculate a polynomial fit through those points. The fitted position, first- and higher-order derivatives of the polynomial are an estimate of the value of the central measurement (at position <span class="math inline">\(1+\frac{N_{odd}-1}{2}\)</span> in the window) and of the first and higher-order derivatives at that point. By moving the window over all data points we can can calculate a smoothed curve and smoothed versions of first- and higher-order derivatives. For the right and left <span class="math inline">\(\frac{N_{odd}-1}{2}\)</span> points of the time-series that can not be in the centre of a window we can just take the first and last polynomial fits as estimates.</p>
+Install the package <code>signal</code>, and study its <code>sgolayfilt</code> function. You see that this function does not require a time vector because it assumes that measurements are equally spaced. Under this assumption the calculations can be performed extremely efficiently using a single matrix multiplication. Apply the function to calculate and plot smoothed versions of the growth curve as well as of the specific growth rate. Experiment with the window size and degree of the polynomial fit. You have to apply the function twice, once with <code>m=0</code> and once with <code>m=1</code> to obtain smoothed fits of the original curve and of the first order derivative. Also realize that <span class="math inline">\(\delta t = 0.25\)</span> hours, so the time scaling factor <code>ts</code> should equal <span class="math inline">\(0.25\)</span>.
+<div>
+<a id="NumDifHead4" href="javascript:toggle('NumDifSol4','NumDifHead4');" >Show solution</a>
+</div>
+<div id="NumDifSol4" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library(signal)</span>
+<span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">nrow=</span><span class="dv">2</span>))
+sg0 &lt;-<span class="st"> </span><span class="kw">sgolayfilt</span>(d<span class="op">$</span>OD, <span class="dt">p=</span><span class="dv">3</span>, <span class="dt">n=</span><span class="dv">9</span>, <span class="dt">m=</span><span class="dv">0</span>, <span class="dt">ts=</span><span class="fl">0.25</span>)
+<span class="kw">plot</span>(OD<span class="op">~</span>time, d)
+<span class="kw">lines</span>(d<span class="op">$</span>time, sg0, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>)
+sg1 &lt;-<span class="st"> </span><span class="kw">sgolayfilt</span>(d<span class="op">$</span>OD, <span class="dt">p=</span><span class="dv">3</span>, <span class="dt">n=</span><span class="dv">9</span>, <span class="dt">m=</span><span class="dv">1</span>, <span class="dt">ts=</span><span class="fl">0.25</span>)
+<span class="kw">plot</span>(d<span class="op">$</span>time, sg1<span class="op">/</span>sg0, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">xlab=</span><span class="st">&quot;Time (h)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Specific growth rate (1/h)&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.25</span>,<span class="fl">1.25</span>))</code></pre></div>
+<p><img src="StatR_files/figure-html/sgolay1-1.png" width="672" /></p>
+</div></li>
+<li>To estimate the maximum of bioluminescence, it is not sufficient to take the maximum of the measured values, because that would be equel to the true maximum plus the largest incidence of noise. Apply the same smoothing technique as above to obtain a robust estimate of the maximum of bioluminescence.
+<div>
+<a id="NumDifHead5" href="javascript:toggle('NumDifSol5','NumDifHead5');" >Show solution</a>
+</div>
+<div id="NumDifSol5" style="display: none">
+<p>Generally, we want to use a Savitzky-Golay filter with low degree of the polynomial, because a high degree polynomial will over-fit the data, <em>i.e.</em> it will also fit the noise. Trying a few window sizes and a polynomial of degree 2, I found the following compromise:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">file.path</span>(baseurl, <span class="st">&quot;data/numdif/bioluminescence.tab&quot;</span>), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">head=</span><span class="ot">TRUE</span>)
+sg2 &lt;-<span class="st"> </span><span class="kw">sgolayfilt</span>(b<span class="op">$</span>luminescence, <span class="dt">p=</span><span class="dv">2</span>, <span class="dt">n=</span><span class="dv">21</span>, <span class="dt">m=</span><span class="dv">0</span>, <span class="dt">ts=</span><span class="fl">0.167</span>)
+<span class="kw">plot</span>(luminescence<span class="op">~</span>time, b)
+<span class="kw">lines</span>(b<span class="op">$</span>time, sg2, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/bioluminescencesmooth-1.png" width="672" /></p>
+<p>The robust maximum bioluminescence equals the maximum of the smoothed curve. We can compare that to the maximum measured value:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(b<span class="op">$</span>luminescence)</code></pre></div>
+<pre><code>## [1] 10065</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">max</span>(sg2)</code></pre></div>
+<pre><code>## [1] 9089.126</code></pre>
+</div></li>
+<li>You may have noticed that bioluminescence and OD were not measured at the same frequency. Therefore, we have to interpolate either of the variables at the time point of the other variable to be able to calculate a correct ratio. Here, interpolate the Savitzky-Golay smoothed OD at the time points of the bioluminescence trace, using the function<code>approxfun()</code>. This is a special function that returns a function as its result. Entering a time value in this function will then return the interpolated OD value. After creating this function, calculate and plot the specific bioluminescence, <em>i.e.</em> the bioluminescence per amount of cells (here measured in OD units).
+<div>
+<a id="NumDifHead6" href="javascript:toggle('NumDifSol6','NumDifHead6');" >Show solution</a>
+</div>
+<div id="NumDifSol6" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creating a function that returns an interpolated OD value based on the Savitzky-Golay smoothed OD time-series</span>
+interpOD &lt;-<span class="st"> </span><span class="kw">approxfun</span>(d<span class="op">$</span>time,sg0)
+<span class="co"># the object interpOD is a function:</span>
+<span class="kw">class</span>(interpOD)</code></pre></div>
+<pre><code>## [1] &quot;function&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculating and plotting the ratio of the snoothed bioluminescence and the interpolated smoothed OD:</span>
+<span class="kw">plot</span>(b<span class="op">$</span>time, sg2<span class="op">/</span><span class="kw">interpOD</span>(b<span class="op">$</span>time), <span class="dt">type=</span><span class="st">&#39;b&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Time (h)&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Specific bioluminescence&#39;</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/specificbioluminescence-1.png" width="672" /></p>
+</div></li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Savitzky1964">
+<p>Savitzky, A., and M. J. E. Golay. 1964. “Smoothing and Differentiation of Data by Simplified Least Squares Procedures.” <em>Anal. Chem.</em> 36: 1627–39. doi:<a href="https://doi.org/10.1021/ac60214a047">10.1021/ac60214a047</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="resampling-techniques.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="randomnumbers.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

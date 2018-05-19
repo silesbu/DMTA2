@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistics with R</title>
+  <meta name="description" content="Syllabus for the course ‘Statistics with R’">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistics with R" />
+  
+  <meta name="twitter:description" content="Syllabus for the course ‘Statistics with R’" />
+  
+
+<meta name="author" content="Douwe Molenaar">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="naivebayes.html">
+<link rel="next" href="numerical-differentiation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+  function toggle(showHideDiv, switchTextDiv) {
+  	var ele = document.getElementById(showHideDiv);
+	  var text = document.getElementById(switchTextDiv);
+	  if(ele.style.display == "block") {
+	  	ele.style.display = "none";
+	  	text.innerHTML = "Show solution";
+	  }
+	  else {
+	  	ele.style.display = "block";
+      text.innerHTML = "Hide solution";
+	  }
+  }
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/block_elements.css" type="text/css" />
+<link rel="stylesheet" href="styles/localadapt.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="chapter" data-level="1" data-path="studyguide.html"><a href="studyguide.html"><i class="fa fa-check"></i><b>1</b> Study guide</a><ul>
+<li class="chapter" data-level="1.1" data-path="studyguide.html"><a href="studyguide.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="studyguide.html"><a href="studyguide.html#entry-conditions"><i class="fa fa-check"></i><b>1.2</b> Entry conditions</a></li>
+<li class="chapter" data-level="1.3" data-path="studyguide.html"><a href="studyguide.html#goal-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Goal of the course</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="studyguide.html"><a href="studyguide.html#this-is-not-a-statistics-course"><i class="fa fa-check"></i><b>1.3.1</b> This is not a statistics course</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="studyguide.html"><a href="studyguide.html#workload"><i class="fa fa-check"></i><b>1.4</b> Workload</a></li>
+<li class="chapter" data-level="1.5" data-path="studyguide.html"><a href="studyguide.html#setup-and-content-of-the-course"><i class="fa fa-check"></i><b>1.5</b> Setup and content of the course</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="studyguide.html"><a href="studyguide.html#walk-in-hours"><i class="fa fa-check"></i><b>1.5.1</b> Walk-in hours</a></li>
+<li class="chapter" data-level="1.5.2" data-path="studyguide.html"><a href="studyguide.html#syllabus"><i class="fa fa-check"></i><b>1.5.2</b> Syllabus</a></li>
+<li class="chapter" data-level="1.5.3" data-path="studyguide.html"><a href="studyguide.html#assignments"><i class="fa fa-check"></i><b>1.5.3</b> Assignments</a></li>
+<li class="chapter" data-level="1.5.4" data-path="studyguide.html"><a href="studyguide.html#assessment"><i class="fa fa-check"></i><b>1.5.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5.5" data-path="studyguide.html"><a href="studyguide.html#evaluation-of-the-course"><i class="fa fa-check"></i><b>1.5.5</b> Evaluation of the course</a></li>
+<li class="chapter" data-level="1.5.6" data-path="studyguide.html"><a href="studyguide.html#course-schedule"><i class="fa fa-check"></i><b>1.5.6</b> Course schedule</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>I Technical background</b></span></li>
+<li class="chapter" data-level="2" data-path="quick-start.html"><a href="quick-start.html"><i class="fa fa-check"></i><b>2</b> A quick start</a><ul>
+<li class="chapter" data-level="2.1" data-path="quick-start.html"><a href="quick-start.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="quick-start.html"><a href="quick-start.html#resources-for-learning-r"><i class="fa fa-check"></i><b>2.2</b> Resources for learning R</a></li>
+<li class="chapter" data-level="2.3" data-path="quick-start.html"><a href="quick-start.html#other-sources-on-the-use-of-r"><i class="fa fa-check"></i><b>2.3</b> Other sources on the use of R</a></li>
+<li class="chapter" data-level="2.4" data-path="quick-start.html"><a href="quick-start.html#installation-of-r"><i class="fa fa-check"></i><b>2.4</b> Installation of R</a></li>
+<li class="chapter" data-level="2.5" data-path="quick-start.html"><a href="quick-start.html#starting-r"><i class="fa fa-check"></i><b>2.5</b> Starting R</a></li>
+<li class="chapter" data-level="2.6" data-path="quick-start.html"><a href="quick-start.html#obtaining-help"><i class="fa fa-check"></i><b>2.6</b> Obtaining help</a></li>
+<li class="chapter" data-level="2.7" data-path="quick-start.html"><a href="quick-start.html#an-r-session"><i class="fa fa-check"></i><b>2.7</b> An R-session</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html"><i class="fa fa-check"></i><b>3</b> Elementary data types and operations</a><ul>
+<li class="chapter" data-level="3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-atomic-data-types"><i class="fa fa-check"></i><b>3.1</b> The atomic data types</a></li>
+<li class="chapter" data-level="3.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#the-basic-data-object-classes"><i class="fa fa-check"></i><b>3.2</b> The basic data object classes</a></li>
+<li class="chapter" data-level="3.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#assigning-names-to-r-objects"><i class="fa fa-check"></i><b>3.3</b> Assigning names to R-objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#listing-objects-in-memory"><i class="fa fa-check"></i><b>3.3.1</b> Listing objects in memory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#arithmetic-with-vectors-arrays-and-data-frames"><i class="fa fa-check"></i><b>3.4</b> Arithmetic with vectors, arrays, and data frames</a></li>
+<li class="chapter" data-level="3.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-and-replacing-parts-of-data-objects"><i class="fa fa-check"></i><b>3.5</b> Extracting and replacing parts of data objects</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#extracting-a-single-sub-object-with-the-double-bracket-index-selector"><i class="fa fa-check"></i><b>3.5.1</b> Extracting a single sub-object with the double bracket index selector <code>[[</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#for-data-frames-and-lists-and-selectors-behave-similarly"><i class="fa fa-check"></i><b>3.5.2</b> For data frames and lists <code>$</code> and <code>[[</code> selectors behave similarly</a></li>
+<li class="chapter" data-level="3.5.3" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#complement-syntax"><i class="fa fa-check"></i><b>3.5.3</b> Selecting portions with the single bracket selector <code>[</code></a></li>
+<li class="chapter" data-level="3.5.4" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#changing-parts-of-a-vector"><i class="fa fa-check"></i><b>3.5.4</b> Changing parts of a vector</a></li>
+<li class="chapter" data-level="3.5.5" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Effect of the selector operators on data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#effect-of-the-selector-operators-on-arrays"><i class="fa fa-check"></i><b>3.5.6</b> Effect of the selector operators on arrays</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#removingelements"><i class="fa fa-check"></i><b>3.6</b> Removing elements from objects</a></li>
+<li class="chapter" data-level="3.7" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#coercion"><i class="fa fa-check"></i><b>3.7</b> Data class conversion or coercion</a></li>
+<li class="chapter" data-level="3.8" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#exercises"><i class="fa fa-check"></i><b>3.8</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#selection"><i class="fa fa-check"></i>Selection</a></li>
+<li class="chapter" data-level="" data-path="elementary-datatypes.html"><a href="elementary-datatypes.html#more-selection-vectors-and-sequences"><i class="fa fa-check"></i>More selection, vectors and sequences</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interacting-with-r.html"><a href="interacting-with-r.html"><i class="fa fa-check"></i><b>4</b> Interacting with R</a><ul>
+<li class="chapter" data-level="4.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#controlling-r-from-a-script"><i class="fa fa-check"></i><b>4.1</b> Controlling R from a script</a></li>
+<li class="chapter" data-level="4.2" data-path="interacting-with-r.html"><a href="interacting-with-r.html#other-editors"><i class="fa fa-check"></i><b>4.2</b> Other editors</a></li>
+<li class="chapter" data-level="4.3" data-path="interacting-with-r.html"><a href="interacting-with-r.html#working-with-packages"><i class="fa fa-check"></i><b>4.3</b> Working with packages</a></li>
+<li class="chapter" data-level="4.4" data-path="interacting-with-r.html"><a href="interacting-with-r.html#where-your-packages-are-installed"><i class="fa fa-check"></i><b>4.4</b> Where your packages are installed</a></li>
+<li class="chapter" data-level="4.5" data-path="interacting-with-r.html"><a href="interacting-with-r.html#reproducible-research"><i class="fa fa-check"></i><b>4.5</b> Reproducible research</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="interacting-with-r.html"><a href="interacting-with-r.html#staying-organized"><i class="fa fa-check"></i><b>4.5.1</b> Staying organized</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="interacting-with-r.html"><a href="interacting-with-r.html#easy-organizing"><i class="fa fa-check"></i><b>4.6</b> Easy organizing with RStudio</a><ul>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#rmarkdown-documents"><i class="fa fa-check"></i>Rmarkdown documents</a></li>
+<li class="chapter" data-level="" data-path="interacting-with-r.html"><a href="interacting-with-r.html#externalizing-code"><i class="fa fa-check"></i>Externalizing code</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="interacting-with-r.html"><a href="interacting-with-r.html#displaying-information-about-your-r-session"><i class="fa fa-check"></i><b>4.7</b> Displaying information about your R session</a></li>
+<li class="chapter" data-level="4.8" data-path="interacting-with-r.html"><a href="interacting-with-r.html#citing-r-and-r-packages-in-reports-and-papers"><i class="fa fa-check"></i><b>4.8</b> Citing R and R-packages in reports and papers</a></li>
+<li class="chapter" data-level="4.9" data-path="interacting-with-r.html"><a href="interacting-with-r.html#exercise-diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i><b>4.9</b> Exercise: diversity of deep-sea nematodes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graphics.html"><a href="graphics.html"><i class="fa fa-check"></i><b>5</b> Graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="graphics.html"><a href="graphics.html#the-basics-of-r-graphics"><i class="fa fa-check"></i><b>5.1</b> The basics of R graphics</a></li>
+<li class="chapter" data-level="5.2" data-path="graphics.html"><a href="graphics.html#x-y-plots"><i class="fa fa-check"></i><b>5.2</b> X-Y plots</a></li>
+<li class="chapter" data-level="5.3" data-path="graphics.html"><a href="graphics.html#histograms"><i class="fa fa-check"></i><b>5.3</b> Histograms</a></li>
+<li class="chapter" data-level="5.4" data-path="graphics.html"><a href="graphics.html#boxplots"><i class="fa fa-check"></i><b>5.4</b> Boxplots</a></li>
+<li class="chapter" data-level="5.5" data-path="graphics.html"><a href="graphics.html#images-and-contour-plots"><i class="fa fa-check"></i><b>5.5</b> Images and contour plots</a></li>
+<li class="chapter" data-level="5.6" data-path="graphics.html"><a href="graphics.html#plotting-a-mathematical-function"><i class="fa fa-check"></i><b>5.6</b> Plotting a mathematical function</a></li>
+<li class="chapter" data-level="5.7" data-path="graphics.html"><a href="graphics.html#multiple-figures-in-one-graphical-device"><i class="fa fa-check"></i><b>5.7</b> Multiple figures in one graphical device</a></li>
+<li class="chapter" data-level="5.8" data-path="graphics.html"><a href="graphics.html#saving-graphs"><i class="fa fa-check"></i><b>5.8</b> Saving graphs</a></li>
+<li class="chapter" data-level="5.9" data-path="graphics.html"><a href="graphics.html#graphical-systems"><i class="fa fa-check"></i><b>5.9</b> Different graphical systems and packages</a></li>
+<li class="chapter" data-level="5.10" data-path="graphics.html"><a href="graphics.html#exercises-1"><i class="fa fa-check"></i><b>5.10</b> Exercises</a><ul>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#simple-curves"><i class="fa fa-check"></i>Simple curves</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#human-population-growth"><i class="fa fa-check"></i>Human population growth</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#toxic-ammonia"><i class="fa fa-check"></i>Toxic ammonia</a></li>
+<li class="chapter" data-level="" data-path="graphics.html"><a href="graphics.html#the-iris-data-set"><i class="fa fa-check"></i>The iris data set</a></li>
+<li><a href="graphics.html#automatic-coercion-by-plot">Automatic coercion by <code>plot()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="file-io.html"><a href="file-io.html"><i class="fa fa-check"></i><b>6</b> File input and output</a><ul>
+<li class="chapter" data-level="6.1" data-path="file-io.html"><a href="file-io.html#defining-the-path-to-a-file-or-directory"><i class="fa fa-check"></i><b>6.1</b> Defining the path to a file or directory</a></li>
+<li class="chapter" data-level="6.2" data-path="file-io.html"><a href="file-io.html#the-working-directory"><i class="fa fa-check"></i><b>6.2</b> The “working directory”</a></li>
+<li class="chapter" data-level="6.3" data-path="file-io.html"><a href="file-io.html#using-the-read.table-and-write.table-functions"><i class="fa fa-check"></i><b>6.3</b> Using the <code>read.table</code> and <code>write.table</code> functions</a></li>
+<li class="chapter" data-level="6.4" data-path="file-io.html"><a href="file-io.html#reading-data-from-a-webserver"><i class="fa fa-check"></i><b>6.4</b> Reading data from a webserver</a></li>
+<li class="chapter" data-level="6.5" data-path="file-io.html"><a href="file-io.html#reading-data-from-compressed-files-and-archives"><i class="fa fa-check"></i><b>6.5</b> Reading data from compressed files and archives</a></li>
+<li class="chapter" data-level="6.6" data-path="file-io.html"><a href="file-io.html#inputoutput-with-excel-files-and-database-management-systems"><i class="fa fa-check"></i><b>6.6</b> Input/output with Excel files and database management systems</a></li>
+<li class="chapter" data-level="6.7" data-path="file-io.html"><a href="file-io.html#exercises-2"><i class="fa fa-check"></i><b>6.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Programming-with-R.html"><a href="Programming-with-R.html"><i class="fa fa-check"></i><b>7</b> Programming with R</a><ul>
+<li class="chapter" data-level="7.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#defining-a-function"><i class="fa fa-check"></i><b>7.1</b> Defining a function</a></li>
+<li class="chapter" data-level="7.2" data-path="Programming-with-R.html"><a href="Programming-with-R.html#program-flow-control"><i class="fa fa-check"></i><b>7.2</b> Program flow control</a></li>
+<li class="chapter" data-level="7.3" data-path="Programming-with-R.html"><a href="Programming-with-R.html#literature"><i class="fa fa-check"></i><b>7.3</b> Literature</a></li>
+<li class="chapter" data-level="7.4" data-path="Programming-with-R.html"><a href="Programming-with-R.html#exercises-3"><i class="fa fa-check"></i><b>7.4</b> Exercises</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="Programming-with-R.html"><a href="Programming-with-R.html#programming-loops"><i class="fa fa-check"></i><b>7.4.1</b> Loops</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-of-deep-sea-nematodes"><i class="fa fa-check"></i>Diversity of deep-sea nematodes</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#diversity-indices-a-function-optional"><i class="fa fa-check"></i>Diversity indices – a function (optional)</a></li>
+<li class="chapter" data-level="" data-path="Programming-with-R.html"><a href="Programming-with-R.html#rarefaction-diversity-optional"><i class="fa fa-check"></i>Rarefaction diversity (optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="Programming-with-R.html"><a href="Programming-with-R.html#add-prog-ex"><i class="fa fa-check"></i><b>7.5</b> Additional programming exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vectorization.html"><a href="vectorization.html"><i class="fa fa-check"></i><b>8</b> Vectorization</a><ul>
+<li class="chapter" data-level="8.1" data-path="vectorization.html"><a href="vectorization.html#the-function-apply"><i class="fa fa-check"></i><b>8.1</b> The function <code>apply()</code></a></li>
+<li class="chapter" data-level="8.2" data-path="vectorization.html"><a href="vectorization.html#the-function-tapply"><i class="fa fa-check"></i><b>8.2</b> The function <code id="the-function-tapply">tapply()</code></a></li>
+<li class="chapter" data-level="8.3" data-path="vectorization.html"><a href="vectorization.html#the-functions-lapply-and-sapply"><i class="fa fa-check"></i><b>8.3</b> The functions <code>lapply()</code> and <code>sapply()</code></a></li>
+<li class="chapter" data-level="8.4" data-path="vectorization.html"><a href="vectorization.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vectorization.html"><a href="vectorization.html#permutation-function"><i class="fa fa-check"></i><b>8.4.1</b> A permutation function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reshaping.html"><a href="reshaping.html"><i class="fa fa-check"></i><b>9</b> Reshaping and manipulating complex data</a><ul>
+<li class="chapter" data-level="9.1" data-path="reshaping.html"><a href="reshaping.html#the-tidyr-package"><i class="fa fa-check"></i><b>9.1</b> The <code>tidyr</code> package</a></li>
+<li class="chapter" data-level="9.2" data-path="reshaping.html"><a href="reshaping.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.2</b> The <code>dplyr</code> package</a></li>
+<li class="chapter" data-level="9.3" data-path="reshaping.html"><a href="reshaping.html#exercises-5"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="formulasyntax.html"><a href="formulasyntax.html"><i class="fa fa-check"></i><b>10</b> Using formula syntax</a><ul>
+<li class="chapter" data-level="10.1" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-plotting"><i class="fa fa-check"></i><b>10.1</b> Using formula syntax in plotting</a></li>
+<li class="chapter" data-level="10.2" data-path="formulasyntax.html"><a href="formulasyntax.html#using-formula-syntax-in-model-definition"><i class="fa fa-check"></i><b>10.2</b> Using formula syntax in model definition</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-a-continuous-explanatory-variable"><i class="fa fa-check"></i><b>10.2.1</b> Data with a continuous explanatory variable</a></li>
+<li class="chapter" data-level="10.2.2" data-path="formulasyntax.html"><a href="formulasyntax.html#data-with-two-discrete-explanatory-variables-factors"><i class="fa fa-check"></i><b>10.2.2</b> Data with two discrete explanatory variables (factors)</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Applications</b></span></li>
+<li class="chapter" data-level="11" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>11</b> The carnival of distributions</a><ul>
+<li class="chapter" data-level="11.1" data-path="distributions.html"><a href="distributions.html#distribution-functions"><i class="fa fa-check"></i><b>11.1</b> Distribution functions</a></li>
+<li class="chapter" data-level="11.2" data-path="distributions.html"><a href="distributions.html#distribution-functions-in-r"><i class="fa fa-check"></i><b>11.2</b> Distribution functions in R</a></li>
+<li class="chapter" data-level="11.3" data-path="distributions.html"><a href="distributions.html#the-exponential-and-poisson-distributions"><i class="fa fa-check"></i><b>11.3</b> The exponential and Poisson distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-6"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="distributions.html"><a href="distributions.html#the-bernoulli-and-binomial-distributions"><i class="fa fa-check"></i><b>11.4</b> The Bernoulli and binomial distributions</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercises-7"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="distributions.html"><a href="distributions.html#the-normal-and-standard-normal-distribution"><i class="fa fa-check"></i><b>11.5</b> The normal and standard normal distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="distributions.html"><a href="distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>11.6</b> Student’s t-distribution</a><ul>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-1"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="distributions.html"><a href="distributions.html#the-chi-squared-distribution"><i class="fa fa-check"></i><b>11.7</b> The chi-squared distribution</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="distributions.html"><a href="distributions.html#application-in-pearsons-chi-square-goodness-of-fit-test"><i class="fa fa-check"></i><b>11.7.1</b> Application in Pearson’s chi-square goodness of fit test</a></li>
+<li class="chapter" data-level="" data-path="distributions.html"><a href="distributions.html#exercise-2"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="distributions.html"><a href="distributions.html#the-f-distribution"><i class="fa fa-check"></i><b>11.8</b> The F-distribution</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="distributions.html"><a href="distributions.html#analysis-of-variance"><i class="fa fa-check"></i><b>11.8.1</b> Analysis of variance</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linearmodels.html"><a href="linearmodels.html"><i class="fa fa-check"></i><b>12</b> Linear models and ANOVA</a><ul>
+<li class="chapter" data-level="12.1" data-path="linearmodels.html"><a href="linearmodels.html#modeling-with-factor-type-predictor-variables"><i class="fa fa-check"></i><b>12.1</b> Modeling with factor-type predictor variables</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="linearmodels.html"><a href="linearmodels.html#alternative-dummy-variable-coding-schemes"><i class="fa fa-check"></i><b>12.1.1</b> Alternative dummy variable coding schemes</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-8"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="linearmodels.html"><a href="linearmodels.html#two-way-anovafactorial-anova"><i class="fa fa-check"></i><b>12.2</b> Two-way ANOVA/factorial ANOVA</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="linearmodels.html"><a href="linearmodels.html#unbalanced-data"><i class="fa fa-check"></i><b>12.2.1</b> Unbalanced data</a></li>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercise-5"><i class="fa fa-check"></i>Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="linearmodels.html"><a href="linearmodels.html#combinations-of-numerical-and-discrete-predictors"><i class="fa fa-check"></i><b>12.3</b> Combinations of numerical and discrete predictors</a><ul>
+<li class="chapter" data-level="" data-path="linearmodels.html"><a href="linearmodels.html#exercises-9"><i class="fa fa-check"></i>Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linearmodels.html"><a href="linearmodels.html#the-connection-between-linear-models-and-anova"><i class="fa fa-check"></i><b>12.4</b> The connection between linear models and ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hubble.html"><a href="hubble.html"><i class="fa fa-check"></i><b>13</b> The age of the universe</a><ul>
+<li class="chapter" data-level="13.1" data-path="hubble.html"><a href="hubble.html#exercises-10"><i class="fa fa-check"></i><b>13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="datafabrication.html"><a href="datafabrication.html"><i class="fa fa-check"></i><b>14</b> A case of data fabrication</a><ul>
+<li class="chapter" data-level="14.1" data-path="datafabrication.html"><a href="datafabrication.html#exercises-11"><i class="fa fa-check"></i><b>14.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="amt-carrier.html"><a href="amt-carrier.html"><i class="fa fa-check"></i><b>15</b> A critical evaluation of ammonium transporter kinetics</a><ul>
+<li class="chapter" data-level="15.1" data-path="amt-carrier.html"><a href="amt-carrier.html#exercises-12"><i class="fa fa-check"></i><b>15.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html"><i class="fa fa-check"></i><b>16</b> Bias in metabolomics data</a><ul>
+<li class="chapter" data-level="16.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#exercises-13"><i class="fa fa-check"></i><b>16.1</b> Exercises</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="bias-metabolomics.html"><a href="bias-metabolomics.html#an-alternative-solution-generalized-additive-modeling-optional"><i class="fa fa-check"></i><b>16.1.1</b> An alternative solution: Generalized additive modeling (optional)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="nerve-fiber.html"><a href="nerve-fiber.html"><i class="fa fa-check"></i><b>17</b> Correlation between fiber density and episodic memory?</a><ul>
+<li class="chapter" data-level="17.1" data-path="nerve-fiber.html"><a href="nerve-fiber.html#exercises-14"><i class="fa fa-check"></i><b>17.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="classifiers.html"><a href="classifiers.html"><i class="fa fa-check"></i><b>18</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.1" data-path="classifiers.html"><a href="classifiers.html#classifiers"><i class="fa fa-check"></i><b>18.1</b> Classifiers</a></li>
+<li class="chapter" data-level="18.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression"><i class="fa fa-check"></i><b>18.2</b> Logistic regression</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-a-case-of-generalized-linear-modeling"><i class="fa fa-check"></i><b>18.2.1</b> Logistic Regression: a case of Generalized Linear Modeling</a></li>
+<li class="chapter" data-level="18.2.2" data-path="classifiers.html"><a href="classifiers.html#logistic-regression-in-r"><i class="fa fa-check"></i><b>18.2.2</b> Logistic regression in R</a></li>
+<li class="chapter" data-level="18.2.3" data-path="classifiers.html"><a href="classifiers.html#exercises-15"><i class="fa fa-check"></i><b>18.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html"><i class="fa fa-check"></i><b>19</b> Classification of dairy bacteria</a><ul>
+<li class="chapter" data-level="19.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#exercises-16"><i class="fa fa-check"></i><b>19.1</b> Exercises</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#description-of-the-data"><i class="fa fa-check"></i><b>19.1.1</b> Description of the data</a></li>
+<li class="chapter" data-level="19.1.2" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-conversion"><i class="fa fa-check"></i><b>19.1.2</b> Data conversion</a></li>
+<li class="chapter" data-level="19.1.3" data-path="class-dairy-strains.html"><a href="class-dairy-strains.html#data-analysis"><i class="fa fa-check"></i><b>19.1.3</b> Data analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="naivebayes.html"><a href="naivebayes.html"><i class="fa fa-check"></i><b>20</b> Naïve Bayes classifiers</a><ul>
+<li class="chapter" data-level="20.1" data-path="naivebayes.html"><a href="naivebayes.html#the-naive-bayes-classifier"><i class="fa fa-check"></i><b>20.1</b> The Naive Bayes classifier</a></li>
+<li class="chapter" data-level="20.2" data-path="naivebayes.html"><a href="naivebayes.html#a-crime-scene"><i class="fa fa-check"></i><b>20.2</b> A crime scene</a></li>
+<li class="chapter" data-level="20.3" data-path="naivebayes.html"><a href="naivebayes.html#reconstructing-bayes-lawtheorem"><i class="fa fa-check"></i><b>20.3</b> Reconstructing Bayes law/theorem</a></li>
+<li class="chapter" data-level="20.4" data-path="naivebayes.html"><a href="naivebayes.html#deciding-on-the-class"><i class="fa fa-check"></i><b>20.4</b> Deciding on the class</a></li>
+<li class="chapter" data-level="20.5" data-path="naivebayes.html"><a href="naivebayes.html#continuous-predicting-variables"><i class="fa fa-check"></i><b>20.5</b> Continuous predicting variables</a></li>
+<li class="chapter" data-level="20.6" data-path="naivebayes.html"><a href="naivebayes.html#combining-information-from-different-predictor-variables"><i class="fa fa-check"></i><b>20.6</b> Combining information from different predictor variables</a></li>
+<li class="chapter" data-level="20.7" data-path="naivebayes.html"><a href="naivebayes.html#exercises-17"><i class="fa fa-check"></i><b>20.7</b> Exercises</a><ul>
+<li class="chapter" data-level="20.7.1" data-path="naivebayes.html"><a href="naivebayes.html#predicting-iris-species"><i class="fa fa-check"></i><b>20.7.1</b> Predicting iris species</a></li>
+<li class="chapter" data-level="20.7.2" data-path="naivebayes.html"><a href="naivebayes.html#predicting-income"><i class="fa fa-check"></i><b>20.7.2</b> Predicting income</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="resampling-techniques.html"><a href="resampling-techniques.html"><i class="fa fa-check"></i><b>21</b> Resampling techniques</a><ul>
+<li class="chapter" data-level="21.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#bootstrapping"><i class="fa fa-check"></i><b>21.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="21.2" data-path="resampling-techniques.html"><a href="resampling-techniques.html#exercises-18"><i class="fa fa-check"></i><b>21.2</b> Exercises</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="resampling-techniques.html"><a href="resampling-techniques.html#medical-patches"><i class="fa fa-check"></i><b>21.2.1</b> Medical patches</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="resampling-techniques.html"><a href="resampling-techniques.html#permutation-test"><i class="fa fa-check"></i><b>21.3</b> Permutation test</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html"><i class="fa fa-check"></i><b>22</b> Numerical differentiation and smoothing</a><ul>
+<li class="chapter" data-level="22.1" data-path="numerical-differentiation.html"><a href="numerical-differentiation.html#exercises-19"><i class="fa fa-check"></i><b>22.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomnumbers.html"><a href="randomnumbers.html"><i class="fa fa-check"></i><b>23</b> Random numbers</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="resampling-techniques" class="section level1">
+<h1><span class="header-section-number">CHAPTER 21</span> Resampling techniques</h1>
+<p>Resampling techniques are used in statistics when parametric methods can or should not be used. For example, when the distribution of a variable is not known, it is impossible without simplification, to perform parametric significance tests. Non-parametric tests may be possible, but usually have less power, i.e. they arte less sensitive to deviations from the null hypothesis. Similarly, it is impossible to calculate parametrically, for example, the variation (precision) in the mean of a sample from a population. Resampling techniques try to accommodate those shortcomings. Resampling techniques have become popular in the computer age, because they can be so easily performed by writing a small program. And in R it is very easy to apply resampling techniques.</p>
+<div id="bootstrapping" class="section level2">
+<h2><span class="header-section-number">21.1</span> Bootstrapping</h2>
+<p>Bootstrapping (after Wikipedia) allows one to gather many alternative versions of the single statistic that would ordinarily be calculated from one sample. For example, suppose that we are interested in the height of people worldwide, and we suspect that it is not Normal distributed. As we cannot measure the whole population, we sample only a small part of it. From that sample only one value of a statistic can be obtained, i.e one mean (<span class="math inline">\(\overline{x}\)</span>), or one standard deviation (<span class="math inline">\(s\)</span>) <em>etc.</em>, and hence we don’t see how accurate that statistic is. If the height were Normal distributed we could have estimated the standard deviation of <span class="math inline">\(\overline{x}\)</span>, <em>i.e.</em> the “standard error of the mean” by <span class="math inline">\(s/\sqrt{n}\)</span>, where <span class="math inline">\(n\)</span> is the size of the sample. We could also use bootstrapping to estimate this quantity. When using bootstrapping, we randomly extract a new sample of N out of the N sampled data, <strong>with replacement</strong>. By doing this several times, we create a large number of data sets that we might have seen, and compute the statistic for each of these data sets. Thus, we obtain an estimate of the distribution of the statistic (the bootstrap distribution). The key to the strategy is to create alternative versions of data that “we might have seen”.</p>
+</div>
+<div id="exercises-18" class="section level2">
+<h2><span class="header-section-number">21.2</span> Exercises</h2>
+<div id="medical-patches" class="section level3">
+<h3><span class="header-section-number">21.2.1</span> Medical patches</h3>
+<p>A company produces medical patches that are designed to increase blood levels of certain natural hormones (this example is described in <span class="citation">Efron and Tibshirani (<a href="#ref-Efron1993">1993</a>)</span>). The hormone levels were measured in each subject after wearing three types of patches: placebo, without medicine, oldpatch, manufactured at an old factory and newpatch, manufactured in a new factory (data are available in <a href="data/resampling/medicalpatch.txt">data/resampling/medicalpatch.txt</a>). The purpose of the experiment was to show that the new factory produces patches that are bio-equivalent to those from the old factory. The U.S. Food and Drug Administration (FDA) had approved patches from the old factory and requires those from the new factory to give an expected relative deviation of the medical effect less than or equal to 20%, in other words, the requirement is that <span class="math display">\[
+\frac{|E(new) - E(old)|}{E(old) - E(placebo)} \leqq 0.20
+\]</span> with <span class="math inline">\(E()\)</span> indicating the expectation of a random variable. Define the parameter <span class="math inline">\(\theta\)</span> as <span class="math display">\[
+\theta = \frac{E(new) - E(old)}{E(old)-E(placebo)}
+\]</span> The question then is: is <span class="math inline">\(|\theta| \leqq 0.20\)</span>?</p>
+<ol style="list-style-type: decimal">
+<li>Download and study the data, in particular study correlations between the variables in the data set. What do you conclude?
+<div>
+<a id="ResampHead1" href="javascript:toggle('ResampSol1','ResampHead1');" >Show solution</a>
+</div>
+<div id="ResampSol1" style="display: none">
+<p>Download and study the data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="kw">file.path</span>(baseurl, <span class="st">&#39;data/resampling/medicalpatch.txt&#39;</span>), <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
+<span class="kw">plot</span>(d[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>])</code></pre></div>
+<p><img src="StatR_files/figure-html/resample_a1-1.png" width="672" /></p>
+<p>Clearly, placebo and patch data are correlated, possibly because the placebo data reflect differences in basic levels of hormone in the subject. The medical patches seem to elevate that basic level.</p>
+</div></li>
+<li>Let’s define <span class="math inline">\(x = new - old\)</span> and <span class="math inline">\(y = old - placebo\)</span>, so that <span class="math inline">\(\theta = \frac{E(x)}{E(y)}\)</span>. As a first approach of <span class="math inline">\(\theta\)</span>, calculate the so-called “plug-in” estimate of <span class="math inline">\(\theta\)</span>, which equals <span class="math inline">\(\hat{\theta} = \frac{\bar{x}}{\bar{y}}\)</span>. What do you conclude from this value?
+<div>
+<a id="ResampHead2" href="javascript:toggle('ResampSol2','ResampHead2');" >Show solution</a>
+</div>
+<div id="ResampSol2" style="display: none">
+<p>Then we calculate the ratio of averages and display it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theta.plugin &lt;-<span class="st"> </span><span class="kw">mean</span>(d<span class="op">$</span>newpatch <span class="op">-</span><span class="st"> </span>d<span class="op">$</span>oldpatch)<span class="op">/</span><span class="kw">mean</span>(d<span class="op">$</span>oldpatch <span class="op">-</span><span class="st"> </span>d<span class="op">$</span>placebo)
+theta.plugin</code></pre></div>
+<pre><code>## [1] -0.0713061</code></pre>
+<p>Since the estimator <span class="math inline">\(|\hat{\theta}|\)</span> is much smaller than 0.20, it could be that <span class="math inline">\(|\theta|\)</span> itself is smaller than the required 0.20.</p>
+</div></li>
+</ol>
+<p>The plugin value is subject to random fluctuations, particularly since the sample size (8) is quite small. Using bootstrapping, we can generate many similar hypothetical experiments and study the distribution of <span class="math inline">\(\hat{\theta}\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Make 1000 bootstrap replications of the experiment by sampling 8 samples each time from the original experiment <em>with replacement</em>, and make a histogram of the distribution of <span class="math inline">\(\hat{\theta}\)</span>, with red vertical dashed lines indicating <span class="math inline">\(|\hat{\theta}|=0.20\)</span>. How should you sample from the data set in order to generate hypothetical data sets with a correlation structure comparable to the original set? Also make a quantile-quantile plot with the Normal distribution as the reference to check whether the <span class="math inline">\(\hat{\theta}\)</span>’s are Normal-distributed.
+<div>
+<a id="ResampHead3" href="javascript:toggle('ResampSol3','ResampHead3');" >Show solution</a>
+</div>
+<div id="ResampSol3" style="display: none">
+<p>We should sample entire rows of data from the data set, so that correlations between the three measurements are preserved in the bootstrap samples. We can do that as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thetas &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>) {
+  sel.indices &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
+  dboot &lt;-<span class="st"> </span>d[sel.indices,]
+  thetas &lt;-<span class="st"> </span><span class="kw">c</span>(thetas, <span class="kw">mean</span>(dboot<span class="op">$</span>newpatch <span class="op">-</span><span class="st"> </span>dboot<span class="op">$</span>oldpatch)<span class="op">/</span><span class="kw">mean</span>(dboot<span class="op">$</span>oldpatch <span class="op">-</span><span class="st"> </span>dboot<span class="op">$</span>placebo))
+}</code></pre></div>
+<p>Subsequently, we make the required histogram of <span class="math inline">\(\hat{\theta}\)</span>’s</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I&#39;m using plotmath (see ?plotmath) to print mathematical symbols in the main- and axis titles</span>
+<span class="kw">hist</span>(thetas, <span class="dt">col=</span><span class="st">&#39;grey&#39;</span>, <span class="dt">main=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&#39;Histogram of bootstrapped &#39;</span>, <span class="kw">hat</span>(theta),<span class="st">&#39;</span><span class="ch">\&#39;</span><span class="st">s&#39;</span>)), <span class="dt">xlab=</span><span class="kw">expression</span>(<span class="kw">hat</span>(theta)))
+<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.2</span>,<span class="fl">0.2</span>), <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">lty=</span><span class="st">&#39;dashed&#39;</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/resample_a4-1.png" width="672" /></p>
+<p>Then we make a quantile-quantile plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(thetas); <span class="kw">qqline</span>(thetas, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">lty=</span><span class="st">&#39;dashed&#39;</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/resample_a5-1.png" width="672" /></p>
+<p>which clearly shows that this is not a Normal distribution.</p>
+</div></li>
+<li>Calculate the mean and standard deviation of estimator <span class="math inline">\(\hat{\theta}\)</span>, and calculate its 95% confidence interval based on the assumption that <span class="math inline">\(\hat{\theta}\)</span> is Normal-distributed and based on the bootstrap distribution (the latter is called a “percentile estimate”). Discuss the results.
+<div>
+<a id="ResampHead4" href="javascript:toggle('ResampSol4','ResampHead4');" >Show solution</a>
+</div>
+<div id="ResampSol4" style="display: none">
+<p>The mean and standard deviation are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mean.th &lt;-<span class="st"> </span><span class="kw">mean</span>(thetas)
+sd.th &lt;-<span class="st"> </span><span class="kw">sd</span>(thetas)
+mean.th</code></pre></div>
+<pre><code>## [1] -0.06874824</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sd.th</code></pre></div>
+<pre><code>## [1] 0.09946031</code></pre>
+<p>The 95% confidence intervals are:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimated 95% confidene interval of theta.hat if theta.hat were normal distributed.</span>
+mean.th <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span><span class="op">*</span>sd.th<span class="op">*</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] -0.2636904  0.1261940</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The factor 1.96 is used as rule-of-thumb and originates from the Standard Normal distribution. </span>
+<span class="co"># It can be calculated as qnorm(c(0.025,0.975), 0, 1), which leaves 2.5% of the data on both</span>
+<span class="co"># tails of the Normal distribution. Hence, more exactly</span>
+mean.th <span class="op">+</span><span class="st"> </span>sd.th<span class="op">*</span><span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>), <span class="dv">0</span>, <span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] -0.2636869  0.1261904</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimated 95% confidene interval of theta.hat from the bootstrap distribution</span>
+<span class="kw">quantile</span>(thetas, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</code></pre></div>
+<pre><code>##       2.5%      97.5% 
+## -0.2346589  0.1541064</code></pre>
+<p>The quantile plot shows that the assumption of Normality is wrong. The corresponding estimated 95% confidence interval clearly deviates from the percentile interval. The distribution of bootstrap <span class="math inline">\(\hat{\theta}\)</span>’s indicates that (the true) <span class="math inline">\(\theta\)</span> is likely to be located within the requirement by the FDA. In fact, we could calculate the fraction of the distribution within the limits <span class="math inline">\(|\hat{\theta}| \leqq 0.20\)</span> as:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(thetas <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="fl">0.2</span> <span class="op">&amp;</span><span class="st"> </span>thetas <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.2</span>)<span class="op">/</span><span class="kw">length</span>(thetas)</code></pre></div>
+<p>which shows that 91.2% of the bootstrap samples is within the required limits. Whether that is acceptable is again up to the FDA. If not, we would need to do more (real) experiments. We expect that this should decrease the uncertainty in <span class="math inline">\(\hat{\theta}\)</span>.</p>
+</div></li>
+</ol>
+<p>There is an R-package called <code>boot</code> that can do very fast bootstrapping for us and that also has a few more sophisticated confidence interval estimation methods that yield more accurate results than the simple method applied above (for example bias in the estimator <span class="math inline">\(\hat{\theta}\)</span> for the parameter <span class="math inline">\(\theta\)</span> is removed). For the next exercise you need to install this package.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Use the <code>boot()</code> function of the <code>boot</code> package to make a bootstrap sample of size 1000 and use the <code>plot()</code> method of a <code>boot</code> object to display the results.
+<div>
+<a id="ResampHead5" href="javascript:toggle('ResampSol5','ResampHead5');" >Show solution</a>
+</div>
+<div id="ResampSol5" style="display: none">
+<p>We need to define a function that calculates our statistic <span class="math inline">\(\hat{\theta}\)</span> from the data and an index vector that selects instances from the data (see the help file of the <code>boot()</code> function). Below, we call this function <code>theta.hat</code>. We calculate 1000 bootstrap samples and plot the results</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library(boot)</span>
+theta.hat &lt;-<span class="st"> </span><span class="cf">function</span>(d, i) {
+  <span class="kw">mean</span>(d[i,<span class="st">&#39;newpatch&#39;</span>] <span class="op">-</span><span class="st"> </span>d[i,<span class="st">&#39;oldpatch&#39;</span>])<span class="op">/</span><span class="kw">mean</span>(d[i,<span class="st">&#39;oldpatch&#39;</span>] <span class="op">-</span><span class="st"> </span>d[i,<span class="st">&#39;placebo&#39;</span>])
+}
+myboot &lt;-<span class="st"> </span><span class="kw">boot</span>(d, <span class="dt">statistic=</span>theta.hat, <span class="dt">R=</span><span class="dv">1000</span>)
+<span class="kw">plot</span>(myboot)</code></pre></div>
+<p><img src="StatR_files/figure-html/resample_a9-1.png" width="0.8\linewidth" /></p>
+</div></li>
+<li>Calculate the 95% confidence interval from the <code>boot</code> object obtained above using the <code>boot.ci()</code> function. Use the “norm”, “perc” and “bca” methods. These correspond to the intervals based on the Standard Normal distribution, the percentile bootstrap distribution (as we calculated above) and the “Bias-corrected accellerated” algorithm <span class="citation">(Efron and Tibshirani <a href="#ref-Efron1993">1993</a>)</span>.
+<div>
+<a id="ResampHead6" href="javascript:toggle('ResampSol6','ResampHead6');" >Show solution</a>
+</div>
+<div id="ResampSol6" style="display: none">
+<p>Letting the <code>boot.ci()</code> function calculate the three requested types of interval estimations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boot.ci</span>(myboot, <span class="dt">conf=</span><span class="fl">0.95</span>, <span class="dt">type=</span><span class="kw">c</span>(<span class="st">&#39;norm&#39;</span>,<span class="st">&#39;perc&#39;</span>,<span class="st">&#39;bca&#39;</span>))</code></pre></div>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = myboot, conf = 0.95, type = c(&quot;norm&quot;, &quot;perc&quot;, 
+##     &quot;bca&quot;))
+## 
+## Intervals : 
+## Level      Normal             Percentile            BCa          
+## 95%   (-0.2731,  0.1207 )   (-0.2209,  0.1674 )   (-0.2072,  0.2222 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>It shows that the two first types of estimates are very close to what we calculated before (pfui …), and that the third bias-corrected estimate is shifted a little more with the center around 0, which is good for FDA acceptance!</p>
+</div></li>
+</ol>
+<!--- 
+% A company performs mainframe repair for other companies. The time it takes to repair a server is registered each time, as well as the person that performed the repair. Read the "repairtimes" data set from the server in the "resampling" directory in a data frame.
+% 
+% \begin{Ex}
+% Make a histogram of the Repairtimes. Does the distribution look normal? Also make a quantile-quantile plot of the data comparing it to the normal distribution.
+% ```{r, results='asis', echo=FALSE}
+div.init()
+```
+% We load the data and make a histogram. It doesn't seem to be a normal distribution, since it has along tail. Then we make a quantile plot with the normal distribution as a reference (the "Theoretical quantiles" in the plot) using the `qqnorm()` function. 
+% ```{r resample_1, echo=F}
+% ```
+% 
+% ```{r resample_2}
+% ```
+% In case of Normal-distributed data the data points should have been on a straight line in the quantile plot. Clearly, this is not the case for these data.
+% \end{sol}
+% \end{Ex}
+% 
+% The company wants to know the mean repair time, as well as an estimate of the 95\% confidence interval of the mean.
+% 
+% \begin{Ex}
+% Calculate the average and standard deviation of the repairtime data. Then calculate the standard error of the mean and the 95\% confidence interval of the mean.
+% ```{r, results='asis', echo=FALSE}
+div.init()
+```
+% We can estimate the 95\% confidence interval of a normal distributed variable approximately by using the rule of thumb of adding and subtracting 1.96 times the standard deviation to/from the mean.
+% ```{r resample_2a}
+% ```
+% The factor 1.96 can be calculated with the R-code `qnorm(0.975, 0, 1)`.
+% \end{sol}
+% \end{Ex}
+% 
+% \begin{Ex}
+% The calculation above suffers from the flaw that Design a resampling test to estimate the 95\% confidence interval in the mean repair time.
+% 
+% \begin{enumerate}
+% 
+% \item Sample n observations _with replacement_ from the original data, where n is the number of observations.
+% 
+% \item Repeat this bootstrap sampling 5.000 times.
+% 
+% \item Plot the distribution. Plot the normal quantile-quantile plot. Check whether the averages are Normal distributed.
+% 
+% \item Use the formula above to estimate the standard deviation of the mean distribution time.
+% 
+% \item Use the sampling distribution of the estimates to compute the standard deviation of the mean. Is this bootstrap estimation close to the estimation above? Also estimate the 95\% confidence interval for the mean (more precisely, the quantile $\left[\alpha,1-\alpha\right]$ where $\alpha=0.05/2$) using the `quantile()` function.
+% 
+% \end{enumerate}
+% 
+% ```{r, results='asis', echo=FALSE}
+div.init()
+```
+% We define an empty vector `means` in which we will put the samples means. Subsequently, we make a loop in which we take a random sample  from the `Repairtimes` with replacement, make a histogram and quantile plot and calculate the desired interval.
+% ```{r resample_2b}
+% ```
+% We see that it doesn't differ much from the conventional calculation.
+% \end{sol}
+% \end{Ex}
+%
+% ## Resampling
+% 
+% \Writetofile{ans}{\protect\subsection*{Resampling}}
+% 
+% Resampling tests of significance are very handy in case the distribution of the (experimental) statistic is not known, or, in case of a known process, when it is very is tedious to calculate.
+% 
+% We use the repairtime data again. Suppose we want to know whether there is a difference in the time that the mechanics John and Alan take to repair a mainframe.
+% 
+% \begin{Ex}
+% Make histograms of the repairtimes for John and Alan. Are they Normal--distributed?
+% ```{r, results='asis', echo=FALSE}
+div.init()
+```
+% ```{r resample_3}
+% ```
+% \end{sol}
+% \end{Ex}
+% 
+% \begin{Ex}
+% We could use a t-test to answer the question about significant difference between John and Alan. Why shouldn't we do that? Do it anyway. What is the answer?
+% ```{r, results='asis', echo=FALSE}
+div.init()
+```
+% \end{sol}
+% \end{Ex}
+% 
+% \begin{Ex}
+% Devise a permutation test to answer the following questions:
+% 
+% \begin{enumerate}
+% 
+% \item Calculate the difference of the mean repair times of John minus that of Alan.
+% 
+% \item To test the null hypothesis (no difference between John and Alan) each permutation is constructed as if there is no difference between John and Alan (i.e. the null hypothesis): so we scramble the "John" and "Alan" labels and calculate the difference between the means of their repair times. Do this 5.000 times, and register the difference between the means each time in a vector.
+% 
+% \item Make a distribution of the re-sampled differences of the means. Under the null hypothesis, what is the chance of finding the observed or a larger difference between the two mechanics?
+% 
+% \end{enumerate}
+% 
+% ```{r, results='asis', echo=FALSE}
+div.init()
+```
+% \end{sol}
+% \end{Ex}
+-->
+</div>
+</div>
+<div id="permutation-test" class="section level2">
+<h2><span class="header-section-number">21.3</span> Permutation test</h2>
+<p>As an example of a statistic with a known generating random process but with a difficult to calculate distribution, let us devise a statistic that should be able to detect patterns on a one-dimensional grid. The grid consists of <span class="math inline">\(N\)</span> bins in a row. The bins are filled with <span class="math inline">\(n&lt;N\)</span> identical objects. We want to find out whether the pattern of filled bins is random or not. We could devise a statistic that we think should be able to detect certain classes of local patterns. For example, by enumerating the total number of filled neighbour bins for all filled bins. Since, if a filled bin has a filled neighbour, then that neighbour also has a filled neighbour, we divide this number by 2. Let’s call this statistic the “neighbour count” or NC.</p>
+<p>Let’s encode the filling pattern by a vector of TRUE’s and FALSE’s, TRUE standing for filled, FALSE for empty. We find the pattern TFTFTFTFTFTFTFTFTFTF (<code>rep(c(TRUE, FALSE), 10)</code>), let’s call it the query vector. Clearly, none of the filled cells has a filled neighbour, so <span class="math inline">\(NC=0\)</span> for this pattern. What is the chance of finding a pattern with an NC value as this one or lower if the bins are filled randomly?</p>
+<ol style="list-style-type: decimal">
+<li>Make a function that calculates the NC for a particular vector.
+<div>
+<a id="ResampHead7" href="javascript:toggle('ResampSol7','ResampHead7');" >Show solution</a>
+</div>
+<div id="ResampSol7" style="display: none">
+<p>Suppose we have a pattern like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<p>If we shift the pattern by 1 to the right and apply the logical &amp; operation, then the result tells us which cells had a neighbour to the left:</p>
+<table>
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>.</td>
+</tr>
+<tr class="even">
+<td>.</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>T</td>
+<td>T</td>
+<td>F</td>
+</tr>
+<tr class="odd">
+<td>.</td>
+<td><strong>T</strong></td>
+<td><strong>F</strong></td>
+<td><strong>F</strong></td>
+<td><strong>F</strong></td>
+<td><strong>F</strong></td>
+<td><strong>T</strong></td>
+<td><strong>F</strong></td>
+<td>.</td>
+</tr>
+</tbody>
+</table>
+<p>If we now take the sum of all <code>TRUE</code> values we have the NC. A function implementing this is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">sum</span>(<span class="kw">c</span>(x,<span class="ot">NA</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>,x), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+}
+<span class="co"># test it</span>
+<span class="kw">nc</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">10</span>))</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nc</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">each=</span><span class="dv">10</span>))</code></pre></div>
+<pre><code>## [1] 9</code></pre>
+</div></li>
+<li>Make 50000 random permutations of the query vector, and calculate the NC for each.
+<div>
+<a id="ResampHead8" href="javascript:toggle('ResampSol8','ResampHead8');" >Show solution</a>
+</div>
+<div id="ResampSol8" style="display: none">
+<p>You can make permutations using the <code>sample()</code> function without replacement (<em>i.e.</em> the default mode, <code>replace = FALSE</code>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mypattern &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">10</span>)
+ncs &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50000</span>) {
+  ncs &lt;-<span class="st"> </span><span class="kw">c</span>(ncs, <span class="kw">nc</span>(<span class="kw">sample</span>(mypattern)))
+}</code></pre></div>
+</div></li>
+<li>Make a histogram of the distribution of the NC. Which end of the histogram corresponds to improbable patterns?
+<div>
+<a id="ResampHead9" href="javascript:toggle('ResampSol9','ResampHead9');" >Show solution</a>
+</div>
+<div id="ResampSol9" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(ncs,<span class="dt">nclass=</span><span class="dv">9</span>)</code></pre></div>
+<p><img src="StatR_files/figure-html/resample_b3-1.png" width="672" /></p>
+<p>Both ends correspond to improbable patterns (those with very low and very high neighbour counts).</p>
+</div></li>
+<li>From the distribution of the NC, make an estimation of the significance of finding the query vector by chance.
+<div>
+<a id="ResampHead10" href="javascript:toggle('ResampSol10','ResampHead10');" >Show solution</a>
+</div>
+<div id="ResampSol10" style="display: none">
+<p>Is any of the NC values in the re-sampled case equal to 0?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(ncs<span class="op">==</span><span class="dv">0</span>)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>I haven’t used <code>set.seed()</code>, so, if not then the chance must be smaller than <span class="math inline">\(\frac{1}{\text{sample size}}\)</span> which equals <span class="math inline">\(2\times 10^{-5}\)</span>. Else, this probability is approximately equal to:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(ncs<span class="op">==</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(ncs)</code></pre></div>
+</div></li>
+<li>What about the vector TTFFTTFFTTFFTTFFTTFF (<code>rep(c(TRUE, TRUE, FALSE, FALSE), 5)</code>). Do we have a satisfying statistic?
+<div>
+<a id="ResampHead11" href="javascript:toggle('ResampSol11','ResampHead11');" >Show solution</a>
+</div>
+<div id="ResampSol11" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nc</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>))</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(ncs<span class="op">&lt;=</span><span class="dv">5</span>)<span class="op">/</span><span class="kw">length</span>(ncs)</code></pre></div>
+<pre><code>## [1] 0.8149</code></pre>
+<p>which is large, although the pattern is clearly not random. Would it be possible to devise a more sensitive statistic than the neighbour count that detects such patterns too (open question)?</p>
+</div></li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Efron1993">
+<p>Efron, B., and R. J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Boca Raton: Chapman &amp; Hall/CRC.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="naivebayes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="numerical-differentiation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "libs/mathjax-local/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
