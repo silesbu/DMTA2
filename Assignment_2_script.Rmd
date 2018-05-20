@@ -38,6 +38,7 @@ library("randomForest")
 
 * Functions definition
 ```{r}
+# Function to create multiplots
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   library(grid)
 
@@ -73,6 +74,71 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     }
   }
 }
+
+
+
+
+#Scoring and Ranking functions
+rank_prediction <- function(df){
+    "
+    Ranks search IDs according to prediction scores
+
+    The dataframe given as a parameter 
+    must contain the following columns
+    in order to rank:
+        - srch_id (the search IDs)
+        - prediction (the prediction per row (higher score -> better rank))
+
+    Other important columns are:
+        - prop_id (for sorting the property IDs for the prediction file)
+        - relevance (relevance score for calculating the NDCG of the test set)
+    "
+    
+    search_ids <- sort(unique(df[,"srch_id"]))
+    searches <- df[,"srch_id"]
+    
+    res <- data.frame()
+    for (i in search_ids){
+        group <- df[searches == i,]
+        res <- rbind(res,group[order(group$prediction,decreasing=TRUE),])
+    }
+    
+    rownames(res) <- NULL
+    
+    return(res)
+}
+
+ndcg_score <- function(df){
+    "
+    Calculates the average ndcg score for a 
+    given ensemble of ranked searches.
+
+    The dataframe given as a parameter 
+    must contain the following columns
+    in order to calculate the ndcg score:
+        - srch_id (the search IDs)
+        - relevance (relevance score for calculating the NDCG of the test set)
+    "
+    
+    search_ids <- sort(unique(df[,"srch_id"]))
+    searches <- df[,"srch_id"]
+    
+    ndcg_scores <- rep(0,length(search_ids))
+    for (i in 1:length(search_ids)){
+        group <- df[searches == i,]
+        
+        dcg <- group[,"relevance"] / log2((1:nrow(group))+1)
+        norm <- group[order(group$relevance,decreasing=TRUE),"relevance"] / log2((1:nrow(group))+1)
+        
+        ndcg_scores[i] <- sum(dcg) / sum(norm)
+    }
+
+    return(mean(ndcg_scores))
+}
+
+
+
+
 ```
 
 
@@ -81,7 +147,7 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 # Stablishing the working directory and the file paths 
 Working_directory <- setwd("~/DM_Basic_Assignment/Assignment_2")
 d <- unzip("Assignment2_data.zip")
-file_training <- file.path(Working_directory, "Data Mining VU data" , "training_set_VU_DM_2014.csv")
+file_training <- file.path(Working_directory, "Data Mining VU data" , "full_train.csv" , "full_train.csv")
 file_test <- file.path(Working_directory, "Data Mining VU data" , "test_set_VU_DM_2014.csv")
 
 
@@ -93,7 +159,8 @@ all_train <- read.csv(file_training, header = TRUE)
 
 ```
 
-* Data convertion
+
+* Factorize variables
 ```{r}
 factor_cols <- unlist(lapply(all_train, is.factor))
 factor_cols["date_time"] <- FALSE
@@ -105,28 +172,6 @@ for (name in colnames(all_train[factor_cols])){
 }
 ```
 
-* Calculate the percentage of NAs in a column
-```{r}
-# Get NA value booleans
-nas <- is.na(all_train)
-
-len.nas <- length(nas[,1])
-
-# Initialize NA vector
-na.vec <- vector(mode="integer",length=length(colnames(all_train)))
-
-# Sum the NA values and fill NA vector
-for (i in 1:length(na.vec)){
-    na.vec[i] <- sum(nas[,i]) / len.nas
-}
-
-# Create bar plot Data Frame
-na.df <- data.frame(colnames(all_train),na.vec)
-colnames(na.df) <- c("attribute","missing_values")
-
-# Sort by number of missing values
-position <- arrange(na.df,missing_values)["attribute"][,1]
-```
 
 
 ##Visualize the Data
@@ -183,7 +228,7 @@ ggplot(balance_visual, aes(x=Type, y=Value, fill=Type)) +
 rm(balance_visual,NA_visual,pre_NA_visual)
 ```
 
-##Add relevance targets
+## Add relevance targets
 ```{r}
 all_train$relevance <- numeric(nrow(all_train))
 
@@ -222,8 +267,24 @@ rm(splity, all_length)
 ```
 
 
+##Import data with imputed NA values 
+```{r}
+# Stablishing the working directory and the file paths 
+Working_directory <- setwd("~/DM_Basic_Assignment/Assignment_2")
+mod_train <- file.path(Working_directory, "modified_splits", "mod_train.csv")
+mod_test <- file.path(Working_directory, "modified_splits", "mod_test.csv")
+mod_validation <- file.path(Working_directory, "modified_splits", "mod_valid.csv")
 
-# Data Balance 
+
+# Opening the files 
+train <- read.csv(mod_train, header = TRUE)
+#test <- read.csv(mod_test, header = TRUE)
+#validation <- read.csv(mod_validation, header = TRUE)
+
+```
+
+
+## Data Balance 
 ```{r}
 
 # Balance the Train
@@ -319,72 +380,114 @@ write.csv(underValidation, file = "underValidation.csv", col.names = TRUE, row.n
 file_underTrain <- file.path(Working_directory, "underTrain.csv")
 underTrain <- read.csv(file_underTrain, header = TRUE)
 
-file_underTest <- file.path(Working_directory, "underTest.csv")
-underTest <- read.csv(file_underTest, header = TRUE)
-
-file_underValidatioin <- file.path(Working_directory, "underValidation.csv")
-underValidation <- read.csv(file_underValidatioin, header = TRUE)
+# file_underTest <- file.path(Working_directory, "underTest.csv")
+# underTest <- read.csv(file_underTest, header = TRUE)
+# 
+# file_underValidatioin <- file.path(Working_directory, "underValidation.csv")
+# underValidation <- read.csv(file_underValidatioin, header = TRUE)
 
 ```
 
 
 
-
-#Random Fores model
+## Calculate the percentage of NAs in a column
 ```{r}
+# Get NA value booleans
+nas <- is.na(underTrain)
 
-#Train <- subset()
-variables_with_nas <- na.df$attribute[na.df$missing_values<=0.75] # Select columns with less than a 75% of NAs
+len.nas <- length(nas[,1])
 
-rf_train <- subset(train, select=c(-srch_id,-position,-click_bool,-gross_bookings_usd,-booking_bool,variables_with_nas))
+# Initialize NA vector
+na.vec <- vector(mode="integer",length=length(colnames(underTrain)))
+
+# Sum the NA values and fill NA vector
+for (i in 1:length(na.vec)){
+    na.vec[i] <- sum(nas[,i]) / len.nas
+}
+
+# Create bar plot Data Frame
+na.df <- data.frame(colnames(underTrain),na.vec)
+colnames(na.df) <- c("attribute","missing_values")
+
+# Sort by number of missing values
+position <- arrange(na.df,missing_values)["attribute"][,1]
 
 
-#rf.train <- data.matrix(rf.train)
+rm(underTrain)
+```
 
-#head(rf.train)
 
+##Data Processing for the Random Forest
+```{r}
+#Select columns with less than a 75% of NAs
+variables_without_nas <- na.df$attribute[na.df$missing_values<=0.05]
+no.na_train <- underTrain[as.character(variables_without_nas)]
+
+#Delete variables that are not in the test set
+rf_train <- subset(no.na_train, select=c(-srch_id,-position,-click_bool,-booking_bool))
+```
+
+
+
+##Random Forest model
+```{r}
 
 # Set seed for reproducibility
 set.seed(111)
 
 # Apply the Random Forest Algorithm
-rf_model <- randomForest(relevance ~ . , data=rf_train, importance=TRUE,ntree=1000, na.action = na.exclude(rf_train))
+rf_model <- randomForest(relevance ~ . , data=rf_train, importance=TRUE)
 varImpPlot(rf_model)
-#When running the function, two graphs appear: the accuracy plot shows how much worse the model would perform without the included variables. So a high decrease (= high value x-axis) links to a high predictive variable. The second plot is the Gini coefficient. The higher the variable scores here, the more important it is for the model.
+
+
+
+df <- data.frame(srch_id=srch_id,prop_id=prop_id,prediction=prediction,relevance=relevance)
+
+ranking <- rank_prediction(df)
+
+ranking
+
+ndcg_score(ranking)
 
 
 
 
-##Prediction
-#* Validation set
-pred_forest_vali <- predict(forest_model_vali, newdata = validation, type = "class")
+# ##Prediction
+# #* Validation set
+# pred_forest_vali <- predict(forest_model_vali, newdata = validation, type = "class")
+# 
+# 
+# 
+# 
+# fit <- randomForest(x = Train[,-c(1,2)], y = as.factor(Train[,2]))
+# 
+# rankRF <- function(prop_id) {
+#     ## given a query Id, it will return a dataframe with the results of the
+#     ## query ordered based on their probability of being relevant. The top rows
+#     ## in the dataset correspond to those with higher probability.
+# 
+#     tmpdf <- test[test$prop_id == prop_id,]
+# 
+#     prediction <- predict(rf_model, newdata = tmpdf[,-c(1:4)], type = "prob")[,2]
+# 
+#     ## generating dataset with relevant columns
+#     rankdf <- data.frame(prop_id = tmpdf$prop_id, r.bin = tmpdf$relevance,
+#                          docid = tmpdf$docid, pred = as.numeric(prediction))
+# 
+#     ## sorting based on probability of being relevant
+#     rankdf <- rankdf[order(rankdf$pred, decreasing = TRUE),] 
+# 
+#     return(rankdf)
+# }
+# 
+# unique(Test$qid)
 
+```
 
-
-
-fit <- randomForest(x = Train[,-c(1,2)], y = as.factor(Train[,2]))
-
-rankRF <- function(prop_id) {
-    ## given a query Id, it will return a dataframe with the results of the
-    ## query ordered based on their probability of being relevant. The top rows
-    ## in the dataset correspond to those with higher probability.
-
-    tmpdf <- test[test$prop_id == prop_id,]
-
-    prediction <- predict(rf_model, newdata = tmpdf[,-c(1:4)], type = "prob")[,2]
-
-    ## generating dataset with relevant columns
-    rankdf <- data.frame(prop_id = tmpdf$prop_id, r.bin = tmpdf$relevance,
-                         docid = tmpdf$docid, pred = as.numeric(prediction))
-
-    ## sorting based on probability of being relevant
-    rankdf <- rankdf[order(rankdf$pred, decreasing = TRUE),] 
-
-    return(rankdf)
-}
-
-unique(Test$qid)
-
+##Data Processing for the Random Forest
+```{r}
+#Convert variables to type factor 
+rf_train <- as.factor(rf_train)
 ```
 
 
@@ -392,7 +495,7 @@ unique(Test$qid)
 ```{r}
 # Logistics Regression
 #glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data = Smarket, family = binomial)
-glm.fit <- glm(Direction ~ . , data = Smarket, family = binomial)
+glm.fit <- glm(relevance ~ . , data = rf_train, family = binomial)
 
 summary(glm.fit)
 
