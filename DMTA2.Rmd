@@ -1,0 +1,528 @@
+---
+title: "DMTA2"
+author: "S"
+date: "14 de mayo de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Before start:
+
+* Clean the Environment
+```{r}
+rm(list=ls())
+```
+
+* Load Packages
+```{r}
+
+library("ggplot2")
+library("grid")
+# library("gridExtra")
+# library("scales")
+# library("plyr")
+# library("corrplot")
+library("gbm")
+library("caret")
+library("tidyr")
+library("dplyr")
+library("unbalanced")
+library("randomForest")
+library("StatRank")
+library("corrplot")
+
+
+```
+
+
+* Functions definition
+```{r}
+# Function to create multiplots
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+
+
+
+#Scoring and Ranking functions
+rank_prediction <- function(df){
+    "
+    Ranks search IDs according to prediction scores
+
+    The dataframe given as a parameter 
+    must contain the following columns
+    in order to rank:
+        - srch_id (the search IDs)
+        - prediction (the prediction per row (higher score -> better rank))
+
+    Other important columns are:
+        - prop_id (for sorting the property IDs for the prediction file)
+        - relevance (relevance score for calculating the NDCG of the test set)
+    "
+    
+    res <- df[order(df$srch_id,df$prediction,decreasing=c(FALSE,TRUE)),]
+    
+    rownames(res) <- NULL
+    
+    return(res)
+}
+
+
+ndcg_score <- function(i,data){
+    group <- data[data[,"srch_id"] == i,]
+    
+    #dcg <- group[,"relevance"] / log2((1:nrow(group))+1)
+    #idcg <- group[order(group$relevance,decreasing=TRUE),"relevance"] / log2((1:nrow(group))+1)
+    #return(sum(dcg) / sum(idcg))
+    
+    return(Evaluation.NDCG(nrow(group):1,group[,"relevance"]))
+}
+
+ndcg_mean <- function(df){
+    "
+    Calculates the average ndcg score for a 
+    given ensemble of ranked searches.
+
+    The dataframe given as a parameter 
+    must contain the following columns
+    in order to calculate the ndcg score:
+        - srch_id (the search IDs)
+        - relevance (relevance score for calculating the NDCG of the test set)
+    "
+    ndcg <- sapply(unique(df[,"srch_id"]),data=df,FUN=ndcg_score)
+    return(mean(ndcg,na.rm = TRUE))
+}
+
+
+
+```
+
+
+* Set path and load the data
+```{r}
+# Stablishing the working directory and the file paths 
+setwd("C:/Users/11729589/Desktop/Data")
+
+# Opening the files 
+all_train <- read.csv("full_train.csv", header = TRUE)
+#test <- read.csv(file_test, header = TRUE)
+
+
+```
+
+
+<!-- * Factorize variables -->
+<!-- ```{r} -->
+<!-- factor_cols <- unlist(lapply(all_train, is.factor)) -->
+<!-- factor_cols["date_time"] <- FALSE -->
+
+<!-- #train[factor_cols] <- as.numeric(as.character(train[factor_cols])) -->
+
+<!-- for (name in colnames(all_train[factor_cols])){ -->
+<!--     all_train[name] <- as.numeric(sub('NULL',NA,as.character(all_train[name][,1]))) -->
+<!-- } -->
+<!-- ``` -->
+
+
+## Feature engineering
+```{r}
+all_train$room_count <- all_train$srch_room_count * max(all_train$srch_booking_window) + all_train$srch_booking_window
+
+all_train$persons_count <- all_train$srch_adults_count * max(all_train$srch_children_count) + all_train$srch_children_count
+
+# Create the ignored column
+all_train$ignored_bool <- ifelse(all_train$click_bool == 0 & all_train$booking_bool == 0, 1, 0)
+
+
+# # Add relevance targets
+# all_train$relevance <- numeric(nrow(all_train))
+# 
+# booked <- all_train[,"booking_bool"] == 1
+# clicked <- !booked & (all_train[,"click_bool"] == 1)
+# 
+# all_train$relevance[booked] <- 5
+# all_train$relevance[clicked] <- 1
+```
+
+
+
+##Visualize the Data
+
+* Visualization of the NA Data of the new hotels 
+
+```{r}
+# Change the NAs to character to be taken into account in the plot
+all_train$prop_review_score[is.na(all_train$prop_review_score)] <- "NA"
+
+# Plot of the Hotel rating score for all hotels
+p1 <- ggplot(all_train, aes(x=prop_review_score)) + geom_bar() + ggtitle("A") + xlab("Hotel Review Score")
+
+# Plot of the score of the booked hotels, to see if the users prefer a new hotel (NA) or a hotel with the woorst case scenario (0)
+pre_NA_visual <-table(Rating=all_train$prop_review_score, Booked= as.logical(all_train$booking_bool))
+pre_NA_visual <- as.data.frame(prop.table(pre_NA_visual, 1)) # row percentages 
+NA_visual <- pre_NA_visual[pre_NA_visual$Rating=="NA"| pre_NA_visual$Rating=="0"| pre_NA_visual$Rating=="1",]
+NA_visual <- NA_visual[NA_visual$Booked==TRUE,]
+
+p2 <- ggplot(NA_visual, aes(x = Rating, y = Freq)) + 
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  ggtitle("B") + xlab("Hotel Review Score")
+
+multiplot(p1, p2, cols=2)
+
+# Remove useless Data from Environment
+rm(NA_visual, p1, p2, pre_NA_visual)
+```
+
+
+* Visualization of the unbalanced data
+```{r}
+
+balance_visual <- data.frame(Type = c("click","book", "ignored"), Value=c(sum(all_train$click_bool==1), sum(all_train$booking_bool==1), sum(all_train$ignored_bool==1)))
+
+ggplot(balance_visual, aes(x=Type, y=Value, fill=Type)) + 
+  geom_histogram(stat="identity")
+
+# balance_visual <- data.frame(Yes=c(sum(train$click_bool==1), sum(train$booking_bool==1), sum(train$ignored_bool==0)), No = c(sum(train$click_bool==0), sum(train$booking_bool==0), sum(train$ignored_bool==1)), row.names = c("click","book", "ignored"))
+# 
+# balance_visual <- as.matrix(balance_visual)
+# balance_visual <- as.table(balance_visual)
+# 
+# percentage_balance <- as.data.frame(prop.table(balance_visual, 1)*100) # row percentages 
+# 
+# 
+# ggplot(percentage_balance, aes(x = Var2, y = Freq, fill = Var1)) + 
+#   geom_bar(stat = "identity", position = position_dodge())
+
+# Remove useless Data from Environment
+rm(balance_visual)
+```
+
+
+
+
+##Split of the data 
+```{r}
+#Group by search ID to then split the test set
+all_train <- all_train %>%
+  group_by(srch_id)
+
+#Split of the test set
+all_length <- nrow(all_train)
+splity <- all_length*0.15
+splity <- 743764 # Adjust cutoff depending on the srch_id 
+test <- all_train[1:splity,]
+splited_train <- all_train[(splity+1):all_length,]
+rm(all_train) 
+
+#Split the validation set
+dt <- sort(sample(nrow(splited_train), nrow(splited_train)*.82353)) #to have 15% of the real_train
+train <- splited_train[dt,]
+validation <- splited_train[-dt,]
+
+# Remove useless Data from Environment
+rm(dt, splity, all_length, splited_train)
+```
+
+
+## Feature engineering
+```{r}
+train$prop_review_score <- as.numeric(train$prop_review_score)
+test$prop_review_score <- as.numeric(test$prop_review_score)
+validation$prop_review_score <- as.numeric(validation$prop_review_score)
+
+train$prop_starrating_monotonic <- abs(train$prop_starrating - mean(train$prop_starrating[train$booking_bool == 1]))
+validation$prop_starrating_monotonic <- abs(validation$prop_starrating - mean(validation$prop_starrating[validation$booking_bool == 1]))
+test$prop_starrating_monotonic <- abs(test$prop_starrating - mean(test$prop_starrating[test$booking_bool == 1]))
+
+```
+
+
+### File creation
+```{r}
+write.csv(train, file = "train.csv", col.names = TRUE, row.names=FALSE)
+write.csv(test, file = "test.csv", col.names = TRUE, row.names=FALSE)
+write.csv(validation, file = "validation.csv", col.names = TRUE, row.names=FALSE)
+
+```
+
+
+## Calculate the percentage of NAs in a column
+```{r}
+# Get NA value booleans
+nas <- is.na(train)
+
+len.nas <- length(nas[,1])
+
+# Initialize NA vector
+na.vec <- vector(mode="integer",length=length(colnames(train)))
+
+# Sum the NA values and fill NA vector
+for (i in 1:length(na.vec)){
+    na.vec[i] <- sum(nas[,i]) / len.nas
+}
+
+# Create bar plot Data Frame
+na.df <- data.frame(colnames(train),na.vec)
+colnames(na.df) <- c("attribute","missing_values")
+
+# # Sort by number of missing values
+# position <- arrange(na.df,missing_values)["attribute"][,1]
+
+rm(nas,len.nas,na.vec, i)
+
+```
+
+
+FILL MISSING VALUES
+
+## Import data with imputed NA values 
+```{r}
+# Stablishing the working directory and the file paths 
+setwd("C:/Users/11729589/Desktop/Data")
+
+# Opening the files 
+train <- read.csv("mod_train.csv", header = TRUE)
+test <- read.csv("mod_test.csv", header = TRUE)
+validation <- read.csv("mod_valid.csv", header = TRUE)
+
+```
+
+
+Preparation of the data for the correlation matrix
+```{r}
+impTrainPath <- "C:/Users/11729589/Desktop/Data/mod_train.csv"
+impTrainNames <- colnames(read.csv(impTrainPath,nrows = 1))
+
+df <- read.csv(impTrainPath,colClasses=rep("numeric",length(impTrainNames)))
+
+variables_without_nas <- na.df$attribute[na.df$missing_values<=0.75]
+variables_without_nas <- as.character(variables_without_nas)
+no.na_train <- df[variables_without_nas]
+
+df.nums <- subset(no.na_train,select=c(-srch_id, -booking_bool,-click_bool,-ignored_bool))
+
+```
+
+### Correlation Matrix KEVIN
+```{r}
+# type = "upper"
+corrplot(cor(df.nums),method="color",type="upper",tl.cex=0.6)
+```
+
+
+## Elimination of variables
+```{r}
+train$visitor_hist_starrating <- NULL
+train$visitor_hist_adr_usd <- NULL
+train$orig_destination_distance <- NULL
+train$visitor_location_country_id <- NULL
+train$prop_location_score1 <- NULL
+train$srch_adults_count <- NULL
+train$srch_children_count <- NULL
+train$srch_room_count <- NULL
+```
+
+
+## Data Balance 
+```{r}
+
+# Balance the Train
+train$ignored_bool <- ifelse(train$click_bool == 0 & train$booking_bool == 0, 0, 1) # Change previous 1 to 0, then this will be changed again, it's only in order to be able to run the function ubBalance()
+
+output <- as.factor(train$ignored_bool) 
+input <- train
+
+data <- ubBalance(X=input, Y=output, type = "ubUnder", perc = 40) #apply undersampling
+underTrain <- data.frame(data$X) #undersampled dataset
+
+
+
+
+
+#Visualizations to compare data unbalanced and balanced
+unbalance_visual <- data.frame(Type = c("Click","Book", "Ignored"), Value=c(sum(train$click_bool==1), sum(train$booking_bool==1), sum(train$ignored_bool==0)))
+
+p1 <- ggplot(unbalance_visual, aes(x=Type, y=Value, fill=Type)) + 
+  geom_histogram(stat="identity", show.legend = FALSE) +
+  ggtitle("Unbalanced Data")
+
+balance_visual <- data.frame(Type = c("Click","Book", "Ignored"), Value=c(sum(underTrain$click_bool==1), sum(underTrain$booking_bool==1), sum(underTrain$ignored_bool==0)))  # We'll only do one plot since it's already representative of how the other splits(validation and test) are balanced. 
+
+p2 <- ggplot(balance_visual, aes(x=Type, y=Value, fill=Type)) + 
+  geom_histogram(stat="identity", show.legend = FALSE) +
+  ggtitle("Balanced Data")
+
+multiplot(p1, p2, cols=2)
+
+
+
+
+
+# Validation Balance 
+validation$ignored_bool <- ifelse(validation$click_bool == 0 & validation$booking_bool == 0, 0, 1) # Change previous 1 to 0, then this will be changed again, it's only in order to be able to run the function ubBalance()
+output <- as.factor(validation$ignored_bool) 
+input <- validation
+
+data <- ubBalance(X=input, Y=output, type = "ubUnder", perc = 40) #apply undersampling
+underValidation <- data.frame(data$X) #undersampled dataset
+
+
+
+
+
+# Test Balance
+test$ignored_bool <- ifelse(test$click_bool == 0 & test$booking_bool == 0, 0, 1) # Change previous 1 to 0, then this will be changed again, it's only in order to be able to run the function ubBalance()
+output <- as.factor(test$ignored_bool) 
+input <- test
+
+data <- ubBalance(X=input, Y=output, type = "ubUnder", perc = 40) #apply undersampling
+underTest <- data.frame(data$X) #undersampled dataset
+
+
+
+
+
+# Remove useless Data from Envirinment
+rm(balance_visual, data, input, unbalance_visual, p1, p2, output, train, validation, test)
+
+
+
+
+
+# Change values 0 to 1 of the "ignored_bool" variable in the new balanced data sets
+underTrain$ignored_bool <- ifelse(underTrain$click_bool == 0 & underTrain$booking_bool == 0, 1, 0) 
+underTest$ignored_bool <- ifelse(underTest$click_bool == 0 & underTest$booking_bool == 0, 1, 0) 
+underValidation$ignored_bool <- ifelse(underValidation$click_bool == 0 & underValidation$booking_bool == 0, 1, 0)
+
+
+
+
+
+# Create csv files of the balanced data sets (underTrain, underTest, underValidation)
+
+write.csv(underTrain, file = "underTrain.csv", col.names = TRUE, row.names=FALSE)
+write.csv(underTest, file = "underTest.csv", col.names = TRUE, row.names=FALSE)
+write.csv(underValidation, file = "underValidation.csv", col.names = TRUE, row.names=FALSE)
+
+
+
+
+
+```
+
+
+
+
+## Set path and load the balanced data sets (underTrain, full_Test, underValidation)
+```{r}
+# Stablishing the working directory and the file paths 
+setwd("C:/Users/11729589/Desktop/Data")
+
+# Opening the files 
+underTrain <- read.csv("underTrain.csv", header = TRUE)
+
+Test <- read.csv("mod_test.csv", header = TRUE)
+
+underValidation <- read.csv("underValidation.csv", header = TRUE)
+Validation <- read.csv("mod_valid.csv", header = TRUE)
+
+```
+
+## Elimination of variables
+```{r}
+underTrain$prop_starrating <- NULL
+underTrain$prop_review_score <- NULL
+```
+
+
+## Data preparation for modelling
+```{r}
+underTrain$booked <- ifelse(underTrain$relevance == 5, 1, 0)
+underTrain$booked <- as.factor(underTrain$booked)
+```
+
+
+## Data Processing for Logistic regression
+```{r}
+lr_train <- subset(underTrain, select=c(-srch_id,-position,-click_bool,-booking_bool, -ignored_bool, -gross_bookings_usd, -relevance))
+```
+
+# Logistic regression
+```{r}
+
+# Logistics Regression
+glm.fit <- glm(booked ~ ., data = lr_train, family =  "binomial")
+summary(glm.fit)
+
+pred_logist <- predict(glm.fit, newdata = Test)
+
+df <- data.frame(srch_id= Test$srch_id, prop_id= Test$prop_id, prediction=pred_logist, relevance=Test$relevance)
+
+ranking <- rank_prediction(df) 
+
+ndcg_mean(ranking)
+
+```
+
+
+## Data Processing for Ranger
+```{r}
+ranger_train <- subset(underTrain, select=c(-srch_id,-position,-click_bool,-booking_bool, -ignored_bool, -gross_bookings_usd, -relevance))
+```
+
+
+## Ranger
+```{r}
+library(ranger) # re-implements the random forest method
+
+ranger_model = ranger(booked ~ ., data = ranger_train)
+
+pred_ranger <- predict(ranger_model, data = Test)
+
+
+df <- data.frame(srch_id= Test$srch_id, prop_id = Test$prop_id, prediction=as.numeric(pred_ranger$predictions), relevance = Test$relevance)
+
+ranking <- rank_prediction(df)
+
+ndcg_mean(ranking)
+```
+
+
+
