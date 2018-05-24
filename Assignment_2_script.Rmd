@@ -32,6 +32,7 @@ library("tidyr")
 library("dplyr")
 library("unbalanced")
 library("randomForest")
+library("StatRank")
 
 
 ```
@@ -95,21 +96,25 @@ rank_prediction <- function(df){
         - relevance (relevance score for calculating the NDCG of the test set)
     "
     
-    search_ids <- sort(unique(df[,"srch_id"]))
-    searches <- df[,"srch_id"]
+    res <- df[order(df$srch_id,df$prediction,decreasing=c(FALSE,TRUE)),]
     
-    res <- data.frame()
-    for (i in search_ids){
-        group <- df[searches == i,]
-        res <- rbind(res,group[order(group$prediction,decreasing=TRUE),])
-    }
-    
-    #rownames(res) <- NULL
+    rownames(res) <- NULL
     
     return(res)
 }
 
-ndcg_score <- function(df){
+
+ndcg_score <- function(i,data){
+    group <- data[data[,"srch_id"] == i,]
+    
+    #dcg <- group[,"relevance"] / log2((1:nrow(group))+1)
+    #idcg <- group[order(group$relevance,decreasing=TRUE),"relevance"] / log2((1:nrow(group))+1)
+    #return(sum(dcg) / sum(idcg))
+    
+    return(Evaluation.NDCG(nrow(group):1,group[,"relevance"]))
+}
+
+ndcg_mean <- function(df){
     "
     Calculates the average ndcg score for a 
     given ensemble of ranked searches.
@@ -120,23 +125,9 @@ ndcg_score <- function(df){
         - srch_id (the search IDs)
         - relevance (relevance score for calculating the NDCG of the test set)
     "
-    
-    search_ids <- sort(unique(df[,"srch_id"]))
-    searches <- df[,"srch_id"]
-    
-    ndcg_scores <- rep(0,length(search_ids))
-    for (i in 1:length(search_ids)){
-        group <- df[searches == i,]
-        
-        dcg <- group[,"relevance"] / log2((1:nrow(group))+1)
-        norm <- group[order(group$relevance,decreasing=TRUE),"relevance"] / log2((1:nrow(group))+1)
-        
-        ndcg_scores[i] <- sum(dcg) / sum(norm)
-    }
-
-    return(mean(ndcg_scores))
+    ndcg <- sapply(unique(df[,"srch_id"]),data=df,FUN=ndcg_score)
+    return(mean(ndcg,na.rm = TRUE))
 }
-
 
 
 
@@ -147,9 +138,8 @@ ndcg_score <- function(df){
 ```{r}
 # Stablishing the working directory and the file paths 
 Working_directory <- setwd("~/DM_Basic_Assignment/Assignment_2")
-d <- unzip("Assignment2_data.zip")
-file_training <- file.path(Working_directory, "Data Mining VU data" , "full_train.csv", "full_train.csv")
-file_test <- file.path(Working_directory, "Data Mining VU data" , "test_set_VU_DM_2014.csv")
+file_training <- file.path(Working_directory, "full_train", "full_train.csv")
+#file_test <- file.path(Working_directory, "Data Mining VU data" , "test_set_VU_DM_2014.csv")
 
 
 
@@ -288,6 +278,11 @@ dt <- sort(sample(nrow(splited_train), nrow(splited_train)*.82353)) #to have 15%
 train <- splited_train[dt,]
 validation <- splited_train[-dt,]
 
+
+write.csv(train, file = "train.csv", col.names = TRUE, row.names=FALSE)
+write.csv(test, file = "test.csv", col.names = TRUE, row.names=FALSE)
+write.csv(validation, file = "validation.csv", col.names = TRUE, row.names=FALSE)
+
 # Remove useless Data from Environment
 rm(splited_train, dt)
 rm(splity, all_length)
@@ -403,37 +398,49 @@ write.csv(underValidation, file = "underValidation.csv", col.names = TRUE, row.n
 
 
 
-# Set path and load the balanced data sets (underTrain, underTest, underValidation)
+## Set path and load the balanced data sets (underTrain, full_Test, underValidation)
 ```{r}
 
 file_underTrain <- file.path(Working_directory, "underTrain.csv")
 underTrain <- read.csv(file_underTrain, header = TRUE)
 
-file_underTest <- file.path(Working_directory, "underTest.csv")
-underTest <- read.csv(file_underTest, header = TRUE)
+file_Test <- file.path(Working_directory, "modified_splits", "mod_test.csv")
+Test <- read.csv(file_Test, header = TRUE)
  
 # file_underValidatioin <- file.path(Working_directory, "underValidation.csv")
 # underValidation <- read.csv(file_underValidatioin, header = TRUE)
 
-file_na_df <- file.path(Working_directory, "na_df.csv")
-na.df <- read.csv(file_na_df, header = TRUE)
 
 ```
 
+
+## Some feature engineering
+```{r}
+underTrain$starrating_diff <- abs(underTrain$visitor_hist_starrating - underTrain$prop_starrating)
+underTrain$usd_diff <- abs(underTrain$visitor_hist_adr_usd - underTrain$price_usd)
+underTrain$prop_starrating_monotonic <- abs(underTrain$prop_starrating - mean(underTrain$prop_starrating[underTrain$booking_bool == 1]))
+Test$starrating_diff <- abs(Test$visitor_hist_starrating - Test$prop_starrating)
+Test$usd_diff <- abs(Test$visitor_hist_adr_usd - Test$price_usd)
+Test$prop_starrating_monotonic <- abs(Test$prop_starrating - mean(Test$prop_starrating[Test$booking_bool == 1]))
+
+```
 
 
 ##Data Processing for the Random Forest
 ```{r}
 #Select columns with less than a 75% of NAs
 variables_without_nas <- na.df$attribute[na.df$missing_values<=0.75]
-no.na_train <- underTrain[as.character(variables_without_nas)]
+a <- c("starrating_diff", "usd_diff", "prop_starrating_monotonic")
+b <- as.character(variables_without_nas)
+todo <- c(a,b)
+no.na_train <- underTrain[todo]
 
 #Delete variables that are not in the test set
 rf_train <- subset(no.na_train, select=c(-srch_id,-position,-click_bool,-booking_bool, -ignored_bool))
-rf_train <- as.matrix(rf_train[1:100000,])
-#rf_train2 <- rf_train[1:100,]
+
 
 ```
+
 
 
 
@@ -449,7 +456,7 @@ varImpPlot(rf_model)
 pred_forest_vali <- predict(rf_model, newdata = underTest, type = "class")
 
 
-df <- data.frame(srch_id= underTest$srch_id, prop_id=underTest$prop_id, prediction=pred_forest_vali, relevance=underTest$relevance)
+df <- data.frame(srch_id= Test$srch_id, prop_id = Test$prop_id, prediction=pred_forest_vali, relevance = Test$relevance)
 
 ranking <- rank_prediction(df)
 
@@ -461,30 +468,44 @@ ndcg_score(ranking)
 
 ```
 
+
+
 ##Data Processing for Logistic regression
 ```{r}
+#Select columns with less than a 75% of NAs
+variables_without_nas <- na.df$attribute[na.df$missing_values<=0.50]
+a <- c("starrating_diff", "usd_diff", "prop_starrating_monotonic")
+b <- as.character(variables_without_nas)
+todo <- c(a,b)
+no.na_train <- underTrain[todo]
+
+#Delete variables that are not in the test set
+lr_train <- subset(no.na_train, select=c(-srch_id,-position,-click_bool,-booking_bool, -ignored_bool))
 #Convert variables to type factor 
-rf_train2$relevance <- as.factor(rf_train2$relevance)
+lr_train$relevance <- as.factor(lr_train$relevance)
+
+
 ```
+
 
 
 #Logistic regression
 ```{r}
 # Logistics Regression
-#glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data = Smarket, family = binomial)
-glm.fit <- glm(relevance ~ . , data = rf_train2, family = binomial)
+gbm.fit <- gbm(relevance ~ ., data = lr_train, distribution = "multinomial")
+summary(gbm.fit)
 
-summary(glm.fit)
+pred_logi <- predict(gbm.fit, newdata = Test, type = "response", n.trees = 100)
+pred_logi <- as.data.frame(pred_logi)
 
-pred_logi <- predict(glm.fit, newdata = underTest, type = "response")
+predic <- 5*pred_logi$`5.100`+ pred_logi$`1.100`
 
-df <- data.frame(srch_id= underTest$srch_id, prop_id=underTest$prop_id, prediction=pred_logi, relevance=underTest$relevance)
+df <- data.frame(srch_id= Test$srch_id, prop_id= Test$prop_id, prediction=predic, relevance=Test$relevance)
 
 ranking <- rank_prediction(df)
 
-ndcg_score(ranking)
+ndcg_mean(ranking)
 
 ```
-
 
 
